@@ -14,7 +14,7 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Articles focused on learning Laravel and VueJS',
     meta: [
       { charset: 'utf-8' },
       { name: 'HandheldFriendly', content: 'True' },
@@ -27,18 +27,25 @@ export default {
           'Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.',
       },
       { property: 'og:site_name', content: 'Redfern Dev' },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:url', content: 'https://www.redfern.dev/' },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
       {
+        hid: 'og:url',
+        property: 'og:url',
+        content: 'https://www.redfern.dev/',
+      },
+      {
+        hid: 'og:title',
         property: 'og:title',
         content: 'Articles focused on learning  Laravel and VueJS',
       },
       {
+        hid: 'og:description',
         property: 'og:description',
         content:
           'Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.',
       },
       {
+        hid: 'og:image',
         property: 'og:image',
         content: 'https://www.redfern.dev/content/images/2020/05/logo-3.png',
       },
