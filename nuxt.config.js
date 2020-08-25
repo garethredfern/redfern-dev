@@ -21,7 +21,6 @@ export default {
     meta: [
       { charset: "utf-8" },
       { name: "HandheldFriendly", content: "True" },
-      { name: "referrer", content: "none-when-downgrade" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
