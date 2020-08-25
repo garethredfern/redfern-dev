@@ -1,16 +1,16 @@
 <template>
   <div>
-    <ul>
-      <li v-for="article of articles" :key="article.slug">
+    <ul class="prose prose-lg text-gray-500 mx-auto">
+      <li v-for="article of articles" :key="article.slug" class="mb-2">
         <NuxtLink
           :to="{ name: 'articles-slug', params: { slug: article.slug } }"
         >
-          <img :src="article.img" />
-          <div>
-            <h2>{{ article.title }}</h2>
-            <p>{{ article.description }}</p>
-          </div>
+          <h2>{{ article.title }}</h2>
         </NuxtLink>
+        <div>
+          <img v-if="article.image" :src="article.img" alt="" />
+          <p>{{ article.description }}</p>
+        </div>
       </li>
     </ul>
   </div>

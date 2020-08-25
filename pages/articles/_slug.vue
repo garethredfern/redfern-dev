@@ -3,7 +3,7 @@
     <header class="text-gray-600 mx-auto">
       <p>{{ formatDate(article.createdAt) }}</p>
       <div class="flex">
-        <span class="mr-1">File under:</span>
+        <span class="mr-1">Filed under:</span>
         <ul class="flex">
           <li v-for="tag in article.tags" :key="tag" class="mr-2">{{ tag }}</li>
         </ul>
