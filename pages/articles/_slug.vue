@@ -1,7 +1,18 @@
 <template>
-  <article class="prose prose-lg text-gray-500 mx-auto">
-    <p class="text-gray-600">{{ formatDate(article.createdAt) }}</p>
-    <nuxt-content :document="article" />
+  <article>
+    <header class="text-gray-600 mx-auto">
+      <p>{{ formatDate(article.createdAt) }}</p>
+      <div class="flex">
+        <span class="mr-1">File under:</span>
+        <ul class="flex">
+          <li v-for="tag in article.tags" :key="tag" class="mr-2">{{ tag }}</li>
+        </ul>
+      </div>
+    </header>
+    <nuxt-content
+      :document="article"
+      class="prose prose-lg text-gray-500 mx-auto"
+    />
     <footer>
       <prev-next :prev="prev" :next="next" />
     </footer>
@@ -11,11 +22,11 @@
 <script>
 export default {
   async asyncData({ $content, params }) {
-    const article = await $content('articles', params.slug).fetch();
+    const article = await $content("articles", params.slug).fetch();
 
-    const [prev, next] = await $content('articles')
-      .only(['title', 'slug'])
-      .sortBy('createdAt', 'asc')
+    const [prev, next] = await $content("articles")
+      .only(["title", "slug"])
+      .sortBy("createdAt", "asc")
       .surround(params.slug)
       .fetch();
 
@@ -27,8 +38,8 @@ export default {
   },
   methods: {
     formatDate(date) {
-      const options = { year: 'numeric', month: 'long', day: 'numeric' };
-      return new Date(date).toLocaleDateString('en', options);
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      return new Date(date).toLocaleDateString("en", options);
     },
   },
   head() {
@@ -36,46 +47,77 @@ export default {
       title: this.article.title,
       meta: [
         {
-          hid: 'description',
-          name: 'description',
+          hid: "description",
+          name: "description",
           content: this.article.description,
         },
         {
-          hid: 'og:title',
-          name: 'og:title',
+          hid: "og:title",
+          name: "og:title",
           content: this.article.title,
         },
         {
-          hid: 'og:description',
-          name: 'og:description',
+          hid: "og:description",
+          name: "og:description",
           content: this.article.description,
         },
         {
-          hid: 'og:type',
-          property: 'og:type',
-          content: 'article',
+          hid: "og:type",
+          property: "og:type",
+          content: "article",
         },
         {
-          hid: 'og:url',
-          property: 'og:url',
+          hid: "og:url",
+          property: "og:url",
           content: `https://www.redfern.dev/${this.$route.params.slug}`,
         },
         {
-          hid: 'og:image',
-          property: 'og:image',
+          hid: "og:image",
+          property: "og:image",
           content: this.article.image,
         },
         {
-          property: 'article:published_time',
+          property: "article:published_time",
           content: this.article.createdAt,
         },
         {
-          property: 'article:modified_time',
+          property: "article:modified_time",
           content: this.article.updatedAt,
         },
         {
-          property: 'article:tag',
-          content: this.article.tags[0], // todo loop through tags
+          property: "article:tag",
+          content: "", // todo loop through tags (multiple article tags)
+        },
+        {
+          hid: "twitter:url",
+          name: "twitter:url",
+          content: `https://www.redfern.dev/${this.$route.params.slug}`,
+        },
+        {
+          hid: "twitter:title",
+          name: "twitter:title",
+          content: this.article.title,
+        },
+        {
+          hid: "twitter:description",
+          name: "twitter:description",
+          content: this.article.description,
+        },
+        {
+          hid: "twitter:image",
+          name: "twitter:image",
+          content: this.article.image,
+        },
+        { name: "twitter:label1", content: "Written by" },
+        { name: "twitter:data1", content: "Gareth Redfern" },
+        { name: "twitter:label2", content: "Filed under" },
+        { name: "twitter:data2", content: "" }, // todo loop through tags (content="JavaScript, VueJS")
+      ],
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: `https://www.redfern.dev/${this.$route.params.slug}`,
         },
       ],
     };

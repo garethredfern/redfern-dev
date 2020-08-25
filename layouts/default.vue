@@ -2,7 +2,7 @@
   <div>
     <header>
       <div class="text-center p-5">
-        <h1>gareth.red</h1>
+        <h1><a href="/">redfern.dev</a></h1>
       </div>
     </header>
     <main class="container mx-auto p-5">

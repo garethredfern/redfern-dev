@@ -1,13 +1,13 @@
 ---
-title: 'JavaScript Async Await'
-description: 'Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn’t give you the response in the exact format you can work with, let’s dive in and explore things.'
-tags: ['javaScript'],
+title: "JavaScript Async Await"
+description: "Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn’t give you the response in the exact format you can work with, let's dive in and explore things."
 image: ""
+tags: ["JavaScript", "VueJS"]
 ---
 
 ## JavaScript Async Await
 
-Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn’t give you the response in the exact format you can work with, let’s dive in and explore things.
+Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn't give you the response in the exact format you can work with, let's dive in and explore things.
 
 ### Using then & catch
 
@@ -35,10 +35,10 @@ const asyncFunction = (name) => {
   return promise;
 };
 
-asyncFunction('One')
+asyncFunction("One")
   .then((response) => {
     console.log(response); // Data One fetched...
-    return asyncFunction('Two');
+    return asyncFunction("Two");
   })
   .then((asyncFunction) => {
     console.log(asyncFunctionOne); // Data Two fetched...
@@ -67,8 +67,8 @@ const cookMeal = (order, timeToCook) => {
 };
 
 async function serveAllMeals() {
-  const mealOne = await cookMeal('Salmon', 2000);
-  const mealTwo = await cookMeal('Pasta', 3000);
+  const mealOne = await cookMeal("Salmon", 2000);
+  const mealTwo = await cookMeal("Pasta", 3000);
   console.log(mealOne);
   console.log(mealTwo);
 }
@@ -84,8 +84,8 @@ There are a few options for catching errors but the one I like to use is chainin
 
 ```js
 async function serveAllMeals() {
-  const mealOne = await cookMeal('Salmon', 2000);
-  const mealTwo = await cookMeal('Pasta', 3000);
+  const mealOne = await cookMeal("Salmon", 2000);
+  const mealTwo = await cookMeal("Pasta", 3000);
   console.log(mealOne);
   console.log(mealTwo);
 }

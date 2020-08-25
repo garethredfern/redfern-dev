@@ -53,17 +53,24 @@ export default {
       { property: 'og:image:height', content: '300' },
       { name: 'twitter:site', content: '@garethredfern' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:url', content: 'https://www.redfern.dev/' },
       {
+        hid: 'twitter:url',
+        name: 'twitter:url',
+        content: 'https://www.redfern.dev/',
+      },
+      {
+        hid: 'twitter:title',
         name: 'twitter:title',
         content: 'Articles focused on learning  Laravel and VueJS',
       },
       {
+        hid: 'twitter:description',
         name: 'twitter:description',
         content:
           'Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.',
       },
       {
+        hid: 'twitter:image',
         name: 'twitter:image',
         content: 'https://www.redfern.dev/content/images/2020/05/logo-2.png',
       },
