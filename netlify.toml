@@ -1,0 +1,76 @@
+[build]
+  publish = "dist"
+  command = "npm run generate"
+[build.environment]
+  NODE_VERSION = "11"
+[[redirects]]
+  from = "/javascript-async-await"
+  to = "/articles/javascript-async-await"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/javascript-promises"
+  to = "/articles/javascript-promises"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/managing-redis-locally-for-laravel-projects"
+  to = "/articles/managing-redis-locally-for-laravel-projects"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/laravel-testing-using-github-actions-with-mysql"
+  to = "/articles/laravel-testing-using-github-actions-with-mysql"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/laravel-valet-installing-phpredis-with-pecl-homebrew"
+  to = "/articles/laravel-valet-installing-phpredis-with-pecl-homebrew"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/vuejs-auth-using-laravel-sanctum"
+  to = "/articles/vuejs-auth-using-laravel-sanctum"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/adding-tailwind-to-a-vuejs-project"
+  to = "/articles/adding-tailwind-to-a-vuejs-project"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/update-a-user-profile-in-laravel"
+  to = "/articles/update-a-user-profile-in-laravel"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/passing-arguments-in-javascript"
+  to = "/articles/passing-arguments-in-javascript"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/javascript-objects"
+  to = "/articles/javascript-objects"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/basic-module-pattern-javascript"
+  to = "/articles/basic-module-pattern-javascript"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/factory-function-to-create-an-object-in-javascript"
+  to = "/articles/factory-function-to-create-an-object-in-javascript"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/understanding-closures-in-javascript"
+  to = "/articles/understanding-closures-in-javascript"
+  status = 301
+  force = true
+[[redirects]]
+  from = "/using-javascript-to-access-url-segments"
+  to = "/articles/using-javascript-to-access-url-segments"
+  status = 301
+  force = true
+  
