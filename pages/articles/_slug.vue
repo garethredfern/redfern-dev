@@ -1,7 +1,7 @@
 <template>
   <article>
     <header class="text-gray-600 mx-auto">
-      <p>{{ formatDate(article.createdAt) }}</p>
+      <p>Published: {{ article.published }}</p>
       <div class="flex">
         <span class="mr-1">Filed under:</span>
         <ul class="flex">
@@ -35,12 +35,6 @@ export default {
       prev,
       next,
     };
-  },
-  methods: {
-    formatDate(date) {
-      const options = { year: "numeric", month: "long", day: "numeric" };
-      return new Date(date).toLocaleDateString("en", options);
-    },
   },
   head() {
     return {
