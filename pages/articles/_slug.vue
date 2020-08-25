@@ -13,7 +13,7 @@
       :document="article"
       class="prose prose-lg text-gray-500 mx-auto"
     />
-    <footer>
+    <footer class="py-5 mt-5">
       <prev-next :prev="prev" :next="next" />
     </footer>
   </article>

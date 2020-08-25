@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul class="prose prose-lg text-gray-500 mx-auto">
-      <li v-for="article of articles" :key="article.slug" class="mb-2">
+      <li v-for="article of articles" :key="article.slug">
         <NuxtLink
           :to="{ name: 'articles-slug', params: { slug: article.slug } }"
         >
