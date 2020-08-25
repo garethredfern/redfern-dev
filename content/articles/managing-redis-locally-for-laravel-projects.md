@@ -26,6 +26,6 @@ I have previously written about what you need to get Laravel working with valet 
 
 ## Quick Links
 
-[TablePlus](https://tableplus.com/)
-[DBngin](https://dbngin.com/)
-[Laravel Valet Installing PHPRedis with PECL/Homebrew](https://www.redfern.dev/managing-redis-locally-for-laravel-projects/laravel-valet-installing-phpredis-with-pecl-homebrew)
+- [TablePlus](https://tableplus.com/)
+- [DBngin](https://dbngin.com/)
+- [Laravel Valet Installing PHPRedis with PECL/Homebrew](https://www.redfern.dev/managing-redis-locally-for-laravel-projects/laravel-valet-installing-phpredis-with-pecl-homebrew)

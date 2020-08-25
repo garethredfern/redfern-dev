@@ -60,11 +60,13 @@ Laravel 7.0 and up comes with [CORS](https://laravel.com/docs/7.x/routing#cors) 
 
 If you use the VueJs CLI (which I recommend) you can set it to [proxy your API URL](https://cli.vuejs.org/config/#devserver-proxy) so that it respects localhost. This took a bit of figuring out but if you have your local version of Laravel running at `sanctum-example.test` then you add this in your `vue.config.js` file:
 
+```js
 module.exports = {
-devServer: {
-proxy: "sanctum-example.test"
-}
+  devServer: {
+    proxy: "sanctum-example.test",
+  },
 };
+```
 
 With this in place, you then call your API endpoints using `http://localhost:8080/` or whatever your SPA is running at via the Vue CLI and you will not get all the frustrating CORS errors that I initially encountered during SPA development.
 
