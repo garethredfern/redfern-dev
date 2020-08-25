@@ -14,6 +14,9 @@ export default {
    ** See https://nuxtjs.org/api/configuration-head
    */
   head: {
+    htmlAttrs: {
+      lang: "en-GB",
+    },
     title: "Articles focused on learning Laravel and VueJS",
     meta: [
       { charset: "utf-8" },
