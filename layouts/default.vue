@@ -24,7 +24,7 @@
     </main>
     <footer>
       <div class="text-center p-5">
-        <small>&copy; {{ new Date().getFullYear() }}</small>
+        <small>&copy; {{ new Date().getFullYear() }} Redfern</small>
       </div>
     </footer>
   </div>
