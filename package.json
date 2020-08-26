@@ -14,7 +14,8 @@
     "@nuxt/content": "^1.5.0",
     "@tailwindcss/typography": "^0.2.0",
     "@tailwindcss/ui": "^0.5.0",
-    "nuxt": "^2.14.0"
+    "nuxt": "^2.14.0",
+    "prism-themes": "^1.4.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
