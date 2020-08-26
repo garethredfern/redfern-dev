@@ -1,6 +1,6 @@
 <template>
   <article>
-    <header class="text-gray-600 mx-auto">
+    <header class="text-gray-500 mx-auto">
       <p>Published: {{ article.published }}</p>
       <div class="flex">
         <span class="mr-1">Filed under:</span>
