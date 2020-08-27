@@ -1,7 +1,7 @@
 ---
 title: "Laravel Valet Installing PHPRedis with PECL/Homebrew"
 description: "This post was written 3/2/2020 and explains how I got Redis working using Laravel Valet."
-image: ""
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1598515514/redfern-dev/valet.svg"
 tags: ["Laravel"]
 published: "2020-02-03"
 ---
