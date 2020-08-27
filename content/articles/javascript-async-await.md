@@ -1,7 +1,7 @@
 ---
 title: "JavaScript Async Await"
 description: "Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn’t give you the response in the exact format you can work with, let's dive in and explore things."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1598554205/redfern-dev/png/JavaScriptAsyncAwait.png"
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1598564495/redfern-dev/png/JavaScriptAsyncAwait.png"
 tags: ["JavaScript"]
 published: "2020-08-21"
 ---
