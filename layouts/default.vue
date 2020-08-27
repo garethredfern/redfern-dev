@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <header class="flex justify-between items-center px-5 py-1 mb-5">
+  <div class="bg-gray-100">
+    <header class="flex justify-between items-center px-5 py-1 mb-5 bg-white">
       <h1>
         <a href="/" class="text-3xl uppercase">
           <span class="font-thin">redfern</span>dev
@@ -22,7 +22,7 @@
     <main class="container mx-auto p-5">
       <Nuxt />
     </main>
-    <footer>
+    <footer class="bg-white">
       <div class="text-center p-5">
         <small>&copy; {{ new Date().getFullYear() }} Redfern</small>
       </div>
