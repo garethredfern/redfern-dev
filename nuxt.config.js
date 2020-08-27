@@ -49,7 +49,8 @@ export default {
       {
         hid: "og:image",
         property: "og:image",
-        content: "https://www.redfern.dev/content/images/2020/05/logo-3.png",
+        content:
+          "https://res.cloudinary.com/redfern-web/image/upload/v1598517359/redfern-dev/png/redfern-logo.png",
       },
       { property: "og:image:width", content: "740" },
       { property: "og:image:height", content: "300" },
@@ -74,7 +75,8 @@ export default {
       {
         hid: "twitter:image",
         name: "twitter:image",
-        content: "https://www.redfern.dev/content/images/2020/05/logo-2.png",
+        content:
+          "https://res.cloudinary.com/redfern-web/image/upload/v1598517359/redfern-dev/png/redfern-logo.png",
       },
     ],
     link: [
