@@ -53,3 +53,5 @@ const getUserSkills = (user) => user.skill;
 
 console.log(users.map(getUserSkills));
 ```
+
+View on [CodePen](https://codepen.io/garethredfern/pen/JjXJWgK)
