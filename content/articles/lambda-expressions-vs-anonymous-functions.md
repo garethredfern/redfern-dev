@@ -37,9 +37,11 @@ console.log(users.map(getUserSkills));
 You will often see and use anonymous functions as callbacks in other functions. Here we are retuning just the user’s skills as a new array of data. These are great for small tasks where you quickly want to grab some data.
 
 ```js
-console.log(users.map(function(user) {
-	return user.skill;
-});
+console.log(
+  users.map(function (user) {
+    return user.skill;
+  })
+);
 ```
 
 ### Lambda Expression
