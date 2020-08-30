@@ -1,3 +1,5 @@
+import getRoutes from "./utils/getRoutes";
+
 export default {
   /*
    ** Nuxt rendering mode
@@ -33,7 +35,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://www.redfern.dev/",
+        content: "https://www.redfern.dev",
       },
       {
         hid: "og:title",
@@ -59,7 +61,7 @@ export default {
       {
         hid: "twitter:url",
         name: "twitter:url",
-        content: "https://www.redfern.dev/",
+        content: "https://www.redfern.dev",
       },
       {
         hid: "twitter:title",
@@ -84,7 +86,7 @@ export default {
       {
         hid: "canonical",
         rel: "canonical",
-        href: "https://www.redfern.dev/",
+        href: "https://www.redfern.dev",
       },
     ],
   },
@@ -117,6 +119,7 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt/content
     "@nuxt/content",
+    "@nuxtjs/sitemap",
   ],
   /*
    ** Content module configuration
@@ -134,4 +137,14 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   build: {},
+  /*
+   ** Build configuration
+   ** See https://nuxtjs.org/api/configuration-build/
+   */
+  sitemap: {
+    hostname: "https://www.redfern.dev",
+    routes() {
+      return getRoutes();
+    },
+  },
 };
