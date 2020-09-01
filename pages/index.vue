@@ -4,10 +4,11 @@
       <li
         v-for="article of articles"
         :key="article.slug"
-        class="md:grid md:gap-4 md:grid-cols-2 mb-12 bg-white p-5 rounded shadow"
+        class="mb-12 bg-white p-5 rounded shadow"
       >
         <NuxtLink
           :to="{ name: 'articles-slug', params: { slug: article.slug } }"
+          class="md:grid md:gap-4 md:grid-cols-2"
         >
           <img v-if="article.image" :src="article.image" alt="" class="mb-4" />
           <div>
