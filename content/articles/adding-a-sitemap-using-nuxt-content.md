@@ -10,7 +10,7 @@ published: "2020-09-01"
 
 Nuxt Content is a first party module which enables you to serve markdown files (and other file types) as content for your website. There is an excellent [article](https://nuxtjs.org/blog/creating-blog-with-nuxt-content/) written by Debbie O'Brian on the Nuxt blog which I recommend reading. It provides all the necessary information to get you up and running with a blog. One area that isn't touched on is adding a sitemap and the necessary social meta tags, in this post I will take you through how I added a sitemap and in a follow up post we will add all the necessary social media meta tags.
 
-Nuxt has its own [sitemap module](https://www.npmjs.com/package/@nuxtjs/sitemap) that you can easily install. A sitemap tells search engines how the pages of your website are structured. This will make your site indexable, and search engines will be able to see the pages. While it may not necessarily improve SEO you can submit your sitemap through tools such as the [Google Search Console](https://search.google.com/) to get reports on what the search engine robots see when they crawl your site. Let's dive into setting everything up.
+Nuxt has its own [sitemap module](https://www.npmjs.com/package/@nuxtjs/sitemap) that you can easily install. A sitemap tells search engines how the pages of your website are structured. This will make your site indexable, and search engines will be able to see the pages. While it may not necessarily improve SEO you can submit your sitemap through tools such as the [Google Search Console](https://search.google.com/search-console/about) to get reports on what the search engine robots see when they crawl your site. Let's dive into setting everything up.
 
 ### Install @nuxtjs/sitemap
 
