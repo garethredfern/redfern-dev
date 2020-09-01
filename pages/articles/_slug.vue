@@ -9,10 +9,9 @@
         </ul>
       </div>
     </header>
-    <nuxt-content
-      :document="article"
-      class="prose prose-lg text-gray-500 mx-auto"
-    />
+    <div class="prose prose-lg text-gray-500 mx-auto">
+      <nuxt-content :document="article" />
+    </div>
     <footer class="py-5 mt-5">
       <prev-next :prev="prev" :next="next" />
     </footer>
@@ -21,6 +20,7 @@
 
 <script>
 export default {
+  name: "ArticlePage",
   async asyncData({ $content, params }) {
     const article = await $content("articles", params.slug).fetch();
 

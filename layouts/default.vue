@@ -37,6 +37,7 @@ import Twitter from "@/components/svg/Twitter";
 import Github from "@/components/svg/Github";
 
 export default {
+  name: "DefaultLayout",
   components: [Twitter, Github],
 };
 </script>
