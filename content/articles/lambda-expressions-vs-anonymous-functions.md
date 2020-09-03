@@ -1,7 +1,7 @@
 ---
 title: "Lambda Expressions vs Anonymous Functions"
 description: "When learning a functional programming style you will often come across the term Lambda Expressions or Lambda Functions. In simple terms they are just functions that can be used as data and therefore declared as a value. Let's explore a few examples."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1598687340/redfern-dev/png/LambdaVsAnonymous.png"
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1599160173/redfern-dev/png/js-article.png"
 tags: ["JavaScript"]
 published: "2020-08-29"
 ---
