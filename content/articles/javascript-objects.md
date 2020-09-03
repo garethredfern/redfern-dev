@@ -1,7 +1,7 @@
 ---
 title: "JavaScript Objects"
 description: "JavaScript objects are used everywhere. It's an important concept to understand right from the beginning."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1598554367/redfern-dev/png/JavaScriptObjects.png"
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1599162173/redfern-dev/png/js-article-5.png"
 tags: ["JavaScript"]
 published: "2016-04-10"
 ---
