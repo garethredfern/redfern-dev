@@ -1,7 +1,7 @@
 ---
 title: "Passing Arguments in Javascript"
 description: "You can pass arguments into functions to be used within the function. These arguments can be any JavaScript data type including functions."
-image: ""
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1599162417/redfern-dev/png/js-article-6.png"
 tags: ["JavaScript"]
 published: "2016-04-10"
 ---
