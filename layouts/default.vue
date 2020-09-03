@@ -24,9 +24,18 @@
     <main class="container mx-auto p-5">
       <Nuxt />
     </main>
-    <footer class="bg-white border-t">
-      <div class="text-center p-5">
-        <small>&copy; {{ new Date().getFullYear() }} Redfern</small>
+    <footer class="bg-white border-t p-5">
+      <div
+        class="container mx-auto max-w-5xl flex justify-between items-center"
+      >
+        <small>&copy; {{ new Date().getFullYear() }} RedfernDev</small>
+        <ul class="mb-2">
+          <li>
+            <a href="https://ko-fi.com/garethredfern" target="_blank"
+              >Buy Me ☕️</a
+            >
+          </li>
+        </ul>
       </div>
     </footer>
   </div>
