@@ -52,7 +52,7 @@ In our app, we create a mutation that reaches out to Firebase and sets the curre
 
 ```js
 SET_USER: (state) => {
-  state.user = Firebase.auth().currentUser;
+  state.user = firebase.auth().currentUser;
 };
 ```
 

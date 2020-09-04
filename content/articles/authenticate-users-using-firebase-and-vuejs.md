@@ -119,11 +119,11 @@ With Firebase set up and your config settings added. Let’s look at the final p
 
 ```js
 router.beforeEach((to, from, next) => {
-  const currentUser = Firebase.auth().currentUser;
+  const user = firebase.auth().currentUser;
   const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
-  if (requiresAuth && !currentUser) {
+  if (requiresAuth && !user) {
     next("/sign-in");
-  } else if (requiresAuth && currentUser) {
+  } else if (requiresAuth && user) {
     next();
   } else {
     next();
@@ -131,7 +131,7 @@ router.beforeEach((to, from, next) => {
 });
 ```
 
-We have added a variable `currentUser`, it returns the current signed-in user from Firebase. If nobody is signed in then it returns `null`. We can use this as the second check in our conditional statement. If both `requiresAuth` and `currentUser` are `true` the route will display the page.
+We have added a variable `user`, it returns the current signed-in user from Firebase. If nobody is signed in then it returns `null`. We can use this as the second check in our conditional statement. If both `requiresAuth` and `user` are `true` the route will display the page.
 
 When this condition is not met, then it returns the user to a sign-in page. If the route is not protected using the `requiresAuth` meta tag, the page is loaded as normal and no authentication is required.
 
@@ -149,7 +149,7 @@ The integration with Firebase happens when the `signUp` or `signIn` method is ru
 
 ```js
 signUp: function() {
-  Firebase.auth()
+  firebase.auth()
     .createUserWithEmailAndPassword(this.email, this.password)
     .then(() => {
       this.$router.replace("dashboard");
@@ -164,7 +164,7 @@ signUp: function() {
 
 ```js
 signIn: function() {
-  Firebase.auth()
+  firebase.auth()
     .signInWithEmailAndPassword(this.email, this.password)
     .then(() => {
       this.$router.replace("dashboard");
@@ -183,7 +183,7 @@ Take a look at the [Header.vue](https://github.com/garethredfern/vue-auth-demo/b
 
 ```js
 signOut() {
-  Firebase.auth()
+  firebase.auth()
     .signOut()
     .then(() => {
       this.$router.replace("sign-in");
