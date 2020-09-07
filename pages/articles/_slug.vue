@@ -1,12 +1,18 @@
 <template>
   <article>
     <header class="text-gray-500 mx-auto">
-      <p>Published: {{ article.published }}</p>
-      <div class="flex">
-        <span class="mr-1">Filed under:</span>
-        <ul class="flex">
-          <li v-for="tag in article.tags" :key="tag" class="mr-2">{{ tag }}</li>
-        </ul>
+      <div class="p-5 bg-yellow-200 md:inline-block">
+        <p>
+          Published: <span class="text-gray-900">{{ article.published }}</span>
+        </p>
+        <div class="flex">
+          <span class="mr-1">Filed under:</span>
+          <ul class="flex">
+            <li v-for="tag in article.tags" :key="tag" class="mr-2">
+              <span class="text-gray-900">{{ tag }}</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </header>
     <div class="prose prose-lg text-gray-500 mx-auto">
