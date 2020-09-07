@@ -15,7 +15,7 @@ To keep things as simple and short as possible an assumption is made that you ar
 - Using the vue-router to load and protect pages of the web app.
 - Set up a Firebase back end that uses Firebase authentication to manage a user sign-up and sign-in.
 
-The tutorial files are free to download on [Github](https://github.com/garethredfern/vue-auth-demo). This article will focus on code in the [basic-auth branch](https://github.com/garethredfern/vue-auth-demo/tree/basic-auth). Where possible, comments have been added to explain what the code is doing. To get the site up and running on your local machine follow the instructions in the README file. The main directory we will be writing our code in is the `src` directory. If you have built VueJS apps in the past, the set-up should be familiar to you.
+The tutorial files are free to download on [Github](https://github.com/garethredfern/vue-auth-demo). This article will focus on code from the [basic-auth branch](https://github.com/garethredfern/vue-auth-demo/tree/basic-auth). Where possible, comments have been added to explain what the code is doing. To get the site up and running on your local machine follow the instructions in the [README](https://github.com/garethredfern/vue-auth-demo/blob/email-verification/README.md) file. The main directory we will be writing our code in is the `src` directory. If you have built VueJS apps in the past, the set-up should be familiar to you.
 
 ### App Architecture
 
