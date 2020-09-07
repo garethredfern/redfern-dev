@@ -90,3 +90,4 @@ In the header we are displaying links depending on whether a user is signed-in. 
 
 - [Understanding Vue Lifecycle Hooks](https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram)
 - [Application Structure](https://vuex.vuejs.org/guide/structure.html#application-structure)
+- [Authenticate Users Using Firebase & VueJS](/articles/authenticate-users-using-firebase-and-vuejs)
