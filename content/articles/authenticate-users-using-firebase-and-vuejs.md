@@ -15,7 +15,7 @@ To keep things as simple and short as possible an assumption is made that you ar
 - Using the vue-router to load and protect pages of the web app.
 - Set up a Firebase back end that uses Firebase authentication to manage a user sign-up and sign-in.
 
-The tutorial files are free to download on [Github](https://github.com/garethredfern/vue-auth-demo). Where possible, comments have been added to explain what the code is doing. To get the site up and running on your local machine follow the instructions in the README file. The main directory we will be writing our code in is the `src` directory. If you have built VueJS apps in the past, the set-up should be familiar to you.
+The tutorial files are free to download on [Github](https://github.com/garethredfern/vue-auth-demo). This article will focus on code in the [basic-auth branch](https://github.com/garethredfern/vue-auth-demo/tree/basic-auth). Where possible, comments have been added to explain what the code is doing. To get the site up and running on your local machine follow the instructions in the README file. The main directory we will be writing our code in is the `src` directory. If you have built VueJS apps in the past, the set-up should be familiar to you.
 
 ### App Architecture
 
@@ -113,7 +113,7 @@ It’s worth taking the time to read through the docs. Get a good understanding 
 
 Firebase offers a complete backend and authentication system. It can be added to the front end of your web app. For this demo, we will be using its authentication API to allow users to sign-up and sign-in. Once signed in, authenticated users can view protected content. The first thing you will need to do is sign up for an account at [Firebase](https://firebase.google.com/). I would also suggest watching getting started with [Firebase Auth](https://youtu.be/8sGY55yxicA).
 
-Once you have an account set up, you will need to create a project in Firebase. Rather than go into this, you can read through the docs on Firebase. They provide an excellent set of instructions to get you started. Note that you will need to copy and paste your config settings and swop them in the [project’s main.js](https://github.com/garethredfern/vue-auth-demo/blob/master/src/main.js#L12). Make sure you enable email & password authentication as the sign in method.
+Once you have an account set up, you will need to create a project in Firebase. Rather than go into this, you can read through the docs on Firebase. They provide an excellent set of instructions to get you started. Note that you will need to copy and paste your config settings and swop them in the [project’s main.js](https://github.com/garethredfern/vue-auth-demo/blob/basic-auth/src/main.js#L12). Make sure you enable email & password authentication as the sign in method.
 
 With Firebase set up and your config settings added. Let’s look at the final part of the authentication process. Add a second conditional to the route guard’s `beforeEach` method we created earlier.
 
@@ -141,7 +141,7 @@ Our routes have been set up so that if you have already signed-in then you are r
 
 ### Using VueJS to Handle the Sign-up & Sign-in
 
-We need users to be able to sign-up and sign-in to our app. Take a look at the two Vue components [SignUp.vue](https://github.com/garethredfern/vue-auth-demo/blob/master/src/components/SignIn.vue) and [SignIn.vue](https://github.com/garethredfern/vue-auth-demo/blob/master/src/components/SignIn.vue). They both work similarly, binding the email and password fields to the data property.
+We need users to be able to sign-up and sign-in to our app. Take a look at the two Vue components [SignUp.vue](https://github.com/garethredfern/vue-auth-demo/blob/basic-auth/src/components/SignIn.vue) and [SignIn.vue](https://github.com/garethredfern/vue-auth-demo/blob/basic-auth/src/components/SignIn.vue). They both work similarly, binding the email and password fields to the data property.
 
 The integration with Firebase happens when the `signUp` or `signIn` method is run. These functions are provided by Firebase. We pass in the email and password from the Vue `data` property. On success navigate to the dashboard using the vue-router `replace` method. If any errors occur then an alert with the error message is displayed.
 
@@ -179,7 +179,7 @@ If you load the site up in your browser you should now be able to sign-up and si
 
 ### Allowing Users to Sign-out
 
-Take a look at the [Header.vue](https://github.com/garethredfern/vue-auth-demo/blob/master/src/components/Header.vue) component. We can use a Firebase `signOutmethod` which fires when a user clicks the Sign-out button. Then redirect them to the sign-in page with the vue-router `replace` method.
+Take a look at the [Header.vue](https://github.com/garethredfern/vue-auth-demo/blob/basic-auth/src/components/Header.vue) component. We can use a Firebase `signOutmethod` which fires when a user clicks the Sign-out button. Then redirect them to the sign-in page with the vue-router `replace` method.
 
 ```js
 signOut() {
