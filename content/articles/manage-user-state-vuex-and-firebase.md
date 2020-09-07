@@ -12,7 +12,7 @@ This tutorial walks through adding Vuex to a simple VueJS Firebase app. We use V
 
 The tutorial files are free to download on [Github](https://github.com/garethredfern/vue-auth-demo). This article will focus on code in the [basic-auth branch](https://github.com/garethredfern/vue-auth-demo/tree/basic-auth). Where possible, comments have been added to explain what the code is doing. To get the site up and running on your local machine follow the instructions in the README file. The main directory we will be writing our code in is the `src` directory. If you have built VueJS apps in the past, the set-up should be familiar to you.
 
-Building on top of the [previous tutorial](articles/authenticate-users-using-firebase-and-vuejs), we will now look at how we can handle storing logged in users. When a user logs in we need a way to be able to store their details and check them from our routes and components.
+Building on top of the [previous tutorial](/articles/authenticate-users-using-firebase-and-vuejs), we will now look at how we can handle storing logged in users. When a user logs in we need a way to be able to store their details and check them from our routes and components.
 
 The data store will need to be in one place so that all routes and components can have the data flow down to them. When a user logs out we will need to pass that information back up from a component to the store.
 
