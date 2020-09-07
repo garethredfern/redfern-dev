@@ -60,7 +60,7 @@ Our app can now have one single place to check for logged-in users. All componen
 
 ### Using Actions to Commit Mutations
 
-The final part of this Vuex journey is to understand how actions work. Mutations can only run synchronously, we actually want this behaviour from them. By running a synchronous method you can reliably know that it will change the state when you need it.
+The final part of this Vuex journey is to understand how actions work. Mutations can only run synchronously, we actually want this behavior from them. By running a synchronous method you can reliably know that it will change the state when you need it.
 
 Suppose we want to make an asynchronous call to a 3rd party API though, how would we do that? We add an action to commit a mutation only when the asynchronous method is complete. That way we can run asynchronous code and only commit to state once the data is returned. Let’s have a look how we do this in our app.
 

@@ -12,7 +12,7 @@ Here is my set up for installing [Tailwind CSS](https://tailwindcss.com/) into a
 
 Install your VueJS project using the [CLI as normal](https://cli.vuejs.org/guide/creating-a-project.html#vue-create).
 
-Create a `postcss.config.js` file in the route of your project and add the following code:
+Create a `postcss.config.js` file in the root of your project and add the following code:
 
 ```js
 const tailwindcss = require("tailwindcss");
@@ -29,7 +29,7 @@ module.exports = {
 };
 ```
 
-Create a `tailwind.config.js` file in the route of your project and add the following code (optional you don't have to add this):
+Create a `tailwind.config.js` file in the root of your project and add the following code (optional you don't have to add this):
 
 ```js
 module.exports = {
