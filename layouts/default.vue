@@ -25,6 +25,14 @@
       <Nuxt />
     </main>
     <footer class="bg-white border-t p-5">
+      <h4 class="text-center mb-2 font-bold">Sign-up to the Newsletter</h4>
+      <div class="container mx-auto max-w-5xl flex justify-center">
+        <script
+          async
+          data-uid="78844601d4"
+          src="https://garethredfern.ck.page/78844601d4/index.js"
+        ></script>
+      </div>
       <div
         class="container mx-auto max-w-5xl flex justify-between items-center"
       >
