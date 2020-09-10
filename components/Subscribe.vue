@@ -3,9 +3,9 @@
     <transition name="fade">
       <p
         v-if="success"
-        class="p-2 bg-yellow-200 text-yellow-400 border border-yellow-300 text-center"
+        class="p-2 bg-yellow-200 text-gray-900 border rounded border-yellow-300 text-center mb-5"
       >
-        You are subscribed!
+        You are subscribed! Please check your inbox.
       </p>
     </transition>
     <div class="mb-4">

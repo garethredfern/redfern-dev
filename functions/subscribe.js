@@ -21,12 +21,6 @@ exports.handler = async (event) => {
       .catch((error) => {
         throw new Error(error);
       });
-
-    return {
-      statusCode: 200,
-      // body is unused in 3xx codes, but required in all function responses
-      body: "success...",
-    };
   } catch (error) {
     return {
       statusCode: 500,
