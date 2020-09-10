@@ -1,12 +1,13 @@
 <template>
   <form class="w-full md:w-1/3" @submit.prevent="sendForm">
     <transition name="fade">
-      <p
+      <div
         v-if="success"
         class="p-2 bg-yellow-200 text-gray-900 border rounded border-yellow-300 text-center mb-5"
       >
-        You are subscribed! Please check your inbox.
-      </p>
+        <p>You are subscribed!</p>
+        <p>Please check your inbox.</p>
+      </div>
     </transition>
     <div class="mb-4">
       <label for="name" class="text-xs block uppercase">First Name</label>
