@@ -44,10 +44,9 @@
 <script>
 import Twitter from "@/components/svg/Twitter";
 import Github from "@/components/svg/Github";
-import Subscribe from "@/components/Subscribe";
 
 export default {
   name: "DefaultLayout",
-  components: { Twitter, Github, Subscribe },
+  components: { Twitter, Github },
 };
 </script>
