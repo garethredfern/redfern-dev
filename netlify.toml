@@ -1,6 +1,7 @@
 [build]
   publish = "dist"
   command = "npm run generate"
+  functions = "functions"
 [build.environment]
   NODE_VERSION = "11"
 [[redirects]]
