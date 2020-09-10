@@ -11,11 +11,23 @@
     </transition>
     <div class="mb-4">
       <label for="name" class="text-xs block uppercase">First Name</label>
-      <input id="name" type="text" class="p-1 border rounded w-full" />
+      <input
+        id="name"
+        v-model="firstName"
+        type="text"
+        class="p-1 border rounded w-full"
+        required
+      />
     </div>
     <div class="mb-4">
       <label for="email" class="text-xs block uppercase">Email</label>
-      <input id="email" type="email" class="p-1 border rounded w-full" />
+      <input
+        id="email"
+        v-model="email"
+        type="email"
+        class="p-1 border rounded w-full"
+        required
+      />
     </div>
     <button type="input" class="border rounded bg-yellow-200 px-4 py-1">
       <transition name="fade" mode="out-in">
@@ -50,6 +62,8 @@ export default {
         this.sending = false;
         if (res.status === 200) {
           this.success = true;
+          this.firstName = null;
+          this.email = null;
         }
       });
     },

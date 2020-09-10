@@ -25,6 +25,12 @@
       <Nuxt />
     </main>
     <footer class="bg-blue-100 border-t">
+      <div class="bg-blue-100 p-5">
+        <h4 class="text-center mb-2 font-bold">Sign-up to the Newsletter</h4>
+        <div class="container mx-auto max-w-5xl flex justify-center">
+          <Subscribe />
+        </div>
+      </div>
       <div
         class="container mx-auto max-w-5xl flex justify-between items-center p-5"
       >
@@ -44,9 +50,10 @@
 <script>
 import Twitter from "@/components/svg/Twitter";
 import Github from "@/components/svg/Github";
+import Subscribe from "@/components/Subscribe";
 
 export default {
   name: "DefaultLayout",
-  components: { Twitter, Github },
+  components: { Twitter, Github, Subscribe },
 };
 </script>
