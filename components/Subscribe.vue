@@ -47,10 +47,9 @@ export default {
         }),
       }).then((res) => {
         this.sending = false;
-        console.log(res);
-        // if (res.status === 200 && res.redirected === true) {
-        //   window.location.href = res.url;
-        // }
+        if (res.status === 200) {
+          this.success = true;
+        }
       });
     },
   },
