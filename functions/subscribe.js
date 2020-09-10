@@ -21,6 +21,11 @@ exports.handler = async (event) => {
       .catch((error) => {
         throw new Error(error);
       });
+
+    return {
+      statusCode: 200,
+      body: "success...",
+    };
   } catch (error) {
     return {
       statusCode: 500,
