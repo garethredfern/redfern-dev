@@ -24,7 +24,7 @@
     <main class="container mx-auto p-5">
       <Nuxt />
     </main>
-    <footer class="bg-yellow-100 border-t">
+    <footer class="bg-blue-100 border-t">
       <div class="bg-blue-100 p-5">
         <h4 class="text-center mb-2 font-bold">Sign-up to the Newsletter</h4>
         <div class="container mx-auto max-w-5xl flex justify-center">

@@ -23,12 +23,9 @@ exports.handler = async (event) => {
       });
 
     return {
-      statusCode: 301,
-      headers: {
-        Location: "/success/",
-      },
+      statusCode: 200,
       // body is unused in 3xx codes, but required in all function responses
-      body: "redirecting...",
+      body: "success...",
     };
   } catch (error) {
     return {
