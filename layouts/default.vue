@@ -77,6 +77,5 @@ import RedfernDev from "@/components/svg/RedfernDev";
 export default {
   name: "DefaultLayout",
   components: { Twitter, Github, RedfernDev, Subscribe },
-  methods: {},
 };
 </script>

@@ -10,7 +10,11 @@
           <span class="mr-1 uppercase">Filed under:</span>
           <ul class="flex">
             <li v-for="tag in article.tags" :key="tag" class="mr-2">
-              <span>{{ tag }}</span>
+              <nuxt-link
+                :to="{ name: 'tags-tag', params: { tag: tag.toLowerCase() } }"
+                class="hover:underline"
+                >{{ tag }}</nuxt-link
+              >
             </li>
           </ul>
         </div>

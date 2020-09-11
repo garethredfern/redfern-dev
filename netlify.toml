@@ -78,4 +78,9 @@
   to = "/articles/using-javascript-to-access-url-segments"
   status = 301
   force = true
+[[redirects]]
+  from = "/tag/*"
+  to = "/tags/:splat"
+  status = 301
+  force = true
   
