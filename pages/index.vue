@@ -16,8 +16,8 @@
               {{ article.title }}
             </h2>
             <p class="text-lg">{{ article.description }}</p>
-            <p class="font-bold text-gray-900 mt-2">
-              Read more<span class="text-gray-500">&hellip;</span>
+            <p class="font-bold text-pink-500 mt-2">
+              Read more<span class="text-pink-500">&hellip;</span>
             </p>
           </div>
         </NuxtLink>
