@@ -1,7 +1,7 @@
 ---
 title: "JavaScript Promises"
 description: "JavaScript Promises are used in most modern web applications where we need to do some work that takes some time to complete. A popular example of this is fetching data from an API, where the result is needed to be displayed in your app."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1599161957/redfern-dev/png/js-article-4.png"
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1599832342/redfern-dev/png/js.png"
 tags: ["JavaScript"]
 published: "2020-08-16"
 ---
