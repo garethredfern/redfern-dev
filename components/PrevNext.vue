@@ -11,7 +11,7 @@
     <NuxtLink
       v-if="next"
       :to="{ name: 'articles-slug', params: { slug: next.slug } }"
-      class="bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110"
+      class="bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 border border-yellow-100"
     >
       {{ next.title }}
     </NuxtLink>
