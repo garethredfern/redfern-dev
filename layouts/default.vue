@@ -24,6 +24,14 @@
           >
             <Github />
           </a>
+          <button
+            type="button"
+            class="hover:text-pink-500 focus:outline-none mx-2"
+            @click="$refs.roar.play()"
+          >
+            RAW
+          </button>
+          <audio ref="roar" src="@/assets/mp3/lion.mp3"></audio>
         </div>
       </div>
       <div class="mt-24 hidden md:block">
@@ -69,5 +77,6 @@ import RedfernDev from "@/components/svg/RedfernDev";
 export default {
   name: "DefaultLayout",
   components: { Twitter, Github, RedfernDev, Subscribe },
+  methods: {},
 };
 </script>
