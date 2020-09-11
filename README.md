@@ -1,4 +1,8 @@
-# redfern-dev
+# RedfernDev
+
+The personal website for Gareth Redfern, where I write about my development work.
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4c9dd304-297a-4b36-a23d-0c22cb0518b3/deploy-status)](https://app.netlify.com/sites/redfern-dev/deploys)
 
 ## Build Setup
 
@@ -23,9 +27,7 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 - Add RSS feed
 - meta loop through article tags
-- add article images in YAML
 - add tag listing template
 - add twitter and RSS feed icons
 - add amp template and meta link
 - add schema.org head data
-- add gaug.es
