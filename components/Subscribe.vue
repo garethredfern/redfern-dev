@@ -52,7 +52,7 @@ export default {
   methods: {
     sendForm() {
       this.sending = true;
-      fetch("/.netlify/functions/subscribe", {
+      fetch("/api/subscribe", {
         method: "POST",
         body: JSON.stringify({
           firstName: this.firstName,

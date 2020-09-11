@@ -5,6 +5,10 @@
 [build.environment]
   NODE_VERSION = "11"
 [[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+[[redirects]]
   from = "/javascript-async-await"
   to = "/articles/javascript-async-await"
   status = 301
