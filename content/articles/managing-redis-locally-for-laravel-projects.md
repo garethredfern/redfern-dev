@@ -1,7 +1,7 @@
 ---
 title: "Managing Redis Locally For Laravel Projects"
 description: "I recently found a neat app for managing your local databases from the makers of TablePlus. Previously I had just installed Redis and MySQL via Homebrew but with DBngin you can get a GUI to see which services are running."
-image: ""
+image: "https://res.cloudinary.com/redfern-web/image/upload/v1599832035/redfern-dev/png/laravel.png"
 tags: ["Laravel"]
 published: "2020-05-20"
 ---
