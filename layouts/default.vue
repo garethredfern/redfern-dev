@@ -31,7 +31,7 @@
           >
             RAW
           </button>
-          <audio ref="roar" src="@/assets/mp3/lion.mp3"></audio>
+          <audio ref="roar" src="@/assets/mp3/roar.mp3"></audio>
         </div>
       </div>
       <div class="mt-24 hidden md:block">
