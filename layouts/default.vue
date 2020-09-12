@@ -57,9 +57,14 @@
           <small>&copy; {{ new Date().getFullYear() }} RedfernDev</small>
           <ul class="mb-2">
             <li>
-              <a href="https://ko-fi.com/garethredfern" target="_blank"
-                >Buy Me ☕️</a
+              <a
+                href="https://ko-fi.com/garethredfern"
+                target="_blank"
+                class="flex items-center"
               >
+                <span class="mr-1">Buy Me</span>
+                <Coffee />
+              </a>
             </li>
           </ul>
         </div>
@@ -69,6 +74,7 @@
 </template>
 
 <script>
+import Coffee from "@/components/svg/Coffee";
 import Github from "@/components/svg/Github";
 import Twitter from "@/components/svg/Twitter";
 import Subscribe from "@/components/Subscribe";
@@ -76,6 +82,6 @@ import RedfernDev from "@/components/svg/RedfernDev";
 
 export default {
   name: "DefaultLayout",
-  components: { Twitter, Github, RedfernDev, Subscribe },
+  components: { Twitter, Github, RedfernDev, Subscribe, Coffee },
 };
 </script>
