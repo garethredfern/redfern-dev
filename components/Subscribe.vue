@@ -29,7 +29,10 @@
         required
       />
     </div>
-    <button type="input" class="border rounded bg-yellow-200 px-4 py-1">
+    <button
+      type="input"
+      class="bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 border border-yellow-100 rounded"
+    >
       <transition name="fade" mode="out-in">
         <span v-if="!sending">Join</span>
         <span v-else>sending...</span>
