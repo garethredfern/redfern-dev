@@ -91,7 +91,7 @@ export default {
         },
         {
           property: "article:tag",
-          content: this.article.tags[0], // todo loop through tags (multiple article tags)
+          content: this.article.tags ? this.article.tags[0] : "", // TODO loop through tags (multiple article tags)
         },
         {
           hid: "twitter:url",
@@ -116,7 +116,10 @@ export default {
         { name: "twitter:label1", content: "Written by" },
         { name: "twitter:data1", content: "Gareth Redfern" },
         { name: "twitter:label2", content: "Filed under" },
-        { name: "twitter:data2", content: this.article.tags[0] }, // todo loop through tags (content="JavaScript, VueJS")
+        {
+          name: "twitter:data2",
+          content: this.article.tags ? this.article.tags[0] : "", // TODO loop through tags (content="JavaScript, VueJS")
+        },
       ],
       link: [
         {
