@@ -40,7 +40,7 @@ Next add the hostname which you can either hard-code as a string, or I suggest u
 ```js
 export default {
   sitemap: {
-    hostname: process.env.HOST_NAME, // https://www.yoursite.com
+    hostname: process.env.BASE_URL, // https://www.yoursite.com
   },
 };
 ```
@@ -68,7 +68,7 @@ Finally, you can call the `getRoutes` method in the `routes` method of the sitem
 
 ```js
 sitemap: {
-  hostname: process.env.HOST_NAME,
+  hostname: process.env.BASE_URL,
   routes() {
     return getRoutes();
   },
