@@ -35,7 +35,7 @@ export default {
       {
         hid: "og:url",
         property: "og:url",
-        content: "https://www.redfern.dev",
+        content: process.env.BASE_URL,
       },
       {
         hid: "og:title",
@@ -61,7 +61,7 @@ export default {
       {
         hid: "twitter:url",
         name: "twitter:url",
-        content: "https://www.redfern.dev",
+        content: process.env.BASE_URL,
       },
       {
         hid: "twitter:title",
@@ -86,7 +86,7 @@ export default {
       {
         hid: "canonical",
         rel: "canonical",
-        href: "https://www.redfern.dev",
+        href: process.env.BASE_URL,
       },
     ],
   },
@@ -119,6 +119,7 @@ export default {
   modules: [
     // Doc: https://github.com/nuxt/content
     "@nuxt/content",
+    "@nuxtjs/feed",
     "@nuxtjs/sitemap",
   ],
   /*
@@ -159,9 +160,53 @@ export default {
    ** See https://nuxtjs.org/api/configuration-build/
    */
   sitemap: {
-    hostname: "https://www.redfern.dev",
+    hostname: process.env.BASE_URL,
     routes() {
       return getRoutes();
     },
+  },
+
+  feed() {
+    const baseUrlArticles = `${process.env.BASE_URL}/articles`;
+    const baseLinkFeedArticles = "/feed/articles";
+    const feedFormats = {
+      rss: { type: "rss2", file: "rss.xml" },
+      json: { type: "json1", file: "feed.json" },
+    };
+    const { $content } = require("@nuxt/content");
+
+    const createFeedArticles = async function (feed) {
+      feed.options = {
+        title: "Redfern Dev",
+        description:
+          "Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.",
+        link: baseUrlArticles,
+      };
+      const articles = await $content("articles").fetch();
+
+      articles.forEach((article) => {
+        const url = `${baseUrlArticles}/${article.slug}`;
+
+        feed.addItem({
+          title: article.title,
+          id: url,
+          link: url,
+          date: new Date(article.published),
+          description: article.description,
+          content: article.description,
+          author: "@garethredfern",
+        });
+      });
+    };
+
+    return Object.values(feedFormats).map(({ file, type }) => ({
+      path: `${baseLinkFeedArticles}/${file}`,
+      type,
+      create: createFeedArticles,
+    }));
+  },
+
+  publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL || "http://localhost:3000",
   },
 };

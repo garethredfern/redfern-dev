@@ -74,7 +74,7 @@ export default {
         {
           hid: "og:url",
           property: "og:url",
-          content: `https://www.redfern.dev/articles/${this.$route.params.slug}`,
+          content: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
         },
         {
           hid: "og:image",
@@ -96,7 +96,7 @@ export default {
         {
           hid: "twitter:url",
           name: "twitter:url",
-          content: `https://www.redfern.dev/articles/${this.$route.params.slug}`,
+          content: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
         },
         {
           hid: "twitter:title",
@@ -125,7 +125,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: `https://www.redfern.dev/articles/${this.$route.params.slug}`,
+          href: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
         },
       ],
     };
