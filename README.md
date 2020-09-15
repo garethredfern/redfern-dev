@@ -25,7 +25,6 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ## Todo
 
-- Add RSS feed + Icon
 - meta loop through article tags
 - add amp template and meta link
 - add schema.org head data
