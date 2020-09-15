@@ -168,7 +168,7 @@ export default {
 
   feed() {
     const baseUrlArticles = `${process.env.BASE_URL}/articles`;
-    const baseLinkFeedArticles = "/feed/articles";
+    const baseLinkFeedArticles = "/articles";
     const feedFormats = {
       rss: { type: "rss2", file: "rss.xml" },
       json: { type: "json1", file: "feed.json" },
