@@ -10,6 +10,9 @@
           </a>
         </h1>
         <div class="flex">
+          <a href="/articles/rss.xml" target="_blank" class="mx-2">
+            <RSS />
+          </a>
           <a
             href="https://twitter.com/garethredfern"
             target="_blank"
@@ -74,6 +77,7 @@
 </template>
 
 <script>
+import RSS from "@/components/svg/RSS";
 import Coffee from "@/components/svg/Coffee";
 import Github from "@/components/svg/Github";
 import Twitter from "@/components/svg/Twitter";
@@ -82,6 +86,6 @@ import RedfernDev from "@/components/svg/RedfernDev";
 
 export default {
   name: "DefaultLayout",
-  components: { Twitter, Github, RedfernDev, Subscribe, Coffee },
+  components: { Twitter, Github, RedfernDev, Subscribe, Coffee, RSS },
 };
 </script>
