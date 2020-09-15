@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray-100">
-    <header class="bg-yellow-200 md:pb-56 md:mb-12 border-b">
+    <header class="bg-green-300 md:pb-56 md:mb-12 border-b border-green-400">
       <div
-        class="flex justify-between items-center px-5 py-1 md:mb-5 bg-yellow-200"
+        class="flex justify-between items-center px-5 py-1 md:mb-5 bg-green-300"
       >
         <h1>
           <a href="/">
