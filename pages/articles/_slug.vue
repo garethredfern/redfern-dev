@@ -13,8 +13,9 @@
               <nuxt-link
                 :to="{ name: 'tags-tag', params: { tag: tag.toLowerCase() } }"
                 class="hover:underline"
-                >{{ tag }}</nuxt-link
               >
+                {{ tag }}
+              </nuxt-link>
             </li>
           </ul>
         </div>
@@ -76,14 +77,14 @@ export default {
         },
         {
           property: "article:tag",
-          content: this.article.tags ? this.article.tags[0] : "", // TODO loop through tags (multiple article tags)
+          content: this.article.tags ? this.article.tags.toString() : "",
         },
         { name: "twitter:label1", content: "Written by" },
         { name: "twitter:data1", content: "Gareth Redfern" },
         { name: "twitter:label2", content: "Filed under" },
         {
           name: "twitter:data2",
-          content: this.article.tags ? this.article.tags[0] : "", // TODO loop through tags (content="JavaScript, VueJS")
+          content: this.article.tags ? this.article.tags.toString() : "",
         },
       ],
       link: [
