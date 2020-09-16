@@ -1,4 +1,7 @@
 import getRoutes from "./utils/getRoutes";
+import getSiteMeta from "./utils/getSiteMeta";
+
+const meta = getSiteMeta();
 
 export default {
   /*
@@ -16,65 +19,21 @@ export default {
     },
     title: "Articles focused on learning Laravel and VueJS",
     meta: [
+      ...meta,
       { charset: "utf-8" },
       { name: "HandheldFriendly", content: "True" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { property: "og:site_name", content: "Redfern Dev" },
       {
         hid: "description",
         name: "description",
         content:
           "Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.",
       },
-      { property: "og:site_name", content: "Redfern Dev" },
-      { hid: "og:type", property: "og:type", content: "website" },
-      {
-        hid: "og:url",
-        property: "og:url",
-        content: process.env.BASE_URL,
-      },
-      {
-        hid: "og:title",
-        property: "og:title",
-        content: "Articles focused on learning  Laravel and VueJS",
-      },
-      {
-        hid: "og:description",
-        property: "og:description",
-        content:
-          "Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.",
-      },
-      {
-        hid: "og:image",
-        property: "og:image",
-        content:
-          "https://res.cloudinary.com/redfern-web/image/upload/v1599839846/redfern-dev/png/redfern-logo.png",
-      },
       { property: "og:image:width", content: "740" },
       { property: "og:image:height", content: "300" },
       { name: "twitter:site", content: "@garethredfern" },
       { name: "twitter:card", content: "summary_large_image" },
-      {
-        hid: "twitter:url",
-        name: "twitter:url",
-        content: process.env.BASE_URL,
-      },
-      {
-        hid: "twitter:title",
-        name: "twitter:title",
-        content: "Articles focused on learning  Laravel and VueJS",
-      },
-      {
-        hid: "twitter:description",
-        name: "twitter:description",
-        content:
-          "Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.",
-      },
-      {
-        hid: "twitter:image",
-        name: "twitter:image",
-        content:
-          "https://res.cloudinary.com/redfern-web/image/upload/v1599839846/redfern-dev/png/redfern-logo.png",
-      },
     ],
     link: [
       { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },

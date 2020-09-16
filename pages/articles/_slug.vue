@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import getSiteMeta from "@/utils/getSiteMeta";
+
 export default {
   name: "ArticlePage",
   async asyncData({ $content, params }) {
@@ -47,40 +49,23 @@ export default {
       next,
     };
   },
+  computed: {
+    meta() {
+      const metaData = {
+        type: "article",
+        title: this.article.title,
+        description: this.article.description,
+        url: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
+        mainImage: this.article.image,
+      };
+      return getSiteMeta(metaData);
+    },
+  },
   head() {
     return {
       title: this.article.title,
       meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: this.article.description,
-        },
-        {
-          hid: "og:title",
-          name: "og:title",
-          content: this.article.title,
-        },
-        {
-          hid: "og:description",
-          name: "og:description",
-          content: this.article.description,
-        },
-        {
-          hid: "og:type",
-          property: "og:type",
-          content: "article",
-        },
-        {
-          hid: "og:url",
-          property: "og:url",
-          content: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
-        },
-        {
-          hid: "og:image",
-          property: "og:image",
-          content: this.article.image,
-        },
+        ...this.meta,
         {
           property: "article:published_time",
           content: this.article.createdAt,
@@ -92,26 +77,6 @@ export default {
         {
           property: "article:tag",
           content: this.article.tags ? this.article.tags[0] : "", // TODO loop through tags (multiple article tags)
-        },
-        {
-          hid: "twitter:url",
-          name: "twitter:url",
-          content: `${this.$config.baseUrl}/articles/${this.$route.params.slug}`,
-        },
-        {
-          hid: "twitter:title",
-          name: "twitter:title",
-          content: this.article.title,
-        },
-        {
-          hid: "twitter:description",
-          name: "twitter:description",
-          content: this.article.description,
-        },
-        {
-          hid: "twitter:image",
-          name: "twitter:image",
-          content: this.article.image,
         },
         { name: "twitter:label1", content: "Written by" },
         { name: "twitter:data1", content: "Gareth Redfern" },
