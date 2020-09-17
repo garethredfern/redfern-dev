@@ -3,7 +3,7 @@ title: "Using JavaScript To Access URL Segments"
 description: "Whilst working on a recent project, I wanted an accordion navigation to remain open depending on what the category segment in the url was displaying."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599832342/redfern-dev/png/js.png"
 tags: ["JavaScript"]
-published: "2012-06-19"
+published: "2020-06-19"
 ---
 
 ## Using JavaScript To Access URL Segments
@@ -13,7 +13,7 @@ Whilst working on a recent project, I wanted an accordion navigation to remain o
 Get the full URL path:
 
 ```js
-var newURL =
+const newURL =
   window.location.protocol +
   "://" +
   window.location.host +
@@ -24,22 +24,24 @@ var newURL =
 Next split the segments of the URL using:
 
 ```js
-var pathArray = window.location.pathname.split("/");
+const pathArray = window.location.pathname.split("/");
 ```
 
 Finally select the segment you require using:
 
 ```js
-var segment_1 = pathArray[1];
+const segment_1 = pathArray[1];
 ```
 
 The above code would select `segment_1` but you can see how you can easily select `segment_2`,`segment_3` etc.
 
-Once these segments are stored in variables it is really easy to set states for your navigation using [jQuery](https://jquery.com/).
+Once these segments are stored in variables it is really easy to set states for your navigation.
 
 ```js
+const nav = document.getElementById("nav");
+
 if (segment_2 === "category") {
-  $(nav).find("li ul:not(:first)").hide();
+  nav.querySelector("li ul:not(:first)").classList.add("is-hidden");
 }
 ```
 
