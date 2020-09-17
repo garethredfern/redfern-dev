@@ -53,7 +53,7 @@
           <Subscribe />
         </div>
       </div>
-      <div class="border-t border-dotted border-green-300 mt-2">
+      <div class="border-t border-dotted border-white mt-2">
         <div
           class="container mx-auto max-w-5xl flex justify-between items-center p-5 text-green-100"
         >
