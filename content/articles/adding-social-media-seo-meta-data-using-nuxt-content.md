@@ -82,7 +82,9 @@ meta: [
 
 Twitter has its own set of sharing tags called [Twitter Cards](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards), adding these will display your tweets in a format that is more noticeable and can be embedded/shared in other web content.
 
+<client-only>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s a quick post on adding a sitemap to a <a href="https://twitter.com/nuxt_js?ref_src=twsrc%5Etfw">@nuxt_js</a> site using the content module.<a href="https://t.co/elTgrp37Fp">https://t.co/elTgrp37Fp</a></p>&mdash; Gareth Redfern (@garethredfern) <a href="https://twitter.com/garethredfern/status/1300823052633223169?ref_src=twsrc%5Etfw">September 1, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</client-only>
 
 Add the following code to your meta tag array:
 
