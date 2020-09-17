@@ -41,7 +41,7 @@ Once these segments are stored in variables it is really easy to set states for 
 const nav = document.getElementById("nav");
 
 if (segment_2 === "category") {
-  nav.querySelector("li ul:not(:first)").classList.add("is-hidden");
+  nav.querySelector("li ul:not(:first-child)").classList.add("is-hidden");
 }
 ```
 
