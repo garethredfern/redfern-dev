@@ -44,18 +44,18 @@
     <main class="container mx-auto p-5">
       <Nuxt />
     </main>
-    <footer class="bg-pink-400 border-t">
-      <div class="bg-pink-400 p-5">
-        <h4 class="text-center mb-4 font-bold uppercase text-pink-100">
+    <footer class="bg-green-300 border-t">
+      <div class="bg-green-300 p-5">
+        <h4 class="text-center mb-4 font-bold uppercase text-green-100">
           Sign-up to the Newsletter
         </h4>
         <div class="container mx-auto max-w-5xl flex justify-center">
           <Subscribe />
         </div>
       </div>
-      <div class="border-t border-dotted border-pink-200 mt-2">
+      <div class="border-t border-dotted border-green-300 mt-2">
         <div
-          class="container mx-auto max-w-5xl flex justify-between items-center p-5 text-pink-200"
+          class="container mx-auto max-w-5xl flex justify-between items-center p-5 text-green-100"
         >
           <small>&copy; {{ new Date().getFullYear() }} RedfernDev</small>
           <ul class="mb-2">
