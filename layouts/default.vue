@@ -44,8 +44,8 @@
     <main class="container mx-auto p-5">
       <Nuxt />
     </main>
-    <footer class="bg-green-300 border-t">
-      <div class="bg-green-300 p-5">
+    <footer class="bg-gradient-to-r from-teal-400 to-blue-500 border-t">
+      <div class="bg-gradient-to-r from-teal-400 to-blue-500 p-5">
         <h4 class="text-center mb-4 font-bold uppercase text-green-100">
           Sign-up to the Newsletter
         </h4>
