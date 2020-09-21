@@ -357,4 +357,4 @@ head() {
 
 ### Conclusion
 
-We have written quite a lot of code to get everything in place but you now have a dynamic blog which will have all the correct SEO tags and look good when shared on social media. All the code in this article and the previous one for [building a sitemap](/articles/adding-a-sitemap-using-nuxt-content) can be seen in the [repo for this website](https://github.com/garethredfern/redfern-dev), if you have any questions, feel free to [hit me up on Twitter](https://twitter.com/garethredfern).
+We have written quite a lot of code to get everything in place but you now have a dynamic blog which will have all the correct SEO tags and look good when shared on social media. All the code in this article and the previous one for [building a sitemap](/articles/adding-a-sitemap-using-nuxt-content) can be seen in this [Nuxt starter theme](https://github.com/garethredfern/nuxt-basic-blog), if you have any questions, feel free to [hit me up on Twitter](https://twitter.com/garethredfern).
