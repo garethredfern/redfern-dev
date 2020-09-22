@@ -11,6 +11,12 @@ module.exports = {
       fontFamily: {
         sans: ["Open Sans", ...defaultTheme.fontFamily.sans],
       },
+      rotate: {
+        1: "1deg",
+        "-1": "-1deg",
+        2: "2deg",
+        "-2": "-2deg",
+      },
     },
   },
   variants: {},

@@ -1,6 +1,6 @@
 <template>
   <article>
-    <header class="text-pink-200 mx-auto text-xs">
+    <header class="text-pink-200 mx-auto text-xs md:transform md:-rotate-2">
       <div class="p-5 bg-pink-400 md:inline-block border border-pink-200">
         <p>
           <span class="uppercase">Published:</span>
