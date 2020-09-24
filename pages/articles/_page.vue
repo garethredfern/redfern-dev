@@ -1,5 +1,12 @@
 <template>
   <div>
+    <div class="flex justify-center">
+      <h2
+        class="text-center text-3xl mb-4 uppercase bg-black text-white inline-block mx-auto px-2"
+      >
+        All Articles ({{ allArticles.length }})
+      </h2>
+    </div>
     <ArticleList :articles="paginatedArticles" :total="allArticles.length" />
   </div>
 </template>
@@ -8,7 +15,7 @@
 import ArticleList from "@/components/ArticleList";
 
 export default {
-  name: "HomePage",
+  name: "ArticleListPage",
   components: {
     ArticleList,
   },
