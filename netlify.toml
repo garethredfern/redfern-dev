@@ -83,4 +83,7 @@
   to = "/tags/:splat"
   status = 301
   force = true
-  
+[[redirects]]
+  from = "/*"
+  to = "/error"
+  status = 404
