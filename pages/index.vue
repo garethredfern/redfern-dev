@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ArticleList :articles="articles" />
+    <ArticleList :articles="paginatedArticles" :total="allArticles.length" />
   </div>
 </template>
 
@@ -12,14 +12,23 @@ export default {
   components: {
     ArticleList,
   },
-  async asyncData({ $content }) {
-    const articles = await $content("articles")
+  async asyncData({ $content, app, params, error }) {
+    const currentPage = parseInt(params.page);
+    const allArticles = await $content("articles").only("slug").fetch();
+    const paginatedArticles = await $content("articles")
       .only(["title", "description", "image", "slug", "published"])
       .sortBy("published", "desc")
+      .limit(5)
+      .skip(currentPage > 1 ? currentPage * 5 : 0)
       .fetch();
 
+    if (currentPage === 0 || !paginatedArticles.length) {
+      return error({ statusCode: 404, message: "No articles found!" });
+    }
+
     return {
-      articles,
+      allArticles,
+      paginatedArticles,
     };
   },
 };
