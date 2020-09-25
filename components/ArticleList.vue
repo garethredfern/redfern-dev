@@ -28,7 +28,7 @@
         </NuxtLink>
       </li>
     </ul>
-    <Pagination :total="total" class="my-5" />
+    <Pagination v-if="total" :total="total" class="my-5" />
   </div>
 </template>
 
