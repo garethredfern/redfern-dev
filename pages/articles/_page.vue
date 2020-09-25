@@ -38,5 +38,17 @@ export default {
       paginatedArticles,
     };
   },
+  head() {
+    return {
+      title: `Articles Page ${this.$route.params.page} - Learning Laravel and VueJS`,
+      link: [
+        {
+          hid: "canonical",
+          rel: "canonical",
+          href: `${this.$config.baseUrl}/articles/${this.$route.params.page}`,
+        },
+      ],
+    };
+  },
 };
 </script>
