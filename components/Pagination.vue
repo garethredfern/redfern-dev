@@ -1,46 +1,41 @@
 <template>
-  <ul class="flex justify-center">
-    <li class="mx-5">
-      <nuxt-link
-        :to="{ name: 'articles-page-page', params: { page: 1 } }"
-        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
-        :disabled="currentPage === 1"
-      >
-        <DoubleBack />
-        <span>First</span>
-      </nuxt-link>
-    </li>
-    <li class="mx-5">
-      <nuxt-link
-        :to="{ name: 'articles-page-page', params: { page: prevPage } }"
-        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
-        :disabled="currentPage === 1"
-      >
-        <SingleBack />
-        <span>Prev</span>
-      </nuxt-link>
-    </li>
-    <li class="mx-5">
-      <nuxt-link
-        :to="{ name: 'articles-page-page', params: { page: nextPage } }"
-        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
-        :disabled="currentPage === totalPages"
-      >
-        <span>Next</span>
-        <SingleFwd />
-      </nuxt-link>
-    </li>
-    <li class="mx-5">
-      <nuxt-link
-        :to="{ name: 'articles-page-page', params: { page: totalPages } }"
-        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
-        :disabled="currentPage === totalPages"
-      >
-        <span>Last</span>
-        <DoubleFwd />
-      </nuxt-link>
-    </li>
-  </ul>
+  <div class="grid gap-4 grid-cols-4">
+    <nuxt-link
+      :to="{ name: 'articles-page-page', params: { page: 1 } }"
+      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :disabled="currentPage === 1"
+    >
+      <DoubleBack />
+      <span class="hidden sm:inline">First</span>
+    </nuxt-link>
+
+    <nuxt-link
+      :to="{ name: 'articles-page-page', params: { page: prevPage } }"
+      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :disabled="currentPage === 1"
+    >
+      <SingleBack />
+      <span class="hidden sm:inline">Prev</span>
+    </nuxt-link>
+
+    <nuxt-link
+      :to="{ name: 'articles-page-page', params: { page: nextPage } }"
+      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :disabled="currentPage === totalPages"
+    >
+      <span class="hidden sm:inline">Next</span>
+      <SingleFwd />
+    </nuxt-link>
+
+    <nuxt-link
+      :to="{ name: 'articles-page-page', params: { page: totalPages } }"
+      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :disabled="currentPage === totalPages"
+    >
+      <span class="hidden sm:inline">Last</span>
+      <DoubleFwd />
+    </nuxt-link>
+  </div>
 </template>
 
 <script>

@@ -29,7 +29,7 @@
           </a>
           <button
             type="button"
-            class="hover:text-pink-500 focus:outline-none mx-2"
+            class="hover:text-pink-500 focus:outline-none mx-2 hidden sm:inline-block"
             @click="$refs.roar.play()"
           >
             RAW
