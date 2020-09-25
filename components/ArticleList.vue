@@ -28,7 +28,9 @@
         </NuxtLink>
       </li>
     </ul>
-    <Pagination v-if="total" :total="total" class="my-5" />
+    <div v-if="total" class="constainer mx-auto my-5 max-w-5xl">
+      <Pagination :total="total" />
+    </div>
   </div>
 </template>
 
