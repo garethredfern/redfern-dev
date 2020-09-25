@@ -1,8 +1,12 @@
 <template>
-  <svg viewBox="0 0 24 24" fill="white" width="18" height="18">
-    <path d="M0 0h24v24H0V0z" fill="none" />
+  <svg
+    class="fill-current w-5 h-5"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+  >
+    <title>Buy Me a Coffee</title>
     <path
-      d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"
+      d="M4 11H2a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2h2V1h14v10a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4zm0-2V5H2v4h2zm-2 8v-1h18v1l-4 2H6l-4-2z"
     />
   </svg>
 </template>

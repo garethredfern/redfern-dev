@@ -16,6 +16,7 @@ export default {
   head: {
     htmlAttrs: {
       lang: "en-GB",
+      class: "bg-gradient-to-r from-teal-400 to-blue-500",
     },
     title: "Articles focused on learning Laravel and VueJS",
     meta: [
