@@ -3,45 +3,60 @@
     <li class="mx-5">
       <nuxt-link
         :to="{ name: 'articles-page', params: { page: 1 } }"
-        class="border rounded px-4 py-1 uppercase bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out"
+        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === 1"
       >
-        First
+        <DoubleBack />
+        <span>First</span>
       </nuxt-link>
     </li>
     <li class="mx-5">
       <nuxt-link
         :to="{ name: 'articles-page', params: { page: prevPage } }"
-        class="border rounded px-4 py-1 uppercase bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out"
+        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === 1"
       >
-        Prev
+        <SingleBack />
+        <span>Prev</span>
       </nuxt-link>
     </li>
     <li class="mx-5">
       <nuxt-link
         :to="{ name: 'articles-page', params: { page: nextPage } }"
-        class="border rounded px-4 py-1 uppercase bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out"
+        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === totalPages"
       >
-        Next
+        <span>Next</span>
+        <SingleFwd />
       </nuxt-link>
     </li>
     <li class="mx-5">
       <nuxt-link
         :to="{ name: 'articles-page', params: { page: totalPages } }"
-        class="border rounded px-4 py-1 uppercase bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out"
+        class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === totalPages"
       >
-        Last
+        <span>Last</span>
+        <DoubleFwd />
       </nuxt-link>
     </li>
   </ul>
 </template>
 
 <script>
+import DoubleFwd from "@/components/svg/DoubleFwd";
+import DoubleBack from "@/components/svg/DoubleBack";
+import SingleFwd from "@/components/svg/SingleFwd";
+import SingleBack from "@/components/svg/SingleBack";
+
 export default {
   name: "Pagination",
+  components: {
+    DoubleFwd,
+    DoubleBack,
+    SingleFwd,
+    SingleBack,
+  },
   props: {
     total: {
       type: Number,
