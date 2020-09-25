@@ -2,7 +2,7 @@
   <ul class="flex justify-center">
     <li class="mx-5">
       <nuxt-link
-        :to="{ name: 'articles-page', params: { page: 1 } }"
+        :to="{ name: 'articles-page-page', params: { page: 1 } }"
         class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === 1"
       >
@@ -12,7 +12,7 @@
     </li>
     <li class="mx-5">
       <nuxt-link
-        :to="{ name: 'articles-page', params: { page: prevPage } }"
+        :to="{ name: 'articles-page-page', params: { page: prevPage } }"
         class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === 1"
       >
@@ -22,7 +22,7 @@
     </li>
     <li class="mx-5">
       <nuxt-link
-        :to="{ name: 'articles-page', params: { page: nextPage } }"
+        :to="{ name: 'articles-page-page', params: { page: nextPage } }"
         class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === totalPages"
       >
@@ -32,7 +32,7 @@
     </li>
     <li class="mx-5">
       <nuxt-link
-        :to="{ name: 'articles-page', params: { page: totalPages } }"
+        :to="{ name: 'articles-page-page', params: { page: totalPages } }"
         class="border rounded px-4 py-1 uppercase text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex items-center"
         :disabled="currentPage === totalPages"
       >

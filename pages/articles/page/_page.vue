@@ -45,7 +45,7 @@ export default {
         {
           hid: "canonical",
           rel: "canonical",
-          href: `${this.$config.baseUrl}/articles/${this.$route.params.page}`,
+          href: `${this.$config.baseUrl}/articles/page/${this.$route.params.page}`,
         },
       ],
     };
