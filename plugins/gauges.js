@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 export default function () {
-  if (process.env.production) {
+  if (process.env.NODE_ENV === "production") {
     var _gauges = _gauges || [];
     (function () {
       var t = document.createElement("script");
