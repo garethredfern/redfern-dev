@@ -2,7 +2,7 @@
   <div class="grid gap-4 grid-cols-4">
     <nuxt-link
       :to="{ name: 'articles-page-page', params: { page: 1 } }"
-      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :class="buttonStyles"
       :disabled="currentPage === 1"
     >
       <DoubleBack />
@@ -11,7 +11,7 @@
 
     <nuxt-link
       :to="{ name: 'articles-page-page', params: { page: prevPage } }"
-      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :class="buttonStyles"
       :disabled="currentPage === 1"
     >
       <SingleBack />
@@ -20,7 +20,7 @@
 
     <nuxt-link
       :to="{ name: 'articles-page-page', params: { page: nextPage } }"
-      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :class="buttonStyles"
       :disabled="currentPage === totalPages"
     >
       <span class="hidden sm:inline">Next</span>
@@ -29,7 +29,7 @@
 
     <nuxt-link
       :to="{ name: 'articles-page-page', params: { page: totalPages } }"
-      class="border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase"
+      :class="buttonStyles"
       :disabled="currentPage === totalPages"
     >
       <span class="hidden sm:inline">Last</span>
@@ -57,11 +57,17 @@ export default {
       type: Number,
       default: 0,
     },
+    perPage: {
+      type: Number,
+      default: 5,
+    },
   },
   computed: {
+    buttonStyles() {
+      return "border rounded px-4 py-1 text-sm bg-white hover:bg-blue-500 hover:text-white transform duration-500 ease-in-out flex justify-center items-center sm:uppercase";
+    },
     totalPages() {
-      const perPage = 5;
-      return Math.floor(this.total / perPage);
+      return Math.floor(this.total / this.perPage);
     },
     currentPage() {
       return parseInt(this.$route.params.page) || 1;
