@@ -3,7 +3,7 @@
     <NuxtLink
       v-if="prev"
       :to="{ name: 'articles-slug', params: { slug: prev.slug } }"
-      class="bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 border border-yellow-100 md:transform md:-rotate-1"
+      :class="linkStyles"
     >
       {{ prev.title }}
     </NuxtLink>
@@ -11,7 +11,7 @@
     <NuxtLink
       v-if="next"
       :to="{ name: 'articles-slug', params: { slug: next.slug } }"
-      class="bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 border border-yellow-100 md:transform md:rotate-2"
+      :class="linkStyles"
     >
       {{ next.title }}
     </NuxtLink>
@@ -25,11 +25,16 @@ export default {
   props: {
     prev: {
       type: Object,
-      default: () => null,
+      default: null,
     },
     next: {
       type: Object,
-      default: () => null,
+      default: null,
+    },
+  },
+  computed: {
+    linkStyles() {
+      return "bg-yellow-200 px-4 py-1 hover:bg-yellow-300 transform duration-500 ease-in-out hover:-translate-y-1 hover:scale-110 border border-yellow-100 md:transform md:rotate-2";
     },
   },
 };
