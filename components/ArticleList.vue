@@ -29,7 +29,7 @@
       </li>
     </ul>
     <div v-if="total" class="constainer mx-auto my-5 max-w-5xl">
-      <Pagination :total="total" />
+      <Pagination v-if="total > 5" :total="total" />
     </div>
   </div>
 </template>
