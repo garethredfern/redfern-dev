@@ -8,7 +8,9 @@ published: "2020-09-28"
 
 ## Adding Pagination With Nuxt Content
 
-As your blog grows it will more than likely become necessary to paginate the listing page of articles. This post explains one way this can be achieved. If you want to refer to the full project code at any time, check out the [nuxt-basic-blog](https://github.com/garethredfern/nuxt-basic-blog) template on GitHub.
+As your blog grows it will more than likely become necessary to paginate the listing page of articles. This post explains one way this can be achieved.
+
+**TL;DR** If you want to refer to the full project code at any time, check out the [nuxt-basic-blog](https://github.com/garethredfern/nuxt-basic-blog) template on GitHub.
 
 ### Page Template Structure
 
@@ -248,3 +250,7 @@ export default {
 };
 </script>
 ```
+
+### Final Code
+
+Find the full project code [nuxt-basic-blog](https://github.com/garethredfern/nuxt-basic-blog) on GitHub.
