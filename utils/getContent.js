@@ -18,7 +18,7 @@ export default async ($content, params, error) => {
     if (currentPage === lastPage) {
       return articleCount - lastPageCount;
     }
-    return currentPage * perPage;
+    return (currentPage - 1) * perPage;
   };
 
   const paginatedArticles = await $content("articles")
