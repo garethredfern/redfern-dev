@@ -5,11 +5,27 @@ export default async ($content, params, error) => {
 
   const allArticles = await $content("articles").fetch();
 
+  const articleCount = allArticles.length;
+
+  const lastPage = Math.ceil(articleCount / perPage);
+
+  const lastPageCount = articleCount % perPage;
+
+  const skipNumber = () => {
+    if (currentPage === 1) {
+      return 0;
+    }
+    if (currentPage === lastPage) {
+      return articleCount - lastPageCount;
+    }
+    return currentPage * perPage;
+  };
+
   const paginatedArticles = await $content("articles")
     .only(["title", "description", "image", "slug", "published"])
     .sortBy("published", "desc")
     .limit(perPage)
-    .skip(currentPage > 1 ? currentPage * perPage : 0)
+    .skip(skipNumber())
     .fetch();
 
   if (currentPage === 0 || !paginatedArticles.length) {

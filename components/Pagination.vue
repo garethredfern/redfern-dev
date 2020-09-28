@@ -90,7 +90,7 @@ export default {
       return "border rounded px-4 py-1 text-sm bg-white flex justify-center items-center sm:uppercase text-gray-300";
     },
     totalPages() {
-      return Math.floor(this.total / this.perPage);
+      return Math.ceil(this.total / this.perPage);
     },
     currentPage() {
       return parseInt(this.$route.params.page) || 1;

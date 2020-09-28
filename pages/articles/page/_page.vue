@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import getContent from "@/utils/getCntent";
+import getContent from "@/utils/getContent";
 import ArticleList from "@/components/ArticleList";
 
 export default {
