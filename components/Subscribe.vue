@@ -14,7 +14,8 @@
         v-if="error"
         class="p-2 bg-yellow-200 text-red-500 border rounded border-yellow-300 text-center mb-5"
       >
-        <p>You are subscribed!</p>
+        <p>Oh no, something went wrong.</p>
+        <p>{{ error }}</p>
       </div>
     </transition>
     <div class="mb-4">
@@ -58,6 +59,7 @@ export default {
       email: null,
       sending: false,
       success: false,
+      error: null,
     };
   },
   methods: {
@@ -69,14 +71,20 @@ export default {
           firstName: this.firstName,
           email: this.email,
         }),
-      }).then((res) => {
-        this.sending = false;
-        if (res.status === 200) {
-          this.success = true;
-          this.firstName = null;
-          this.email = null;
-        }
-      });
+      })
+        .then((res) => {
+          this.sending = false;
+          if (res.status === 200) {
+            this.success = true;
+            this.firstName = null;
+            this.email = null;
+          }
+        })
+        .catch((error) => {
+          this.sending = false;
+          this.success = false;
+          this.error = error;
+        });
     },
   },
 };
