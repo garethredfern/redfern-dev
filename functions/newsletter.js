@@ -5,12 +5,16 @@ exports.handler = async (event) => {
   const { firstName, email } = JSON.parse(event.body);
   const authKey = `Bearer ${process.env.FAUNA_API_KEY}`;
 
-  const mutation = `
-    mutation {
-      createUser(data: {
-        firstName: "Bill",
-        email: "bill@email.com"
-      }) {
+  const qv = {
+    data: {
+      firstName,
+      email,
+    },
+  };
+
+  const query = `
+    mutation($data: UserInput!) {
+      createUser(data: $data) {
         firstName
         email
       }
@@ -30,7 +34,7 @@ exports.handler = async (event) => {
         "Content-Type": "application/json",
         Authorization: authKey,
       },
-      body: JSON.stringify(mutation),
+      body: JSON.stringify({ query, variables: qv }),
     })
       .then((response) => response.json())
       .catch((error) => {
