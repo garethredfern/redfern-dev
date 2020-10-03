@@ -6,7 +6,6 @@
         class="p-2 bg-yellow-200 text-gray-900 border rounded border-yellow-300 text-center mb-5"
       >
         <p>You are subscribed!</p>
-        <p>Please check your inbox.</p>
       </div>
     </transition>
     <transition name="fade">
