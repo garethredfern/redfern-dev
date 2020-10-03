@@ -49,7 +49,7 @@ exports.handler = async (event) => {
       return {
         statusCode: 409,
         "Content-Type": "application/json",
-        body: message,
+        body: JSON.stringify(message),
       };
     }
     return {
