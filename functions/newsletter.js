@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 exports.handler = async (event) => {
   const url = "https://graphql.fauna.com/graphql";
   const { firstName, email } = JSON.parse(event.body);
+  const authKey = `Bearer ${process.env.FAUNA_API_KEY}`;
 
   try {
     if (!firstName) {
@@ -11,11 +12,12 @@ exports.handler = async (event) => {
     if (!email) {
       throw new Error("Email is required");
     }
+
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.CK_API_KEY}`,
+        Authorization: authKey,
       },
       body: JSON.stringify({
         query: `mutation {createUser(data: {firstName: ${firstName}, email: ${email}  }) {firstName email}}`,
@@ -28,7 +30,7 @@ exports.handler = async (event) => {
 
     if (response.errors) {
       const message =
-        response.errors[0].extensions.code === "instance not unique"
+        response.errors[0].message === "Instance not unique"
           ? "Email already subscribed."
           : response.errors[0].message;
       return {
