@@ -1,10 +1,5 @@
 <template>
-  <form
-    class="w-full md:w-1/3"
-    @submit.prevent="sendForm"
-    data-netlify="true"
-    ref="form"
-  >
+  <form class="w-full md:w-1/3" @submit.prevent="sendForm">
     <transition name="fade">
       <div
         v-if="success"
