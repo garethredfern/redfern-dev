@@ -71,9 +71,16 @@ export default {
           email: this.email,
         }),
       })
-        .then((res) => {
+        .then((response) => {
           this.sending = false;
-          if (res.status === 200) {
+          if (
+            response.status === 409 &&
+            response === "Email already subscribed."
+          ) {
+            this.success = true;
+            this.error = response;
+          }
+          if (response.status === 200) {
             this.success = true;
             this.firstName = null;
             this.email = null;
