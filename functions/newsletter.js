@@ -47,7 +47,7 @@ exports.handler = async (event) => {
           ? "Email already subscribed."
           : response.errors[0].message;
       return {
-        statusCode: 500,
+        statusCode: 409,
         "Content-Type": "application/json",
         body: message,
       };
