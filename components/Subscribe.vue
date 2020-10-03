@@ -9,6 +9,14 @@
         <p>Please check your inbox.</p>
       </div>
     </transition>
+    <transition name="fade">
+      <div
+        v-if="error"
+        class="p-2 bg-yellow-200 text-red-500 border rounded border-yellow-300 text-center mb-5"
+      >
+        <p>You are subscribed!</p>
+      </div>
+    </transition>
     <div class="mb-4">
       <label for="name" class="text-xs block uppercase">First Name</label>
       <input
@@ -55,7 +63,7 @@ export default {
   methods: {
     sendForm() {
       this.sending = true;
-      fetch("/api/subscribe", {
+      fetch("/api/newsletter", {
         method: "POST",
         body: JSON.stringify({
           firstName: this.firstName,
