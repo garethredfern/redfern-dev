@@ -43,7 +43,7 @@ exports.handler = async (event) => {
 
     if (response.errors) {
       const message =
-        response.errors[0].message === "Instance not unique"
+        response.errors[0].message === "Instance is not unique."
           ? "Email already subscribed."
           : response.errors[0].message;
       return {
