@@ -8,7 +8,7 @@
         <Subscribe />
       </div>
     </div>
-    <div class="mt-1">
+    <div class="mt-1 border-t border-dotted">
       <div
         class="container mx-auto max-w-5xl flex justify-between items-center p-5 text-green-100"
       >
