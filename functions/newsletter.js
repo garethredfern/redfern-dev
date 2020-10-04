@@ -42,10 +42,7 @@ exports.handler = async (event) => {
       });
 
     if (response.errors) {
-      const message =
-        response.errors[0].message === "Instance is not unique."
-          ? "Email already subscribed."
-          : response.errors[0].message;
+      const message = response.errors[0].message;
       return {
         statusCode: 409,
         "Content-Type": "application/json",

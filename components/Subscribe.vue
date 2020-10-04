@@ -73,7 +73,11 @@ export default {
       })
         .then((response) => {
           this.sending = false;
-          console.log({ response });
+          if (response.status === 409) {
+            this.sending = false;
+            this.success = false;
+            this.error = "Email address already subscribed.";
+          }
           if (response.status === 200) {
             this.success = true;
             this.firstName = null;
@@ -81,7 +85,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.log({ error });
           this.sending = false;
           this.success = false;
           this.error = error;
