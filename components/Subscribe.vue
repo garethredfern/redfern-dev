@@ -73,10 +73,7 @@ export default {
       })
         .then((response) => {
           this.sending = false;
-          if (
-            response.status === 409 &&
-            response === "Email already subscribed."
-          ) {
+          if (response === "Email already subscribed.") {
             this.success = true;
             this.error = response;
           }
