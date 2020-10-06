@@ -37,4 +37,11 @@ State can be defined as: data that changes over time. So, how does this work ove
 
 Calling `setCount` tells React to re-render our component. When it does this, the entire `Counter` function is re-run, so when `React.useState` is called this time, the value we get back is the value that we called `setCount`with. And it continues like that until `Counter` is unmounted (removed from the application), or the user closes the application.
 
+<p class="codepen" data-height="300" data-theme-id="24237" data-default-tab="js,result" data-user="garethredfern" data-slug-hash="KKMPQMx" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="React useState">
+  <span>See the Pen <a href="https://codepen.io/garethredfern/pen/KKMPQMx">
+  React useState</a> by Gareth Redfern (<a href="https://codepen.io/garethredfern">@garethredfern</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://static.codepen.io/assets/embed/ei.js"></script>
+
 These notes are taken from the excellent [Epic React](https://epicreact.dev) course, by Kent C. Dodds.
