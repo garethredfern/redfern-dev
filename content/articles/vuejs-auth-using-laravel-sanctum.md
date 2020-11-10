@@ -15,7 +15,7 @@ You can find the source code to the demos I set up here:
 - [Laravel API](https://github.com/garethredfern/sanctum-api)
 - [VueJS SPA](https://github.com/garethredfern/sanctum-vue)
 
-The first thing to do is set up your Laravel project as you normally would install [Sanctum](https://github.com/laravel/sanctum). Run the migrations and seed the database with the user seed so that you have a user to test auth against.
+The first thing to do is set up your Laravel project as you normally would, install [Sanctum](https://github.com/laravel/sanctum). Run the migrations and seed the database with the user seed so that you have a user to test auth against.
 
 With Laravel set up there were two controllers needed to give us basic login and logout for the SPA:
 
@@ -47,7 +47,7 @@ An important note is that you must set `withCredentials` to `true` when calling 
 
 ### Protecting Routes in a Vue SPA
 
-The method for protecting your application routes is fairly simple. In the [router](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.jsv) file there is a meta field `requiresAuth` it's a boolean held against every route you want to protect. Using the Vue router [beforeEach method](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.js#L39) check for a valid token which is held in local storage if it exists then the user is allowed to view the page. I wrote about this in more detail over on [Freecodecamp](https://www.freecodecamp.org/news/authentication-with-vue-js-firebase-5c3a82149f66/) if you are interested to learn more on this approach.
+The method for protecting your application routes is fairly simple. In the [router](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.jsv) file there is a meta field `requiresAuth` it's a boolean held against every route you want to protect. Using the Vue router [beforeEach method](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.js#L39) check for a valid token which is held in local storage if it exists then the user is allowed to view the page. I wrote about this in more detail [in another article](/articles/authenticate-users-using-firebase-and-vuejs) if you are interested to learn more on this approach.
 
 ### Notes on CORS
 
