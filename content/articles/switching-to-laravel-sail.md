@@ -10,11 +10,11 @@ published: "2020-12-21"
 
 Recently, Taylor shipped another Laravel package called [Sail](https://laravel.com/docs/8.x/sail). The idea behind Sail is to provide an effortless Docker install with no Docker experience required. Helping to speed up Laravel development, reducing the barrier to entry for getting a Laravel project set up. For the last few years I have been using [Valet](https://laravel.com/docs/8.x/valet), which has worked extremely well. However, I have been keen to get things moved across to Docker for a while now.
 
-One thing that Valet didn’t provide was Redis. I wrote an [article](/articles/laravel-valet-installing-phpredis-with-pecl-homebrew)) on this. With Sail this is no longer an issue. While this is not necessarily a strong reason to move from Valet, it certainly helps make your environment easier to set up.
+One thing that Valet didn’t provide was Redis. I wrote an [article](/articles/laravel-valet-installing-phpredis-with-pecl-homebrew) on this. With Sail this is no longer an issue. While this is not necessarily a strong reason to move from Valet, it certainly helps make your environment easier to set up.
 
 Another advantage with Sail is the Laravel app container uses a [Docker volume](https://docs.docker.com/storage/volumes/) so the data stored in your database is persisted even when stopping and restarting your containers.
 
-Sail also ships with Mailhog preconfigured, allowing for easily testing sending mail.
+Sail also ships with Mailhog pre-configured, allowing for easily testing sending mail.
 
 ### A Couple of Gotchas
 
@@ -52,4 +52,4 @@ REDIS_HOST=redis
 
 I would imagine the same will be true for setting up Memcached, but I haven’t tested it as yet. The Docker service name to use in your .env file would be `memcached` rather than `127.0.0.1`.
 
-I think its well worth giving this Docker set up a try. For me, the main reason is not having to worry about having the correct versions of PHP, MYSQL, Redis etc. stored on my local machine. If something breaks you can destroy the container build a new one, everything is self-contained away from your local machine. It will also make sharing set-ups quick and easy between other devs no matter what OS they use. Finally, if you are on a Mac don’t be worried about things running slow or hogging memory. I have had no issues so far.
+I think its well worth giving this Docker set up a try. For me, the main reason is not having to worry about having the correct versions of PHP, MYSQL, Redis etc. stored on my local machine. If something breaks you can destroy the container build a new one, everything is self-contained away from your local machine. It will also make sharing set-ups quick and easy between other developers no matter what OS they use. Finally, if you are on a Mac don’t be worried about things running slow or hogging memory. I have had no issues so far.
