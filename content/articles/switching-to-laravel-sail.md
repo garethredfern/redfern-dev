@@ -8,7 +8,7 @@ published: "2020-12-21"
 
 ## Switching to Laravel Sail
 
-Recently, Taylor shipped another Laravel package called [Sail](https://laravel.com/docs/8.x/sail). The idea behind Sail is to provide an effortless Docker install with no Docker experience required. Helping to speed up Laravel development, reducing the barrier to entry for getting a Laravel project set up. For the last few years I have been using [Valet]((https://laravel.com/docs/8.x/valet), which has worked extremely well. However, I have been keen to get things moved across to Docker for a while now.
+Recently, Taylor shipped another Laravel package called [Sail](https://laravel.com/docs/8.x/sail). The idea behind Sail is to provide an effortless Docker install with no Docker experience required. Helping to speed up Laravel development, reducing the barrier to entry for getting a Laravel project set up. For the last few years I have been using [Valet](https://laravel.com/docs/8.x/valet), which has worked extremely well. However, I have been keen to get things moved across to Docker for a while now.
 
 One thing that Valet didn’t provide was Redis. I wrote an [article](/articles/laravel-valet-installing-phpredis-with-pecl-homebrew)) on this. With Sail this is no longer an issue. While this is not necessarily a strong reason to move from Valet, it certainly helps make your environment easier to set up.
 
