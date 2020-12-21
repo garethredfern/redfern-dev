@@ -22,10 +22,10 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
-I have previously written about what you need to get Laravel working with valet and Redis locally and most of this still applies, except you would no longer install Redis via Homebrew (step 1).
+I have [previously written](/articles/laravel-valet-installing-phpredis-with-pecl-homebrew) about what you need to get Laravel working with valet and Redis locally and most of this still applies, except you would no longer install Redis via Homebrew (step 1).
 
 ## Quick Links
 
 - [TablePlus](https://tableplus.com/)
 - [DBngin](https://dbngin.com/)
-- [Laravel Valet Installing PHPRedis with PECL/Homebrew](https://www.redfern.dev/managing-redis-locally-for-laravel-projects/laravel-valet-installing-phpredis-with-pecl-homebrew)
+- [Laravel Valet Installing PHPRedis with PECL/Homebrew](/articles/laravel-valet-installing-phpredis-with-pecl-homebrew)
