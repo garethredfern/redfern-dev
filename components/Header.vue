@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-green-300 md:pb-56 md:mb-12 border-b border-green-400">
+  <header class="bg-green-300 md:pb-48 md:mb-12 border-b border-green-400">
     <div
       class="flex justify-between items-center px-5 py-1 md:mb-5 bg-green-300"
     >
