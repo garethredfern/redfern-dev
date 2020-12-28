@@ -225,6 +225,8 @@ Route::middleware('auth:sanctum')->get('/users/{user}', function (Request $reque
 ### Conclusion
 If you are wanting/needing to go down the route of having a completely separate SPA that consumes a Laravel API then hopefully this post has given you all the references you need to get things set up for the API. In the next article we will focus on setting up the SPA.
 
+If you would like to hear an excellent explanation from Taylor on the how these packages came about I highly recommend listening to his [podcast episode](https://blog.laravel.com/laravel-snippet-25-ecosystem-discussion-auth-recap-passport-sanctum).
+
 The project files for this article can be found on Github:
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
