@@ -7,7 +7,7 @@ published: "2020-12-28"
 ---
 
 ## Authentication Using Laravel Sanctum & Fortify for an SPA
-Previously I wrote about using Laravel Sanctum to build an API for a VueJS SPA to consume. [The article](articles/vuejs-auth-using-laravel-sanctum), was a very basic intro using API tokens and local storage to maintain authentication state. While there’s nothing wrong with that method for testing out an idea, the preferred and more secure method is to use cookies and sessions. In this article we will dive into using Sanctum with Fortify in a Laravel API, consumed by a separate VueJS SPA.
+Previously I wrote about using Laravel Sanctum to build an API for a VueJS SPA to consume. [The article](/articles/vuejs-auth-using-laravel-sanctum), was a very basic intro using API tokens and local storage to maintain authentication state. While there’s nothing wrong with that method for testing out an idea, the preferred and more secure method is to use cookies and sessions. In this article we will dive into using Sanctum with Fortify in a Laravel API, consumed by a separate VueJS SPA.
 
 The project files for this article can be found on Github:
 - [Larvel API](https://github.com/garethredfern/laravel-api)

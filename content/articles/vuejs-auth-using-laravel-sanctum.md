@@ -8,7 +8,7 @@ published: "2020-01-12"
 
 ## VueJS Auth Using Laravel Sanctum
 
-> Please note, this article will help you get set up with very basic authentication using a token stored in local storage. For a more production ready set-up I recommend reading [Authentication Using Laravel Sanctum & Fortify for an SPA](articles/authentication-laravel-sanctum-fortify-for-an-spa/).
+> Please note, this article will help you get set up with very basic authentication using a token stored in local storage. For a more production ready set-up I recommend reading [Authentication Using Laravel Sanctum & Fortify for an SPA](/articles/authentication-laravel-sanctum-fortify-for-an-spa/).
 
 [Laravel Sanctum](https://github.com/laravel/sanctum) is a new package built by Taylor offering a simple authentication system for SPA's. Having just completed my first large SPA using VueJS and Laravel as the API I thought it would be good to dive into Sanctum and see how it works.
 
@@ -70,4 +70,4 @@ With this in place, you then call your API endpoints using `http://localhost:808
 
 I hope this short post and example projects will help explain my approach to building auth into a VueJS SPA with a Laravel API. For most projects Sanctum definitely feels like it has achieved what it set out to provide "a featherweight authentication system for SPAs and simple APIs".
 
-Further Reading: [Authentication Using Laravel Sanctum & Fortify for an SPA](articles/authentication-laravel-sanctum-fortify-for-an-spa/).
+Further Reading: [Authentication Using Laravel Sanctum & Fortify for an SPA](/articles/authentication-laravel-sanctum-fortify-for-an-spa/).
