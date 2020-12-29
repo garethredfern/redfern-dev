@@ -43,7 +43,7 @@ First set up the [services](https://github.com/garethredfern/sanctum-vue/tree/ma
 
 ### Protecting Routes in a Vue SPA
 
-The method for protecting your application routes is fairly simple. In the [router](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.jsv) file there is a meta field `requiresAuth` it's a boolean held against every route you want to protect. Using the Vue router [beforeEach method](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.js#L39) check for a valid token which is held in local storage if it exists then the user is allowed to view the page. I wrote about this in more detail [in another article](/articles/authenticate-users-using-firebase-and-vuejs) if you are interested to learn more on this approach.
+The method for protecting your application routes is fairly simple. In the [router](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.js) file there is a meta field `requiresAuth` it's a boolean held against every route you want to protect. Using the Vue router [beforeEach method](https://github.com/garethredfern/sanctum-vue/blob/master/src/router.js#L39) check for a valid token which is held in local storage if it exists then the user is allowed to view the page. I wrote about this in more detail [in another article](/articles/authenticate-users-using-firebase-and-vuejs) if you are interested to learn more on this approach.
 
 ### Notes on CORS
 
