@@ -15,6 +15,10 @@ The project files for this article can be found on Github:
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
 
+Here is the follow up article on setting up the Vue Spa:
+
+- [Vue Spa](/articles/authentication-vue-spa-with-laravel-sanctum-fortify)
+
 ### Laravel & Package Install
 
 First, set up the Laravel API as you normally would. My preferred option is to use Laravel [Sail](https://laravel.com/docs/8.x/sail), which I have written about [here](/articles/switching-to-laravel-sail). If you choose to run Laravel via Sail, your API will be accessible via http://localhost.
@@ -129,7 +133,7 @@ While you are in the config/cors.php file set the following:
 'supports_credentials' => true,
 ```
 
-The above ensures you have the `Access-Control-Allow-Credentials` header with a value of `True` set. You can read more about this in the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials). We will be passing this header via the SPA but more on that when we move to set it up.
+The above ensures you have the `Access-Control-Allow-Credentials` header with a value of `True` set. You can read more about this in the [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Credentials). We will be passing this header via the SPA but [more on that when we move to set it up](/articles/authentication-vue-spa-with-laravel-sanctum-fortify).
 
 ### Setting Up Fortify
 
@@ -216,7 +220,7 @@ ResetPassword::createUrlUsing(function ($user, string $token) {
 });
 ```
 
-To make this all work we will need to have a reset-password view in the SPA which handles the token and passes back the users new password. This will be explained fully in the creating of the SPA post which will follow, you can review the code on [Github](https://github.com/garethredfern/laravel-vue/blob/main/src/views/ResetPassword.vue).
+To make this all work we will need to have a reset-password view in the SPA which handles the token and passes back the users new password. This is explained in [the creating of the SPA article](/articles/authentication-vue-spa-with-laravel-sanctum-fortify), you can review the code on [Github](https://github.com/garethredfern/laravel-vue/blob/main/src/views/ResetPassword.vue).
 
 ### API Routes
 
@@ -235,6 +239,10 @@ Route::middleware('auth:sanctum')->get('/users/{user}', function (Request $reque
 If you are wanting/needing to go down the route of having a completely separate SPA that consumes a Laravel API then hopefully this post has given you all the reference you need to get things set up for the API. In the next article we will focus on setting up the SPA.
 
 If you would like to hear an excellent explanation from Taylor on the how these packages came about I highly recommend listening to his [podcast episode](https://blog.laravel.com/laravel-snippet-25-ecosystem-discussion-auth-recap-passport-sanctum).
+
+Here is the follow up article on setting up the Vue Spa:
+
+- [Vue Spa](/articles/authentication-vue-spa-with-laravel-sanctum-fortify)
 
 The project files for this article can be found on Github:
 
