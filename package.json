@@ -18,8 +18,7 @@
     "@tailwindcss/ui": "^0.5.0",
     "core-js": "^3.6.5",
     "nuxt": "^2.14.6",
-    "prism-themes": "^1.4.0",
-    "vue-plausible": "^1.1.1"
+    "prism-themes": "^1.4.0"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
