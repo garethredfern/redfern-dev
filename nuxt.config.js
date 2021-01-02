@@ -45,14 +45,6 @@ export default {
         href: process.env.BASE_URL,
       },
     ],
-    script: [
-      {
-        async: true,
-        defer: true,
-        "data-domain": "redfern.dev",
-        src: "https://plausible.io/js/plausible.js",
-      },
-    ],
   },
   /*
    ** Global CSS
@@ -62,7 +54,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{ src: "~plugins/gauges.js", mode: "client" }],
+  plugins: [],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -85,7 +77,11 @@ export default {
     "@nuxt/content",
     "@nuxtjs/feed",
     "@nuxtjs/sitemap",
+    "vue-plausible",
   ],
+  plausible: {
+    domain: "redfern.dev",
+  },
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
