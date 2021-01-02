@@ -14,6 +14,7 @@ The project files for this article can be found on Github:
 
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
+- [Full Documentation](https://www.laravelvuespa.com/)
 
 Here is the follow up article on setting up the Vue Spa:
 
@@ -248,3 +249,4 @@ The project files for this article can be found on Github:
 
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
+- [Full Documentation](https://www.laravelvuespa.com/)
