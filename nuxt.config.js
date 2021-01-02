@@ -79,9 +79,6 @@ export default {
     "@nuxtjs/sitemap",
     "vue-plausible",
   ],
-  plausible: {
-    domain: "redfern.dev",
-  },
   /*
    ** Content module configuration
    ** See https://content.nuxtjs.org/configuration
