@@ -45,6 +45,14 @@ export default {
         href: process.env.BASE_URL,
       },
     ],
+    script: [
+      {
+        async: true,
+        defer: true,
+        "data-domain": "redfern.dev",
+        src: "https://plausible.io/js/plausible.js",
+      },
+    ],
   },
   /*
    ** Global CSS
@@ -77,7 +85,6 @@ export default {
     "@nuxt/content",
     "@nuxtjs/feed",
     "@nuxtjs/sitemap",
-    "vue-plausible",
   ],
   /*
    ** Content module configuration
