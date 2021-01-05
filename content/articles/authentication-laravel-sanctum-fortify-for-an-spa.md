@@ -124,6 +124,7 @@ With this in place we just need to add the routes which will be allowed via CORS
   'forgot-password',
   'reset-password',
   'sanctum/csrf-cookie',
+  'user/profile-information',
   'email/verification-notification',
 ],
 ```
