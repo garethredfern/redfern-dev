@@ -8,9 +8,9 @@ published: "2021-01-06"
 
 ## Using Getters & Setters Vuex
 
-When you are working with data in your Vuex store, you will often need to update it using a form. Vuex holds everything in state so that you can display it in multiple areas of your application while keeping things in sync. Let’s look at an example of updating a users name.
+When you are working with data in your Vuex store, you will often need to update it using a form. Vuex holds everything in state so that you can display it in multiple areas of your application while keeping things in sync. Let’s look at an example of updating a user's name.
 
-To update the users name, the standard approach is to dispatch an action which will commit a mutation to update the state. You can’t update state directly, it needs to be handled via a mutation.
+To update the user's name, the standard approach is to dispatch an action. The action will commit a mutation to update the state. You can’t update state directly, it needs to be handled via a mutation.
 
 To access the state, we can use a getter to fetch the current user’s name. To have that name update in the Vuex store we then need to use a setter which will dispatch an action.
 
