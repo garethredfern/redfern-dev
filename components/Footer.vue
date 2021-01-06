@@ -1,19 +1,18 @@
 <template>
-  <footer class="bg-gradient-to-r from-teal-400 to-blue-500 border-t">
+  <footer class="border-t bg-gradient-to-r from-teal-400 to-blue-500">
     <div
-      class="container mx-auto max-w-5xl flex justify-between items-center p-5 text-green-100"
+      class="container flex items-center justify-between max-w-5xl p-5 mx-auto text-green-100"
     >
       <small>&copy; {{ new Date().getFullYear() }} RedfernDev</small>
       <ul class="mb-2">
         <li>
-          <a
-            href="https://ko-fi.com/garethredfern"
-            target="_blank"
-            class="flex items-center"
-          >
-            <span class="mr-1">Buy Me</span>
-            <Coffee />
-          </a>
+          <iframe
+            src="https://github.com/sponsors/garethredfern/button"
+            title="Sponsor garethredfern"
+            height="35"
+            width="116"
+            style="border: 0"
+          ></iframe>
         </li>
       </ul>
     </div>
