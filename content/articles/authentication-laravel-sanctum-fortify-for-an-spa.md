@@ -86,7 +86,7 @@ MAIL_FROM_ADDRESS=test@test.com
 
 ### Setting Up Sanctum
 
-Sanctum needs some specific set up to enable it to work with a separate SPA. First lets add the following in your .env file:
+Sanctum needs some specific set-up to enable it to work with a separate SPA. First lets add the following in your .env file:
 
 ```bash
 SANCTUM_STATEFUL_DOMAINS=localhost:8080
