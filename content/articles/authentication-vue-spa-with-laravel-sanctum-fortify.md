@@ -16,7 +16,8 @@ The project files for this article can be found on Github:
 
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
-- [Full Documentation](https://www.laravelvuespa.com/)
+
+Make sure to check out the [demo app](https://www.laravelvuespa.app) and [full documentation](https://www.laravelvuespa.com) for this project. It covers additional features such as uploading files and pagination.
 
 ### Setting Up Vue
 

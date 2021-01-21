@@ -4,7 +4,7 @@ const title = "Articles focused on learning  Laravel and VueJS";
 const description =
   "Articles focused on learning the Laravel and VueJS frameworks with some good old fashioned JavaScript thrown in.";
 const mainImage =
-  "https://res.cloudinary.com/redfern-web/image/upload/v1599839846/redfern-dev/png/redfern-logo.png";
+  "https://res.cloudinary.com/redfern-web/image/upload/v1611268293/redfern-dev/png/redfern-dev.png";
 
 export default (meta) => {
   return [
