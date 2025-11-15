@@ -1,0 +1,38 @@
+---
+// get the slug from the URL
+import { getCollection, type CollectionEntry } from "astro:content";
+import DefaultLayout from "../../layouts/Default.astro";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("articles");
+  return articles.map((article) => ({
+    params: { slug: article.data.permalink },
+  }));
+}
+
+const { slug } = Astro.params;
+const articles = await getCollection("articles");
+const article = articles.find((a) => a.data.permalink === slug);
+if (!article) {
+  throw new Error(`Article not found: ${slug}`);
+}
+---
+
+<DefaultLayout
+  title={article.data.title}
+  description={article.data.description}
+>
+  <article class="text-white max-w-3xl mx-auto my-10">
+    <p class="text-sm text-white uppercase">
+      Published on {new Date(article.data.published).toLocaleDateString()}
+    </p>
+    <div class="prose prose-invert">
+      {article.rendered && <div set:html={article.rendered.html} />}
+    </div>
+    <div class="mt-5">
+      <a href="/" class="text-cyan-400 uppercase text-sm hover:underline">
+        &larr; Back to Articles
+      </a>
+    </div>
+  </article>
+</DefaultLayout>

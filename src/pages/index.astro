@@ -1,16 +1,25 @@
 ---
-
+import DefaultLayout from "../layouts/Default.astro";
+import { getCollection } from "astro:content";
+const allArticles = await getCollection("articles");
+const title = "Articles focused on learning JS";
+const description =
+  "A collection of articles and tutorials about JavaScript and web development.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<DefaultLayout {title} {description}>
+  <ul class="lg:w-1/2">
+    {
+      allArticles.map((article) => (
+        <li class="mb-2 border-b border-gray-700 border-dashed pb-2">
+          <a
+            href={`/articles/${article.data.permalink}`}
+            class="text-cyan-400 hover:underline"
+          >
+            {article.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</DefaultLayout>

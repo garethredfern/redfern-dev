@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "Lexend";
+  src: url("/fonts/lexend.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Lexend", sans-serif;
+}
+
+.prose code::before,
+.prose code::after {
+  content: none;
+}
