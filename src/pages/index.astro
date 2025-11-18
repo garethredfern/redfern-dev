@@ -1,5 +1,5 @@
 ---
-import DefaultLayout from "../layouts/Default.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 const allArticles = await getCollection("articles");
 const title = "Articles focused on learning JS";
@@ -7,7 +7,7 @@ const description =
   "A collection of articles and tutorials about JavaScript and web development.";
 ---
 
-<DefaultLayout {title} {description}>
+<BaseLayout {title} {description}>
   <ul class="lg:w-1/2">
     {
       allArticles.map((article) => (
@@ -22,4 +22,4 @@ const description =
       ))
     }
   </ul>
-</DefaultLayout>
+</BaseLayout>
