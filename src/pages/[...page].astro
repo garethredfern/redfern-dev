@@ -1,0 +1,48 @@
+---
+import type { Page } from "astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const title = "Articles focused on learning JS";
+const description =
+  "A collection of articles and tutorials about JavaScript and web development.";
+
+export async function getStaticPaths({ paginate }: any) {
+  const allArticles = (await getCollection("articles")).sort(
+    (a, b) => b.data.published.getTime() - a.data.published.getTime()
+  );
+  return paginate(allArticles, { pageSize: 10 });
+}
+
+type Props = {
+  page: Page<any>;
+};
+
+const { page } = Astro.props;
+console.log(page);
+---
+
+<BaseLayout {title} {description}>
+  <ul class="lg:w-1/2">
+    {
+      page.data.map((article) => (
+        <li class="mb-2 border-b border-gray-700 border-dashed pb-2">
+          <a
+            href={`/articles/${article.data.permalink}`}
+            class="text-cyan-400 hover:underline"
+          >
+            {article.data.title}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <div class="text-white uppercase flex gap-4 mt-10">
+    {page.url.first ? <a href={page.url.first}>First</a> : null}
+
+    {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
+
+    {page.url.next ? <a href={page.url.next}>Next</a> : null}
+
+    {page.url.last ? <a href={page.url.last}>Last</a> : null}
+  </div>
+</BaseLayout>
