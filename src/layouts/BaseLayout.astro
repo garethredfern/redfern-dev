@@ -1,6 +1,7 @@
 ---
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import "../styles/global.css";
 const { title, description } = Astro.props;
 ---
@@ -16,6 +17,8 @@ const { title, description } = Astro.props;
     <link rel="sitemap" href="/sitemap-index.xml" />
   </head>
 
+  <SpeedInsights />
+
   <body class="bg-slate-900">
     <SiteHeader />
     <main class="mx-auto max-w-7xl">
@@ -23,4 +26,6 @@ const { title, description } = Astro.props;
     </main>
     <SiteFooter />
   </body>
+
+
 </html>
