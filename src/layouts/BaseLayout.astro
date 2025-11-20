@@ -3,6 +3,7 @@ import SiteHead from "../components/SiteHead.astro";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import SpeedInsights from "@vercel/speed-insights/astro";
+import Analytics from "@vercel/analytics/astro";
 import "../styles/global.css";
 const { title, description } = Astro.props;
 ---
@@ -11,6 +12,7 @@ const { title, description } = Astro.props;
   <SiteHead {title} {description} />
 
   <SpeedInsights />
+  <Analytics />
 
   <body class="bg-slate-900">
     <SiteHeader />
