@@ -19,11 +19,11 @@ if (!article) {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="text-white max-w-3xl mx-auto my-10">
+  <article class="text-white my-10">
     <p class="text-sm text-white uppercase">
       Published on {new Date(article.data.published).toLocaleDateString()}
     </p>
-    <div class="prose prose-invert">
+    <div class="prose prose-invert lg:prose-lg">
       {article.rendered && <div set:html={article.rendered.html} />}
     </div>
     <div class="mt-5">
