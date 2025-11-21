@@ -19,16 +19,16 @@ if (!article) {
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="text-white my-10">
-    <p class="text-sm text-white uppercase">
+  <article class="my-10">
+    <p class="text-sm text-cyan-500 uppercase">
       Published on {new Date(article.data.published).toLocaleDateString()}
     </p>
-    <div class="prose prose-invert lg:prose-lg">
+    <div class="text-white prose prose-invert lg:prose-lg">
       {article.rendered && <div set:html={article.rendered.html} />}
     </div>
     <div class="mt-5">
       <a href="/" class="text-cyan-400 uppercase text-sm hover:underline">
-        &larr; Back to Articles
+        Back to Articles
       </a>
     </div>
   </article>

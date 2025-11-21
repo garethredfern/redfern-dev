@@ -10,7 +10,7 @@ export async function getStaticPaths({ paginate }: any) {
   const allArticles = (await getCollection("articles")).sort(
     (a, b) => b.data.published.getTime() - a.data.published.getTime()
   );
-  return paginate(allArticles, { pageSize: 10 });
+  return paginate(allArticles, { pageSize: 5 });
 }
 
 type Props = {
@@ -21,21 +21,33 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout {title} {description}>
+  <h2 class="uppercase text-xl font-heading text-cyan-400 mb-10">
+    Articles & tutorials
+  </h2>
   <ul class="lg:w-1/2">
     {
       page.data.map((article) => (
-        <li class="mb-2 border-b border-gray-700 border-dashed pb-2">
+        <li class="my-2 border-b border-gray-700 border-dashed py-2 last:border-0">
           <a
             href={`/articles/${article.data.permalink}`}
-            class="text-cyan-400 hover:underline"
+            class="text-white text-lg hover:underline"
           >
             {article.data.title}
           </a>
+          <p class="text-gray-400 text-sm">{article.data.description}</p>
+          <div class="mt-2">
+            <a
+              href={`/articles/${article.data.permalink}`}
+              class="text-sm text-white hover:underline"
+            >
+              Read more
+            </a>
+          </div>
         </li>
       ))
     }
   </ul>
-  <div class="text-white uppercase flex gap-4 mt-10">
+  <div class="text-cyan-500 uppercase flex gap-4 my-10">
     {page.url.first ? <a href={page.url.first}>First</a> : null}
 
     {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
