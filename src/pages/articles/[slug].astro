@@ -23,7 +23,7 @@ if (!article) {
     <p class="text-sm text-cyan-500 uppercase">
       Published on {new Date(article.data.published).toLocaleDateString()}
     </p>
-    <div class="text-white prose prose-invert lg:prose-lg">
+    <div class="text-white prose prose-invert max-w-4xl">
       {article.rendered && <div set:html={article.rendered.html} />}
     </div>
     <div class="mt-5">

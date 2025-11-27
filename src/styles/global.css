@@ -34,3 +34,7 @@
 .prose code::after {
   content: none;
 }
+
+.prose code {
+  color: #f59e0b;
+}

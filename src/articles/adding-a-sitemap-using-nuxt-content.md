@@ -5,7 +5,7 @@ image: https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-d
 tags:
   - VueJS
   - Nuxt
-published: '2020-09-01'
+published: "2020-09-01"
 permalink: "adding-a-sitemap-using-nuxt-content"
 ---
 
