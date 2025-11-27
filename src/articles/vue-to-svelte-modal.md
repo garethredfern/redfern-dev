@@ -2,7 +2,7 @@
 title: "Building a Modal: Vue vs Svelte"
 description: "A side-by-side comparison of building a modal component in Vue 3 and Svelte 5, exploring the differences in reactivity, props, and component patterns."
 tags: ["vue", "svelte"]
-published: "2024-11-27"
+published: "2025-11-27"
 permalink: "vue-to-svelte-modal"
 ---
 
