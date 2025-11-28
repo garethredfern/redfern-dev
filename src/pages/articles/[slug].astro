@@ -4,14 +4,15 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const articles = await getCollection("articles");
+  const articles: CollectionEntry<"articles">[] =
+    await getCollection("articles");
   return articles.map((article) => ({
     params: { slug: article.data.permalink },
   }));
 }
 
 const { slug } = Astro.params;
-const articles = await getCollection("articles");
+const articles: CollectionEntry<"articles">[] = await getCollection("articles");
 const article = articles.find((a) => a.data.permalink === slug);
 if (!article) {
   throw new Error(`Article not found: ${slug}`);
