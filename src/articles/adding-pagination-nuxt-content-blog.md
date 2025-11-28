@@ -1,7 +1,6 @@
 ---
 title: Adding Pagination to a Nuxt Blog
 description: "As your blog grows it will more than likely become necessary to paginate the listing page of articles. This post explains one way this can be achieved."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png"
 tags: ["vue", "nuxt"]
 published: "2020-09-28"
 permalink: "adding-pagination-nuxt-content-blog"
@@ -49,7 +48,8 @@ export default async ($content, params, error) => {
   const lastPage = Math.ceil(totalArticles / perPage);
 
   // use the % (modulus) operator to get a whole remainder
-  const lastPageCount = totalArticles % perPage === 0 ? perPage : totalArticles % perPage;
+  const lastPageCount =
+    totalArticles % perPage === 0 ? perPage : totalArticles % perPage;
 
   const skipNumber = () => {
     if (currentPage === 1) {
