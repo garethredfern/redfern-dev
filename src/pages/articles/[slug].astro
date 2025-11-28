@@ -17,13 +17,20 @@ const article = articles.find((a) => a.data.permalink === slug);
 if (!article) {
   throw new Error(`Article not found: ${slug}`);
 }
+
+const tags = article.data.tags || [];
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
   <article class="my-10">
-    <p class="text-sm text-cyan-500 uppercase">
-      Published on {new Date(article.data.published).toLocaleDateString()}
-    </p>
+    <header>
+      <p class="text-sm text-cyan-500 uppercase">
+        Published on {new Date(article.data.published).toLocaleDateString()}
+      </p>
+      <p class="text-sm text-cyan-500 last-of-type:">
+        Tags: {tags.join(", ")}
+      </p>
+    </header>
     <div class="text-white prose prose-invert max-w-4xl">
       {article.rendered && <div set:html={article.rendered.html} />}
     </div>
