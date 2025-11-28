@@ -23,7 +23,7 @@ const tags = article.data.tags || [];
 
 <BaseLayout title={article.data.title} description={article.data.description}>
   <article>
-    <header class="border-b border-white/10 p-5 lg:pl-35">
+    <header class="border-b border-white/10 p-5 ml-2 lg:pl-35">
       <p class="text-sm text-cyan-500 uppercase">
         Published on {new Date(article.data.published).toLocaleDateString()}
       </p>
@@ -31,10 +31,12 @@ const tags = article.data.tags || [];
         Tags: {tags.join(", ")}
       </p>
     </header>
-    <div class="text-white prose prose-invert max-w-4xl px-5 lg:ml-30 lg:w-1/2">
+    <div
+      class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-30 lg:w-1/2"
+    >
       {article.rendered && <div set:html={article.rendered.html} />}
     </div>
-    <div class="my-5 px-5 lg:ml-30 lg:w-1/2">
+    <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2">
       <a href="/" class="text-cyan-400 uppercase text-sm hover:underline">
         Back to Articles
       </a>
