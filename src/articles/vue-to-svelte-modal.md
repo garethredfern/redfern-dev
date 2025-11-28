@@ -6,7 +6,7 @@ published: "2025-11-27"
 permalink: "vue-to-svelte-modal"
 ---
 
-# Building a Modal: Vue vs Svelte
+## Building a Modal: Vue vs Svelte
 
 I've been a Vue developer for years. Recently, I decided to rebuild some of my go-to components in Svelte to see how it compares. Starting with something I've built dozens of times: a modal.
 
