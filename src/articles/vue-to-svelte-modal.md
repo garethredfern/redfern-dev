@@ -279,4 +279,4 @@ If you're a Vue dev curious about Svelte, I'd encourage you to try this exercise
 
 ---
 
-_Follow along as I rebuild more Vue components in Svelte. Next up: a dropdown menu with keyboard navigation._
+_Follow along as I rebuild more Vue components in Svelte._
