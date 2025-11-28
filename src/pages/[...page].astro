@@ -21,11 +21,12 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout {title} {description}>
-  <div class="border-b border-white/10 pb-5">
+  <div class="border-b border-white/10 p-5 lg:pl-35 lg:w-1/2">
     <h2 class="text-sm text-cyan-400 uppercase">Articles & Tutorials</h2>
     <h3 class="text-sm text-cyan-400/70 lowercase">for you to read...</h3>
   </div>
-  <ul class="lg:w-1/2">
+
+  <ul class="px-5 lg:ml-30 lg:w-1/2">
     {
       page.data.map((article) => (
         <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
@@ -48,7 +49,7 @@ const { page } = Astro.props;
       ))
     }
   </ul>
-  <div class="text-cyan-500 uppercase flex gap-4 my-10">
+  <div class="text-cyan-500 uppercase flex gap-4 my-5 px-5 lg:ml-30 lg:w-1/2">
     {page.url.first ? <a href={page.url.first}>First</a> : null}
 
     {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
