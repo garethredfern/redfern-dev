@@ -2,7 +2,7 @@
 title: Learn About React createElement
 description: "Lets break down how React's createElement method works in it's simplest form."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1601969094/redfern-dev/png/react.png"
-tags: ["React"]
+tags: ["react"]
 published: "2020-10-03"
 permalink: "react-create-element"
 ---
