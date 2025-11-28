@@ -1,7 +1,6 @@
 ---
 title: "JavaScript typeof Number"
 description: "Often you will need to check that you have a number before using it in your JavaScript, here's how."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1599832342/redfern-dev/png/js.png"
 tags: ["javascript"]
 published: "2020-08-28"
 permalink: "javascript-typeof-number"
