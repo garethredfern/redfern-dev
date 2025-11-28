@@ -22,8 +22,8 @@ const tags = article.data.tags || [];
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
-  <article class="my-10">
-    <header>
+  <article>
+    <header class="pb-5 border-b border-white/10">
       <p class="text-sm text-cyan-500 uppercase">
         Published on {new Date(article.data.published).toLocaleDateString()}
       </p>
