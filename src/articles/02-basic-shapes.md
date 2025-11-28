@@ -22,6 +22,10 @@ The most straightforward shape. Four sides, right angles.
 </svg>
 ```
 
+<svg width="200" height="150">
+  <rect x="20" y="20" width="160" height="110" fill="steelblue" />
+</svg>
+
 ### Attributes
 
 | Attribute | Description                                        |
@@ -43,6 +47,10 @@ Add `rx` and `ry` to soften the corners:
 </svg>
 ```
 
+<svg width="200" height="150">
+  <rect x="20" y="20" width="160" height="110" rx="15" ry="15" fill="steelblue" />
+</svg>
+
 If you only specify `rx`, the `ry` defaults to match it:
 
 ```svg
@@ -60,6 +68,10 @@ A perfect circle, defined by its center point and radius.
   <circle cx="100" cy="100" r="80" fill="coral" />
 </svg>
 ```
+
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="80" fill="coral" />
+</svg>
 
 ### Attributes
 
@@ -83,6 +95,10 @@ Like a circle, but you can stretch it horizontally or vertically.
 </svg>
 ```
 
+<svg width="200" height="150">
+  <ellipse cx="100" cy="75" rx="80" ry="50" fill="mediumpurple" />
+</svg>
+
 ### Attributes
 
 | Attribute | Description                |
@@ -102,9 +118,13 @@ A straight line between two points.
 
 ```svg
 <svg width="200" height="200">
-  <line x1="20" y1="20" x2="180" y2="180" stroke="black" stroke-width="2" />
+  <line x1="20" y1="20" x2="180" y2="180" stroke="red" stroke-width="2" />
 </svg>
 ```
+
+<svg width="200" height="200">
+  <line x1="20" y1="20" x2="180" y2="180" stroke="red" stroke-width="2" />
+</svg>
 
 ### Attributes
 
@@ -134,6 +154,15 @@ A series of connected straight lines. Like connect-the-dots.
 </svg>
 ```
 
+<svg width="200" height="200">
+  <polyline
+    points="20,180 60,60 100,140 140,40 180,120"
+    fill="none"
+    stroke="teal"
+    stroke-width="3"
+  />
+</svg>
+
 ### Attributes
 
 | Attribute | Description                                   |
@@ -160,6 +189,15 @@ Like polyline, but it automatically closes — the last point connects back to t
   />
 </svg>
 ```
+
+<svg width="200" height="200">
+  <polygon
+    points="100,20 180,180 20,180"
+    fill="gold"
+    stroke="orange"
+    stroke-width="3"
+  />
+</svg>
 
 This creates a triangle. The three points define the three corners.
 

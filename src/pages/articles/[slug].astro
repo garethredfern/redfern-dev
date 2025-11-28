@@ -1,23 +1,22 @@
 ---
-// get the slug from the URL
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const articles: CollectionEntry<"articles">[] =
-    await getCollection("articles");
+  const articles = await getCollection("articles");
   return articles.map((article) => ({
     params: { slug: article.data.permalink },
   }));
 }
 
 const { slug } = Astro.params;
-const articles: CollectionEntry<"articles">[] = await getCollection("articles");
-const article = articles.find((a) => a.data.permalink === slug);
+const article = await getEntry("articles", slug);
+
 if (!article) {
-  throw new Error(`Article not found: ${slug}`);
+  return Astro.error(404, "Article not found");
 }
 
+const { Content } = await render(article);
 const tags = article.data.tags || [];
 ---
 
@@ -34,7 +33,7 @@ const tags = article.data.tags || [];
     <div
       class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-30 lg:w-1/2"
     >
-      {article.rendered && <div set:html={article.rendered.html} />}
+      <Content />
     </div>
     <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2">
       <a href="/" class="text-cyan-400 uppercase text-sm hover:underline">
