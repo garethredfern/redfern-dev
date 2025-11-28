@@ -2,7 +2,7 @@
 title: "Forgot Password Using Firebase & VueJS"
 description: "This tutorial walks through adding a forgot password page to the simple VueJS Firebase app we have been building."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599158299/redfern-dev/png/firebase-vue.png"
-tags: ["vuejs", "firebase"]
+tags: ["vue", "firebase"]
 published: "2020-09-11"
 permalink: "forgot-password-firebase-vuejs"
 ---
