@@ -6,6 +6,8 @@ published: "2025-11-28"
 permalink: "vue-to-svelte-forms"
 ---
 
+# Form Handling: Moving from Vue to Svelte
+
 One of the first real-world challenges you'll face when learning Svelte is form handling. Coming from Vue, you're used to `v-model` making two-way binding feel like magic. Svelte takes a different approach that feels more explicit at first, but once you understand the pattern, it's equally elegant.
 
 Let me show you the key differences and how to translate your Vue knowledge to Svelte.
