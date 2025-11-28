@@ -2,7 +2,7 @@
 title: "Managing Redis Locally For Laravel Projects"
 description: "I recently found a neat app for managing your local databases from the makers of TablePlus. Read a short review of it."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599832035/redfern-dev/png/laravel.png"
-tags: ["Laravel"]
+tags: ["laravel"]
 published: "2020-05-20"
 permalink: "managing-redis-locally-for-laravel-projects"
 ---

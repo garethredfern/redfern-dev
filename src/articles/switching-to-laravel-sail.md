@@ -2,7 +2,7 @@
 title: "Switching to Laravel Sail"
 description: "A quick write up for using Laravel Sail, with a solution to the set-up errors you can run into."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1608589316/redfern-dev/png/docker.png"
-tags: ["Laravel"]
+tags: ["laravel"]
 published: "2020-12-21"
 permalink: "switching-to-laravel-sail"
 ---

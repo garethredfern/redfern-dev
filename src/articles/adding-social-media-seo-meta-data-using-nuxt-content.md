@@ -2,7 +2,7 @@
 title: Adding Social Media & SEO Meta Data Using Nuxt Content
 description: "Here is how to add social media and SEO meta data to your Nuxt project when using the content module."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599840408/redfern-dev/png/nuxt.png"
-tags: ["VueJS", "Nuxt"]
+tags: ["vuejs", "nuxt"]
 published: "2020-09-17"
 permalink: "adding-social-media-seo-meta-data-using-nuxt-content"
 ---
