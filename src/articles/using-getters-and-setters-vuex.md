@@ -2,7 +2,7 @@
 title: "Using Getters & Setters Vuex"
 description: "A short article on using the getter and setter pattern to update data held in a Vuex store."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599905729/redfern-dev/png/vue.png"
-tags: ["vuejs"]
+tags: ["vue"]
 published: "2021-01-06"
 permalink: "using-getters-and-setters-vuex"
 ---

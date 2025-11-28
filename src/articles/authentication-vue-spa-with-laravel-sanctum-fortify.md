@@ -2,7 +2,7 @@
 title: "Authentication in a Vue SPA with Laravel Sanctum & Fortify"
 description: "How to set up full authentication using Laravel Sanctum & Fortify in a Vue SPA. Vue SPA Article"
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1609319409/redfern-dev/png/laravel-vue.png"
-tags: ["laravel", "vuejs"]
+tags: ["laravel", "vue"]
 published: "2020-12-30"
 permalink: "authentication-vue-spa-with-laravel-sanctum-fortify"
 ---

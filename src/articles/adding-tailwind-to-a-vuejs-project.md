@@ -2,7 +2,7 @@
 title: "Adding Tailwind To a VueJS Project"
 description: "Simple instructions for setting up Tailwind CSS in your VueJS projects."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1598516539/redfern-dev/png/tailwind.png"
-tags: ["vuejs", "tailwind"]
+tags: ["vue", "tailwind"]
 published: "2019-12-03"
 permalink: "adding-tailwind-to-a-vuejs-project"
 ---

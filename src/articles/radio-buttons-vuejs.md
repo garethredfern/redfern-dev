@@ -2,7 +2,7 @@
 title: "Radio Buttons VueJS"
 description: "Here is a quick example how to add radio buttons on a form managed by VueJS."
 image: "https://res.cloudinary.com/redfern-web/image/upload/v1599905729/redfern-dev/png/vue.png"
-tags: ["vuejs"]
+tags: ["vue"]
 published: "2020-09-12"
 permalink: "radio-buttons-vuejs"
 ---
