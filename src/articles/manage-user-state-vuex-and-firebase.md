@@ -1,7 +1,6 @@
 ---
 title: "How to Manage User State With Vuex and Firebase"
 description: "This tutorial walks through adding Vuex to a simple VueJS Firebase app. We use Vuex to manage the logged in user state and display protected content."
-image: "https://res.cloudinary.com/redfern-web/image/upload/v1599158299/redfern-dev/png/firebase-vue.png"
 tags: ["vue", "firebase"]
 published: "2020-09-03"
 permalink: "manage-user-state-vuex-and-firebase"
