@@ -15,10 +15,18 @@ const { title, description } = Astro.props;
   <Analytics />
 
   <body class="bg-slate-900">
-    <SiteHeader />
-    <main class="px-5 mx-auto max-w-7xl">
-      <slot />
-    </main>
-    <SiteFooter />
+    <div class="relative">
+      <SiteHeader />
+      <div
+        class="absolute left-0 top-0 h-full w-5 bg-[repeating-linear-gradient(45deg,transparent,transparent_9px,rgb(255_255_255/0.2)_9px,rgb(255_255_255/0.2)_10px)] border-r border-white/10 lg:w-30"
+      >
+      </div>
+      <div class="max-w-7xl ml-30">
+        <main class="p-5">
+          <slot />
+        </main>
+      </div>
+      <SiteFooter />
+    </div>
   </body>
 </html>
