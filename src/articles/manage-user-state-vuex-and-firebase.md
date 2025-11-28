@@ -78,7 +78,7 @@ Here we pass in the `context` that is available from Vuex and gives us access to
 
 ### Putting it all Together
 
-![Vuex Diagram](https://res.cloudinary.com/redfern-web/image/upload/v1599156012/redfern-dev/png/vuex.png)
+![Vuex Diagram](/images/vuex.png)
 
 The diagram above (taken from the Vuex docs) summarises how the 3 key parts of Vuex work together to serve data to our components. For this tutorial, Vuex may well be overkill, but it demonstrates how we can keep our data in sync with all the components in our app.
 

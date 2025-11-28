@@ -10,7 +10,7 @@ permalink: "managing-redis-locally-for-laravel-projects"
 
 I recently found a neat app for managing your local databases from the makers of TablePlus. Previously I had just installed Redis and MySQL via Homebrew but with DBngin you can get a GUI to see which services are running.
 
-![DBngin GUI](https://res.cloudinary.com/redfern-web/image/upload/v1597786324/redfern-dev/png/Screenshot-2020-05-20-at-22.03.53.png)
+![DBngin GUI](/images/Screenshot-2020-05-20-at-22.03.53.png)
 
 Once installed you can see all the services you have running and starting/stopping them is a breeze. I have uninstalled both MySQL and Redis from Hombrew with brew remove mysql@5.7 and brew remove redis. Then added them underneath the DBngin services. I did need to restart my Mac just to clear things out but once I did this everything connected as it did before.
 
