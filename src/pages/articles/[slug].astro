@@ -27,7 +27,7 @@ const tags = article.data.tags || [];
       <p class="text-sm text-cyan-500 uppercase">
         Published on {new Date(article.data.published).toLocaleDateString()}
       </p>
-      <p class="text-sm text-cyan-500 last-of-type:">
+      <p class="text-sm text-cyan-500/70 lowercase">
         Tags: {tags.join(", ")}
       </p>
     </header>
