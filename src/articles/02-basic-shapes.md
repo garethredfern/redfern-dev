@@ -2,7 +2,7 @@
 title: "Basic SVG Shapes?"
 description: "Learn about the fundamental SVG shapes — rectangles, circles, ellipses, lines, and polygons. Master the building blocks of SVG graphics."
 tags: ["svg"]
-published: "2025-11-28"
+pubDate: "2025-11-28T09:00:00.000Z"
 permalink: "02-basic-shapes"
 ---
 

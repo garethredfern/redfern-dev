@@ -2,7 +2,7 @@
 title: "Create a Base Input Form Element Vue 3"
 description: "Let's take a look at how `v-model` has changed in Vue 3 and build a reusable BaseInput text field."
 tags: ["vue"]
-published: "2020-10-27"
+pubDate: "2020-10-27T09:00:00.000Z"
 permalink: "base-input-form-element-vuejs-3"
 ---
 

@@ -2,7 +2,7 @@
 title: "Using JavaScript To Access URL Segments"
 description: "Whilst working on a recent project, I wanted an accordion navigation to remain open depending on what the category segment in the url was displaying."
 tags: ["javascript"]
-published: "2020-06-19"
+pubDate: "2020-06-19T09:00:00.000Z"
 permalink: "using-javascript-to-access-url-segments"
 ---
 

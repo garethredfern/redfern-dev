@@ -2,7 +2,7 @@
 title: Learn About React useState Hook
 description: "Lets break down how React's useState hook works in it's simplest form."
 tags: ["react"]
-published: "2020-10-04"
+pubDate: "2020-10-04T09:00:00.000Z"
 permalink: "react-use-state-hook"
 ---
 

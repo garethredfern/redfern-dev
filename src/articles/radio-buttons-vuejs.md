@@ -2,7 +2,7 @@
 title: "Radio Buttons VueJS"
 description: "Here is a quick example how to add radio buttons on a form managed by VueJS."
 tags: ["vue"]
-published: "2020-09-12"
+pubDate: "2020-09-12T09:00:00.000Z"
 permalink: "radio-buttons-vuejs"
 ---
 

@@ -2,7 +2,7 @@
 title: "What Are SVGs?"
 description: "An introduction to Scalable Vector Graphics (SVGs) — learn what they are, why they're useful, and how to use them in your web projects."
 tags: ["svg"]
-published: "2025-11-28"
+pubDate: "2025-11-28T09:00:00.000Z"
 permalink: "01-what-are-svgs"
 ---
 
