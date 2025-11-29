@@ -6,9 +6,9 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    published: z.coerce.date(),
+    pubDate: z.coerce.date(),
     tags: z.array(z.string()).optional(),
-    permalink: z.string(),
+    link: z.string(),
   }),
 });
 
