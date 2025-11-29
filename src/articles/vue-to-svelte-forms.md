@@ -2,7 +2,7 @@
 title: "Form Handling: Moving from Vue to Svelte"
 description: "A practical guide to translating Vue form patterns to Svelte, covering two-way binding, validation, async submission, and what actually works better in each framework."
 tags: ["vue", "svelte"]
-pubDate: "2025-11-28T09:00:00.000Z"
+pubDate: "2025-11-28T09:00:00Z"
 link: "vue-to-svelte-forms"
 ---
 

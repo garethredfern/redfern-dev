@@ -2,7 +2,7 @@
 title: "Switching to Laravel Sail"
 description: "A quick write up for using Laravel Sail, with a solution to the set-up errors you can run into."
 tags: ["laravel"]
-pubDate: "2020-12-21T09:00:00.000Z"
+pubDate: "2020-12-21T09:00:00Z"
 link: "switching-to-laravel-sail"
 ---
 

@@ -2,7 +2,7 @@
 title: "Authentication Using Laravel Sanctum & Fortify for an SPA"
 description: "How to set up full authentication using Laravel Sanctum & Fortify in a Vue SPA. Laravel API article"
 tags: ["laravel", "vue"]
-pubDate: "2020-12-28T09:00:00.000Z"
+pubDate: "2020-12-28T09:00:00Z"
 link: "authentication-laravel-sanctum-fortify-for-an-spa"
 ---
 

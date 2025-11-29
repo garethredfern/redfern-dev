@@ -2,7 +2,7 @@
 title: "Laravel Testing Using GitHub Actions With MYSQL"
 description: "Using GitHub actions for automating your Laravel tests is fairly straight forward, given the starter workflow they provide."
 tags: ["laravel", "testing"]
-pubDate: "2020-05-09T09:00:00.000Z"
+pubDate: "2020-05-09T09:00:00Z"
 link: "laravel-testing-using-github-actions-with-mysql"
 ---
 

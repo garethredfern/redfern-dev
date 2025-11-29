@@ -2,7 +2,7 @@
 title: "Email Verification Using Firebase & VueJS"
 description: "This tutorial walks through adding email verification to the simple VueJS Firebase app we have been building."
 tags: ["vue", "firebase"]
-pubDate: "2020-09-08T09:00:00.000Z"
+pubDate: "2020-09-08T09:00:00Z"
 link: "email-verification-firebase-vuejs"
 ---
 

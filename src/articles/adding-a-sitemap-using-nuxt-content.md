@@ -2,7 +2,7 @@
 title: Adding a Sitemap Using Nuxt Content
 description: Here is how to add a sitemap to your Nuxt project when using the content module.
 tags: ["vue", "nuxt"]
-pubDate: "2020-09-01T09:00:00.000Z"
+pubDate: "2020-09-01T09:00:00Z"
 link: "adding-a-sitemap-using-nuxt-content"
 ---
 
