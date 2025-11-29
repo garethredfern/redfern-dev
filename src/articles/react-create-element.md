@@ -3,7 +3,7 @@ title: Learn About React createElement
 description: "Lets break down how React's createElement method works in it's simplest form."
 tags: ["react"]
 pubDate: "2020-10-03T09:00:00.000Z"
-permalink: "react-create-element"
+link: "react-create-element"
 ---
 
 ## React createElement

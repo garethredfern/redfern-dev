@@ -3,7 +3,7 @@ title: "Authenticate Users Using Firebase & VueJS"
 description: "In this tutorial we will work through building a simple VueJS app. It will use Firebase for authentication and allow users to sign-up and sign-in."
 tags: ["vue", "firebase"]
 pubDate: "2020-09-03T09:00:00.000Z"
-permalink: "authenticate-users-using-firebase-and-vuejs"
+link: "authenticate-users-using-firebase-and-vuejs"
 ---
 
 ## Authenticate Users Using Firebase & VueJS
