@@ -2,7 +2,7 @@
 title: "Adding Tailwind To a VueJS Project"
 description: "Simple instructions for setting up Tailwind CSS in your VueJS projects."
 tags: ["vue", "tailwind"]
-pubDate: "2019-12-03T09:00:00.000Z"
+pubDate: "2019-12-03T09:00:00Z"
 link: "adding-tailwind-to-a-vuejs-project"
 ---
 

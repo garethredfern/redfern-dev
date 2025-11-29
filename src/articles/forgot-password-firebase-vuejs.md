@@ -2,7 +2,7 @@
 title: "Forgot Password Using Firebase & VueJS"
 description: "This tutorial walks through adding a forgot password page to the simple VueJS Firebase app we have been building."
 tags: ["vue", "firebase"]
-pubDate: "2020-09-11T09:00:00.000Z"
+pubDate: "2020-09-11T09:00:00Z"
 link: "forgot-password-firebase-vuejs"
 ---
 

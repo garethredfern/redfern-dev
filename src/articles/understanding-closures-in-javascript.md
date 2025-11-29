@@ -2,7 +2,7 @@
 title: "Understanding Closures In JavaScript"
 description: "This example shows how you create a closure in JavaScript it uses an alert function that can be incremented and reused/passed around."
 tags: ["javascript"]
-pubDate: "2016-03-29T09:00:00.000Z"
+pubDate: "2016-03-29T09:00:00Z"
 link: "understanding-closures-in-javascript"
 ---
 
