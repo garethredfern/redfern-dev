@@ -8,7 +8,7 @@ const description =
 
 export async function getStaticPaths({ paginate }: any) {
   const allArticles = (await getCollection("articles")).sort(
-    (a, b) => b.data.published.getTime() - a.data.published.getTime()
+    (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
   );
   return paginate(allArticles, { pageSize: 5 });
 }

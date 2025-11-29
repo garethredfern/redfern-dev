@@ -24,7 +24,7 @@ const tags = article.data.tags || [];
   <article>
     <header class="border-b border-white/10 p-5 ml-2 lg:pl-35">
       <p class="text-sm text-cyan-500 uppercase">
-        Published on {new Date(article.data.published).toLocaleDateString()}
+        Published on {new Date(article.data.pubDate).toLocaleDateString()}
       </p>
       <p class="text-sm text-cyan-500/70 lowercase">
         Tags: {tags.join(", ")}
