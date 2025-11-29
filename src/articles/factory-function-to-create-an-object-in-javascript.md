@@ -2,7 +2,7 @@
 title: "Factory Function To Create An Object In JavaScript"
 description: "Use a constructor function that returns an object. You can then create multiple people passing in the first and last name arguments the `createPerson` function."
 tags: ["javascript"]
-published: "2016-04-09"
+pubDate: "2016-04-09T09:00:00.000Z"
 permalink: "factory-function-to-create-an-object-in-javascript"
 ---
 

@@ -2,7 +2,7 @@
 title: "Basic Module Pattern JavaScript"
 description: "Wrap your code in an immediately invoked function expression (IFFE). It runs immediately when you create it and has no name."
 tags: ["javascript"]
-published: "2016-04-10"
+pubDate: "2016-04-10T09:00:00.000Z"
 permalink: "basic-module-pattern-javascript"
 ---
 

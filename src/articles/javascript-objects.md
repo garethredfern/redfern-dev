@@ -2,7 +2,7 @@
 title: "JavaScript Objects"
 description: "JavaScript objects are used everywhere. It's an important concept to understand right from the beginning."
 tags: ["javascript"]
-published: "2016-04-10"
+pubDate: "2016-04-10T09:00:00.000Z"
 permalink: "javascript-objects"
 ---
 

@@ -2,7 +2,7 @@
 title: "Update A User Profile In Laravel"
 description: "If you need to update other fields along with a unique field then you need to tell the unique rule to ignore the user's ID."
 tags: ["laravel"]
-published: "2016-04-25"
+pubDate: "2016-04-25T09:00:00.000Z"
 permalink: "update-a-user-profile-in-laravel"
 ---
 

@@ -2,7 +2,7 @@
 title: "VueJS Auth Using Laravel Sanctum"
 description: "How to set up basic authentication using Laravel Sanctum in a VueJs SPA."
 tags: ["laravel", "vue"]
-published: "2020-01-12"
+pubDate: "2020-01-12T09:00:00.000Z"
 permalink: "vuejs-auth-using-laravel-sanctum"
 ---
 
