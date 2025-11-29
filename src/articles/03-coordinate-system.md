@@ -289,4 +289,4 @@ Create an SVG with the origin at the center:
 
 ---
 
-Next: [Lesson 04: Styling SVGs](/articles/04-styling-svgs.md)
+Next: [Lesson 04: Styling SVGs](/articles/04-styling-svgs)
