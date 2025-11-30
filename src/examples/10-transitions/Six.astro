@@ -1,4 +1,10 @@
-<svg width="200" height="200" class="icon-container interactive-svg">
+<svg
+  width="200"
+  height="200"
+  class="icon-container interactive-svg"
+  role="button"
+  tabindex="0"
+>
   <circle cx="100" cy="100" r="70" class="bg"></circle>
   <path d="M 70 100 L 90 120 L 130 80" class="check"></path>
 </svg>
@@ -42,8 +48,16 @@
 </style>
 
 <script>
-  const svg = document.querySelector(".interactive-svg");
+  const svg = document.querySelector(".interactive-svg") as SVGElement | null;
+
   svg?.addEventListener("click", () => {
     svg.classList.toggle("active");
+  });
+
+  svg?.addEventListener("keydown", (e) => {
+    const event = e as KeyboardEvent;
+    if (event.key === "Enter" || event.key === " ") {
+      svg.classList.toggle("active");
+    }
   });
 </script>

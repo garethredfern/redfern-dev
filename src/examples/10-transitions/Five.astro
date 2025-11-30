@@ -1,6 +1,12 @@
 <div class="p-5 border border-slate-500">
   <p>Tap or hover to see the animation...</p>
-  <svg width="200" height="200" class="interactive-svg">
+  <svg
+    width="200"
+    height="200"
+    class="interactive-svg"
+    role="button"
+    tabindex="0"
+  >
     <path
       d="M 20 100 Q 100 20, 180 100"
       class="draw-line"
@@ -33,8 +39,16 @@
 </style>
 
 <script>
-  const svg = document.querySelector(".interactive-svg");
+  const svg = document.querySelector(".interactive-svg") as SVGElement | null;
+
   svg?.addEventListener("click", () => {
     svg.classList.toggle("active");
+  });
+
+  svg?.addEventListener("keydown", (e) => {
+    const event = e as KeyboardEvent;
+    if (event.key === "Enter" || event.key === " ") {
+      svg.classList.toggle("active");
+    }
   });
 </script>

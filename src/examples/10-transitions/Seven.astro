@@ -29,9 +29,25 @@
     transform: translateX(4px);
   }
 
+  .btn.active .arrow {
+    transform: translateX(4px);
+  }
+
   @media (hover: none) {
     .btn:active .arrow {
       transform: translateX(4px);
     }
   }
 </style>
+
+<script>
+  const btn = document.querySelector(".btn");
+
+  btn?.addEventListener("touchstart", () => {
+    btn.classList.add("active");
+  });
+
+  btn?.addEventListener("touchend", () => {
+    btn.classList.remove("active");
+  });
+</script>
