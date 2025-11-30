@@ -1,6 +1,6 @@
 <div class="p-5 border border-slate-500">
-  <p>Hover below to see the animation...</p>
-  <svg width="200" height="200">
+  <p>Tap or hover to see the animation...</p>
+  <svg width="200" height="200" class="interactive-svg">
     <path
       d="M 20 100 Q 100 20, 180 100"
       class="draw-line"
@@ -20,4 +20,21 @@
   svg:hover .draw-line {
     stroke-dashoffset: 0; /* Reveal all of it */
   }
+
+  @media (hover: none) {
+    .interactive-svg {
+      cursor: pointer;
+    }
+
+    .interactive-svg.active .draw-line {
+      stroke-dashoffset: 0;
+    }
+  }
 </style>
+
+<script>
+  const svg = document.querySelector(".interactive-svg");
+  svg?.addEventListener("click", () => {
+    svg.classList.toggle("active");
+  });
+</script>

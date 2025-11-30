@@ -1,4 +1,4 @@
-<svg width="200" height="200">
+<svg width="200" height="200" class="interactive-svg">
   <rect x="60" y="60" width="80" height="80" class="spin-box"></rect>
 </svg>
 
@@ -13,4 +13,21 @@
   .spin-box:hover {
     transform: rotate(180deg) scale(1.1);
   }
+
+  @media (hover: none) {
+    .interactive-svg {
+      cursor: pointer;
+    }
+
+    .interactive-svg.active .spin-box {
+      transform: rotate(180deg) scale(1.1);
+    }
+  }
 </style>
+
+<script>
+  const svg = document.querySelector(".interactive-svg");
+  svg?.addEventListener("click", () => {
+    svg.classList.toggle("active");
+  });
+</script>
