@@ -1,0 +1,37 @@
+<svg width="200" height="100">
+  <rect x="20" y="30" width="30" height="40" class="bar bar-1"></rect>
+  <rect x="60" y="30" width="30" height="40" class="bar bar-2"></rect>
+  <rect x="100" y="30" width="30" height="40" class="bar bar-3"></rect>
+  <rect x="140" y="30" width="30" height="40" class="bar bar-4"></rect>
+</svg>
+
+<style>
+  @keyframes wave {
+    0%,
+    100% {
+      transform: scaleY(1);
+    }
+    50% {
+      transform: scaleY(1.5);
+    }
+  }
+
+  .bar {
+    fill: steelblue;
+    transform-origin: bottom center;
+    animation: wave 0.8s ease-in-out infinite;
+  }
+
+  .bar-1 {
+    animation-delay: 0s;
+  }
+  .bar-2 {
+    animation-delay: 0.1s;
+  }
+  .bar-3 {
+    animation-delay: 0.2s;
+  }
+  .bar-4 {
+    animation-delay: 0.3s;
+  }
+</style>

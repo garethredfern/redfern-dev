@@ -1,0 +1,531 @@
+---
+title: "Keyframe Animations in CSS"
+description: "Master CSS keyframe animations for SVG. Learn how to create complex, multi-step animations that run automatically or on demand."
+tags: ["svg"]
+pubDate: "2025-11-30T19:00:00Z"
+link: "11-keyframe-animations"
+---
+
+import ExampleOne from "../examples/11-keyframe-animations/One.astro";
+import ExampleTwo from "../examples/11-keyframe-animations/Two.astro";
+import ExampleThree from "../examples/11-keyframe-animations/Three.astro";
+import ExampleFour from "../examples/11-keyframe-animations/Four.astro";
+import ExampleFive from "../examples/11-keyframe-animations/Five.astro";
+import ExampleSix from "../examples/11-keyframe-animations/Six.astro";
+import ExampleSeven from "../examples/11-keyframe-animations/Seven.astro";
+import ExampleEight from "../examples/11-keyframe-animations/Eight.astro";
+import ExampleNine from "../examples/11-keyframe-animations/Nine.astro";
+
+## Lesson 11: Keyframe Animations
+
+While transitions animate between two states, keyframe animations let you define complex, multi-step animations that can run automatically.
+
+---
+
+## Basic Keyframe Syntax
+
+```css
+@keyframes animationName {
+  0% {
+    /* Starting state */
+  }
+  50% {
+    /* Middle state */
+  }
+  100% {
+    /* Ending state */
+  }
+}
+
+.element {
+  animation: animationName 2s ease infinite;
+}
+```
+
+---
+
+## A Simple Pulse
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="40" class="pulse" />
+</svg>
+```
+
+```css
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.pulse {
+  fill: coral;
+  transform-origin: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+```
+
+The circle continuously grows and shrinks.
+
+<ExampleOne />
+
+## Animation Properties
+
+### animation-name
+
+References your `@keyframes`:
+
+```css
+animation-name: pulse;
+```
+
+### animation-duration
+
+How long one cycle takes:
+
+```css
+animation-duration: 2s;
+```
+
+### animation-timing-function
+
+The easing curve:
+
+```css
+animation-timing-function: ease-in-out;
+```
+
+### animation-delay
+
+Wait before starting:
+
+```css
+animation-delay: 0.5s;
+```
+
+### animation-iteration-count
+
+How many times to play:
+
+```css
+animation-iteration-count: 3; /* Play 3 times */
+animation-iteration-count: infinite; /* Loop forever */
+```
+
+### animation-direction
+
+Which way to play:
+
+| Value               | Effect                 |
+| ------------------- | ---------------------- |
+| `normal`            | 0% → 100%              |
+| `reverse`           | 100% → 0%              |
+| `alternate`         | 0% → 100% → 0% → ...   |
+| `alternate-reverse` | 100% → 0% → 100% → ... |
+
+```css
+animation-direction: alternate; /* Ping-pong */
+```
+
+### animation-fill-mode
+
+What happens before/after animation:
+
+| Value       | Effect                              |
+| ----------- | ----------------------------------- |
+| `none`      | Snaps back to original (default)    |
+| `forwards`  | Keeps final state                   |
+| `backwards` | Applies first keyframe during delay |
+| `both`      | Combines forwards and backwards     |
+
+```css
+animation-fill-mode: forwards; /* Stay at end state */
+```
+
+### animation-play-state
+
+Pause and resume:
+
+```css
+animation-play-state: paused;
+animation-play-state: running;
+```
+
+Useful for hover-to-pause:
+
+```css
+.element:hover {
+  animation-play-state: paused;
+}
+```
+
+### Shorthand
+
+```css
+animation: pulse 2s ease-in-out 0.5s infinite alternate both;
+/* name | duration | timing | delay | count | direction | fill */
+```
+
+---
+
+## Spinning Animation
+
+The classic loading spinner:
+
+```svg
+<svg width="50" height="50" viewBox="0 0 50 50">
+  <circle cx="25" cy="25" r="20"
+          fill="none"
+          stroke="#e5e7eb"
+          stroke-width="4" />
+  <circle cx="25" cy="25" r="20"
+          fill="none"
+          stroke="#3b82f6"
+          stroke-width="4"
+          stroke-dasharray="31.4 94.2"
+          stroke-linecap="round"
+          class="spinner" />
+</svg>
+```
+
+```css
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  transform-origin: center;
+  animation: spin 1s linear infinite;
+}
+```
+
+<ExampleTwo />
+
+---
+
+## Color Cycling
+
+```svg
+<svg width="200" height="200">
+  <rect x="50" y="50" width="100" height="100" class="rainbow" />
+</svg>
+```
+
+```css
+@keyframes rainbow {
+  0% {
+    fill: #ef4444;
+  }
+  20% {
+    fill: #f97316;
+  }
+  40% {
+    fill: #eab308;
+  }
+  60% {
+    fill: #22c55e;
+  }
+  80% {
+    fill: #3b82f6;
+  }
+  100% {
+    fill: #ef4444;
+  }
+}
+
+.rainbow {
+  animation: rainbow 5s linear infinite;
+}
+```
+
+<ExampleThree />
+
+---
+
+## Bouncing Animation
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="50" r="20" class="bounce" fill="tomato" />
+</svg>
+```
+
+```css
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: translateY(100px);
+    animation-timing-function: ease-in;
+  }
+}
+
+.bounce {
+  transform-origin: center;
+  animation: bounce 1s infinite;
+}
+```
+
+Notice the timing function changes within keyframes for realistic physics.
+
+<ExampleFour />
+
+---
+
+## Staggered Animations
+
+Animate multiple elements with delays:
+
+```svg
+<svg width="200" height="100">
+  <rect x="20" y="30" width="30" height="40" class="bar bar-1" />
+  <rect x="60" y="30" width="30" height="40" class="bar bar-2" />
+  <rect x="100" y="30" width="30" height="40" class="bar bar-3" />
+  <rect x="140" y="30" width="30" height="40" class="bar bar-4" />
+</svg>
+```
+
+```css
+@keyframes wave {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.5);
+  }
+}
+
+.bar {
+  fill: steelblue;
+  transform-origin: bottom center;
+  animation: wave 0.8s ease-in-out infinite;
+}
+
+.bar-1 {
+  animation-delay: 0s;
+}
+.bar-2 {
+  animation-delay: 0.1s;
+}
+.bar-3 {
+  animation-delay: 0.2s;
+}
+.bar-4 {
+  animation-delay: 0.3s;
+}
+```
+
+Creates an audio visualizer-like wave effect.
+
+<ExampleFive />
+
+---
+
+## Path-Based Motion with offset-path
+
+CSS can animate elements along a path:
+
+```svg
+<svg width="300" height="200">
+  <!-- The track (visible) -->
+  <path d="M 50 100 Q 150 20, 250 100"
+        fill="none"
+        stroke="#e5e7eb"
+        stroke-width="2" />
+
+  <!-- The moving dot -->
+  <circle r="10" fill="coral" class="mover" />
+</svg>
+```
+
+```css
+.mover {
+  offset-path: path("M 50 100 Q 150 20, 250 100");
+  offset-distance: 0%;
+  animation: move 2s ease-in-out infinite alternate;
+}
+
+@keyframes move {
+  100% {
+    offset-distance: 100%;
+  }
+}
+```
+
+The circle follows the curve! Note: `offset-path` has good but not universal browser support.
+
+<ExampleSix />
+
+---
+
+## Combining Multiple Animations
+
+An element can have multiple animations:
+
+```css
+.element {
+  animation: spin 2s linear infinite, pulse 1s ease-in-out infinite;
+}
+```
+
+Or use separate properties that animate independently:
+
+```css
+@keyframes move {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100px);
+  }
+}
+
+@keyframes colorChange {
+  0%,
+  100% {
+    fill: blue;
+  }
+  50% {
+    fill: red;
+  }
+}
+
+.element {
+  animation: move 2s ease-in-out infinite, colorChange 1s linear infinite;
+}
+```
+
+---
+
+## Practical Example: Loading Dots
+
+```svg
+<svg width="60" height="20" viewBox="0 0 60 20">
+  <circle cx="10" cy="10" r="5" class="dot dot-1" />
+  <circle cx="30" cy="10" r="5" class="dot dot-2" />
+  <circle cx="50" cy="10" r="5" class="dot dot-3" />
+</svg>
+```
+
+```css
+@keyframes dotBounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-8px);
+  }
+}
+
+.dot {
+  fill: #3b82f6;
+  transform-origin: center;
+  animation: dotBounce 1.2s ease-in-out infinite;
+}
+
+.dot-1 {
+  animation-delay: 0s;
+}
+.dot-2 {
+  animation-delay: 0.15s;
+}
+.dot-3 {
+  animation-delay: 0.3s;
+}
+```
+
+<ExampleEight />
+
+---
+
+## Practical Example: Breathing Circle
+
+A calming, organic animation:
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="50" class="breathe" />
+</svg>
+```
+
+```css
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+    fill: #6366f1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+    fill: #8b5cf6;
+  }
+}
+
+.breathe {
+  transform-origin: center;
+  animation: breathe 4s ease-in-out infinite;
+}
+```
+
+<ExampleNine />
+
+---
+
+## Exercise 11.1: Rotating Square
+
+Create a square that continuously rotates 360 degrees over 3 seconds.
+
+## Exercise 11.2: Pulsing Ring
+
+Create a circle with just a stroke (no fill). Animate it to:
+
+- Grow from scale 0.8 to 1.2
+- Fade from opacity 1 to 0
+- Reset and repeat
+
+## Exercise 11.3: Wave Animation
+
+Create 5 vertical bars. Animate them to scale up and down with staggered delays, creating a wave pattern.
+
+## Exercise 11.4: Orbit
+
+Create a sun (large yellow circle) and a planet (small blue circle). Make the planet orbit around the sun.
+
+Hint: Rotate a group that contains an offset planet.
+
+---
+
+## Key Takeaways
+
+- `@keyframes` defines multi-step animations
+- Use percentages to define each step (0%, 50%, 100%, etc.)
+- `animation` property applies keyframes with duration, timing, count, etc.
+- `animation-delay` creates staggered effects
+- `animation-direction: alternate` creates ping-pong animations
+- `transform-origin: center` is essential for intuitive transforms
+- Combine multiple animations for complex effects
+
+---
+
+Next: [Lesson 12: The Animate Element](/articles/12-animate-element)

@@ -1,0 +1,25 @@
+<svg width="300" height="200">
+  <!-- The track (visible) -->
+  <path
+    d="M 50 100 Q 150 20, 250 100"
+    fill="none"
+    stroke="#e5e7eb"
+    stroke-width="2"></path>
+
+  <!-- The moving dot -->
+  <circle r="10" fill="coral" class="mover"></circle>
+</svg>
+
+<style>
+  .mover {
+    offset-path: path("M 50 100 Q 150 20, 250 100");
+    offset-distance: 0%;
+    animation: move 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes move {
+    100% {
+      offset-distance: 100%;
+    }
+  }
+</style>
