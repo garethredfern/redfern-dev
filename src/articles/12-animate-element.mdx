@@ -1,0 +1,409 @@
+---
+title: "SVG SMIL Animations: The Animate Element"
+description: "Learn how to use SVG's native animation system (SMIL) to animate geometric properties like radius, position, and paths. Master animate, animateTransform, and animateMotion."
+tags: ["svg"]
+pubDate: "2025-11-30T19:30:00Z"
+link: "12-animate-element"
+---
+
+import ExampleOne from "../examples/12-animate-element/One.astro";
+
+## Lesson 12: The Animate Element (SMIL)
+
+CSS can animate styles, but it can't animate SVG geometry — things like a circle's radius, a rectangle's position, or a path's shape. That's where SMIL comes in.
+
+---
+
+## What is SMIL?
+
+SMIL (Synchronized Multimedia Integration Language) is SVG's native animation system. It uses special elements inside your SVG:
+
+- `<animate>` — Animates a single attribute
+- `<animateTransform>` — Animates transforms
+- `<animateMotion>` — Moves elements along paths
+- `<set>` — Sets a value at a specific time
+
+SMIL animations are **declarative** — you describe what should happen, not how to do it frame-by-frame.
+
+---
+
+## The `<animate>` Element
+
+Place it inside the element you want to animate:
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="20" fill="coral">
+    <animate
+      attributeName="r"
+      values="20;50;20"
+      dur="2s"
+      repeatCount="indefinite"
+    />
+  </circle>
+</svg>
+```
+
+The circle's radius pulses between 20 and 50.
+
+<ExampleOne />
+
+---
+
+## Core Attributes
+
+### attributeName
+
+Which attribute to animate:
+
+```svg
+<animate attributeName="r" ... />
+<animate attributeName="cx" ... />
+<animate attributeName="fill" ... />
+<animate attributeName="opacity" ... />
+```
+
+### values
+
+The keyframe values, separated by semicolons:
+
+```svg
+<!-- Two values: animate from 20 to 50 -->
+<animate attributeName="r" values="20;50" ... />
+
+<!-- Three values: 20 → 50 → 20 -->
+<animate attributeName="r" values="20;50;20" ... />
+
+<!-- Four values: 20 → 30 → 50 → 20 -->
+<animate attributeName="r" values="20;30;50;20" ... />
+```
+
+### from / to (Alternative to values)
+
+For simple two-value animations:
+
+```svg
+<animate attributeName="r" from="20" to="50" ... />
+```
+
+### by (Relative animation)
+
+Animate by an offset:
+
+```svg
+<animate attributeName="cx" by="100" ... />
+<!-- Moves 100 units from starting position -->
+```
+
+### dur
+
+Duration of one cycle:
+
+```svg
+<animate dur="2s" ... />
+<animate dur="500ms" ... />
+<animate dur="0.5s" ... />
+```
+
+### repeatCount
+
+How many times to repeat:
+
+```svg
+<animate repeatCount="3" ... />          <!-- 3 times -->
+<animate repeatCount="indefinite" ... /> <!-- Forever -->
+```
+
+### repeatDur
+
+Total duration to repeat for:
+
+```svg
+<animate repeatDur="10s" ... /> <!-- Repeat for 10 seconds total -->
+```
+
+---
+
+## Timing: begin and end
+
+### begin
+
+When to start:
+
+```svg
+<animate begin="0s" ... />      <!-- Start immediately -->
+<animate begin="2s" ... />      <!-- Start after 2 seconds -->
+<animate begin="click" ... />   <!-- Start on click -->
+<animate begin="mouseover" ... /> <!-- Start on hover -->
+```
+
+Multiple triggers:
+
+```svg
+<animate begin="2s;click" ... /> <!-- After 2s OR on click -->
+```
+
+### end
+
+When to stop:
+
+```svg
+<animate end="5s" ... />        <!-- Stop at 5 seconds -->
+<animate end="mouseout" ... />  <!-- Stop when mouse leaves -->
+```
+
+---
+
+## Animation Pacing: keyTimes and keySplines
+
+### keyTimes
+
+Control when each value is reached (0 to 1):
+
+```svg
+<animate
+  attributeName="r"
+  values="20;50;20"
+  keyTimes="0;0.2;1"
+  dur="2s"
+  repeatCount="indefinite"
+/>
+```
+
+This reaches `50` at 20% of the duration (0.4s), then takes the remaining 80% to return to `20`.
+
+### calcMode
+
+Interpolation mode:
+
+| Value      | Effect                                  |
+| ---------- | --------------------------------------- |
+| `linear`   | Constant speed between values           |
+| `discrete` | Jump instantly between values           |
+| `paced`    | Constant speed along the entire path    |
+| `spline`   | Use bezier curves (requires keySplines) |
+
+```svg
+<animate calcMode="spline" keySplines="0.4 0 0.2 1" ... />
+```
+
+### keySplines
+
+Custom easing curves (one per segment):
+
+```svg
+<animate
+  attributeName="r"
+  values="20;50;20"
+  keyTimes="0;0.5;1"
+  keySplines="0.4 0 0.2 1; 0.4 0 0.2 1"
+  calcMode="spline"
+  dur="2s"
+/>
+```
+
+Each keySpline is 4 numbers defining a cubic bezier: `x1 y1 x2 y2`.
+
+---
+
+## fill (Animation, not Shape)
+
+What happens when animation ends (confusingly also called `fill`):
+
+| Value    | Effect                          |
+| -------- | ------------------------------- |
+| `remove` | Snap back to original (default) |
+| `freeze` | Stay at final value             |
+
+```svg
+<animate fill="freeze" ... /> <!-- Keep final state -->
+```
+
+---
+
+## Animating Different Properties
+
+### Position
+
+```svg
+<circle cx="50" cy="100" r="20" fill="steelblue">
+  <animate attributeName="cx" values="50;150;50" dur="2s" repeatCount="indefinite" />
+</circle>
+```
+
+### Size
+
+```svg
+<rect x="50" y="50" width="50" height="50" fill="coral">
+  <animate attributeName="width" values="50;100;50" dur="1s" repeatCount="indefinite" />
+  <animate attributeName="height" values="50;100;50" dur="1s" repeatCount="indefinite" />
+</rect>
+```
+
+### Color
+
+```svg
+<circle cx="100" cy="100" r="40" fill="red">
+  <animate attributeName="fill" values="red;blue;green;red" dur="3s" repeatCount="indefinite" />
+</circle>
+```
+
+### Opacity
+
+```svg
+<rect x="50" y="50" width="100" height="100" fill="purple">
+  <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite" />
+</rect>
+```
+
+---
+
+## Interactive Animations
+
+### Click to Start
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="40" fill="coral" style="cursor: pointer">
+    <animate
+      attributeName="r"
+      values="40;60;40"
+      dur="0.5s"
+      begin="click"
+      fill="freeze"
+    />
+  </circle>
+</svg>
+```
+
+Click the circle and it pulses once.
+
+### Hover Animation
+
+```svg
+<svg width="200" height="200">
+  <rect x="50" y="50" width="100" height="100" fill="steelblue">
+    <animate
+      attributeName="fill"
+      to="coral"
+      dur="0.3s"
+      begin="mouseover"
+      fill="freeze"
+    />
+    <animate
+      attributeName="fill"
+      to="steelblue"
+      dur="0.3s"
+      begin="mouseout"
+      fill="freeze"
+    />
+  </rect>
+</svg>
+```
+
+---
+
+## Chaining Animations
+
+Use IDs to trigger one animation after another:
+
+```svg
+<svg width="200" height="200">
+  <circle cx="50" cy="100" r="20" fill="coral">
+    <!-- First animation: move right -->
+    <animate
+      id="moveRight"
+      attributeName="cx"
+      from="50"
+      to="150"
+      dur="1s"
+      begin="0s"
+      fill="freeze"
+    />
+    <!-- Second animation: move back (starts when first ends) -->
+    <animate
+      attributeName="cx"
+      from="150"
+      to="50"
+      dur="1s"
+      begin="moveRight.end"
+      fill="freeze"
+    />
+  </circle>
+</svg>
+```
+
+`begin="moveRight.end"` means "start when the animation with id 'moveRight' ends."
+
+---
+
+## Practical Example: Pulsing Notification Badge
+
+```svg
+<svg width="100" height="100" viewBox="0 0 100 100">
+  <!-- Badge background -->
+  <circle cx="50" cy="50" r="20" fill="#ef4444">
+    <animate
+      attributeName="r"
+      values="20;22;20"
+      dur="1s"
+      repeatCount="indefinite"
+    />
+  </circle>
+
+  <!-- Ripple effect -->
+  <circle cx="50" cy="50" r="20" fill="none" stroke="#ef4444" stroke-width="2">
+    <animate attributeName="r" values="20;35" dur="1s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.6;0" dur="1s" repeatCount="indefinite" />
+  </circle>
+
+  <!-- Number -->
+  <text x="50" y="55" text-anchor="middle" fill="white" font-size="14" font-weight="bold">3</text>
+</svg>
+```
+
+---
+
+## Exercise 12.1: Bouncing Ball
+
+Create a circle that:
+
+- Moves from y="30" to y="170"
+- Uses easing to simulate gravity (fast at bottom, slow at top)
+- Repeats indefinitely
+
+## Exercise 12.2: Color Cycle
+
+Create a rectangle that cycles through 4 colors over 4 seconds, spending 1 second on each color.
+
+## Exercise 12.3: Click-to-Grow
+
+Create a circle that grows when clicked:
+
+- Starts at r="30"
+- Grows to r="60" over 0.3s
+- Stays at the larger size (fill="freeze")
+
+## Exercise 12.4: Sequential Animation
+
+Create three circles in a row. When clicked:
+
+1. First circle turns red
+2. When that finishes, second circle turns red
+3. When that finishes, third circle turns red
+
+---
+
+## Key Takeaways
+
+- `<animate>` can animate ANY SVG attribute (including geometry)
+- Place the animate element inside the element to animate
+- `values` defines keyframes; `dur` sets duration
+- `repeatCount="indefinite"` loops forever
+- `begin="click"` or `begin="mouseover"` for interactivity
+- Chain animations with `begin="animationId.end"`
+- `fill="freeze"` keeps the final state
+
+---
+
+Next: [Lesson 13: Transform Animations](13-transform-animations.md)
