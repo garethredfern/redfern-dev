@@ -31,9 +31,13 @@ A path has one special attribute: `d` (for "data"). This contains drawing instru
 
 ```svg
 <svg width="200" height="200">
-  <path d="M 10 10 L 190 190" stroke="black" stroke-width="2" fill="none" />
+  <path d="M 10 10 L 190 190" stroke="white" stroke-width="2" fill="none" />
 </svg>
 ```
+
+<svg width="200" height="200">
+  <path d="M 10 10 L 190 190" stroke="white" stroke-width="2" fill="none" />
+</svg>
 
 This draws a diagonal line. The `d` attribute says:
 
@@ -99,9 +103,14 @@ This draws two separate diagonal lines.
 ```svg
 <svg width="200" height="200">
   <path d="M 20 20 L 180 20 L 180 180 L 20 180 L 20 20"
-        stroke="black" stroke-width="2" fill="none" />
+        stroke="white" stroke-width="2" fill="none" />
 </svg>
 ```
+
+<svg width="200" height="200">
+  <path d="M 20 20 L 180 20 L 180 180 L 20 180 L 20 20"
+        stroke="white" stroke-width="2" fill="none" />
+</svg>
 
 This draws a square by connecting four points with lines.
 
@@ -199,6 +208,11 @@ Let's draw a triangle step by step:
 </svg>
 ```
 
+<svg width="200" height="200">
+  <path d="M 100 20 L 180 180 L 20 180 Z"
+        fill="gold" stroke="orange" stroke-width="3" />
+</svg>
+
 1. `M 100 20` — Start at top center
 2. `L 180 180` — Line to bottom right
 3. `L 20 180` — Line to bottom left
@@ -211,10 +225,16 @@ Let's draw a triangle step by step:
 ```svg
 <svg width="200" height="100">
   <path d="M 10 50 H 150 L 130 30 M 150 50 L 130 70"
-        stroke="black" stroke-width="3" fill="none"
+        stroke="white" stroke-width="3" fill="none"
         stroke-linecap="round" stroke-linejoin="round" />
 </svg>
 ```
+
+<svg width="200" height="100">
+  <path d="M 10 50 H 150 L 130 30 M 150 50 L 130 70"
+        stroke="white" stroke-width="3" fill="none"
+        stroke-linecap="round" stroke-linejoin="round" />
+</svg>
 
 1. `M 10 50` — Start at left, vertically centered
 2. `H 150` — Horizontal line to the right
@@ -242,6 +262,13 @@ The `fill-rule` attribute controls this:
 </svg>
 ```
 
+<svg width="300" height="150">
+  <path d="M 75 10 L 100 140 L 10 50 L 140 50 L 50 140 Z"
+        fill="blue" fill-rule="nonzero" />
+  <path d="M 225 10 L 250 140 L 160 50 L 290 50 L 200 140 Z"
+        fill="blue" fill-rule="evenodd" transform="translate(0, 0)" />
+</svg>
+
 - **nonzero** (default): Fills everything enclosed
 - **evenodd**: Alternates filled/unfilled based on crossing count
 
@@ -259,6 +286,15 @@ The `fill-rule` attribute controls this:
         fill="none" />
 </svg>
 ```
+
+<svg viewBox="0 0 24 24" width="48" height="48">
+  <path d="M 4 12 L 9 17 L 20 6"
+        stroke="green"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        fill="none" />
+</svg>
 
 Simple! Three points, two lines.
 
