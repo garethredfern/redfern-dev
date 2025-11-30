@@ -1,0 +1,28 @@
+<svg width="200" height="200" class="icon-container">
+  <circle cx="100" cy="100" r="70" class="bg"></circle>
+  <path d="M 70 100 L 90 120 L 130 80" class="check"></path>
+</svg>
+
+<style>
+  .bg {
+    fill: #e2e8f0;
+    transition: fill 0.3s;
+  }
+
+  .check {
+    stroke: #64748b;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+    transition: stroke 0.3s;
+  }
+
+  .icon-container:hover .bg {
+    fill: #22c55e;
+  }
+
+  .icon-container:hover .check {
+    stroke: white;
+  }
+</style>

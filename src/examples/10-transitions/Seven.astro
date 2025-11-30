@@ -1,0 +1,28 @@
+<button class="btn">
+  <svg width="24" height="24" viewBox="0 0 24 24" class="arrow">
+    <path
+      d="M 5 12 H 19 M 12 5 L 19 12 L 12 19"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      fill="none"></path>
+  </svg>
+  Next
+</button>
+
+<style>
+  .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+  }
+
+  .arrow {
+    transition: transform 0.2s ease-out;
+  }
+
+  .btn:hover .arrow {
+    transform: translateX(4px);
+  }
+</style>

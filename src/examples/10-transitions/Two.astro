@@ -1,0 +1,16 @@
+<svg width="200" height="200">
+  <rect x="60" y="60" width="80" height="80" class="spin-box"></rect>
+</svg>
+
+<style>
+  .spin-box {
+    fill: mediumseagreen;
+    transform-origin: center;
+    transform: rotate(0deg) scale(1);
+    transition: transform 0.4s ease-out;
+  }
+
+  .spin-box:hover {
+    transform: rotate(180deg) scale(1.1);
+  }
+</style>

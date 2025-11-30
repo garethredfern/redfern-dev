@@ -1,0 +1,447 @@
+---
+title: "CSS Transitions in SVG"
+description: "Learn how to animate SVG elements with CSS transitions. Create smooth, interactive animations that respond to user interactions and state changes."
+tags: ["svg"]
+pubDate: "2025-11-30T16:00:00Z"
+link: "10-transitions"
+---
+
+import ExampleOne from "../examples/10-transitions/One.astro";
+import ExampleTwo from "../examples/10-transitions/Two.astro";
+import ExampleThree from "../examples/10-transitions/Three.astro";
+import ExampleFour from "../examples/10-transitions/Four.astro";
+import ExampleFive from "../examples/10-transitions/Five.astro";
+import ExampleSix from "../examples/10-transitions/Six.astro";
+import ExampleSeven from "../examples/10-transitions/Seven.astro";
+
+## Lesson 10: CSS Transitions
+
+Transitions are the simplest way to animate SVGs. Define a start state and an end state, and CSS smoothly interpolates between them.
+
+---
+
+## Basic Transition Syntax
+
+```css
+element {
+  property: startValue;
+  transition: property duration timing-function delay;
+}
+
+element:hover {
+  property: endValue;
+}
+```
+
+Example with a circle:
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="40" class="pulse" />
+</svg>
+```
+
+```css
+.pulse {
+  fill: steelblue;
+  transition: fill 0.3s ease;
+}
+
+.pulse:hover {
+  fill: coral;
+}
+```
+
+<ExampleOne />
+
+Hover over the circle, and it smoothly changes from blue to coral.
+
+---
+
+## Transition Properties
+
+### transition-property
+
+Which CSS property to animate:
+
+```css
+.circle {
+  transition-property: fill; /* Just fill */
+  transition-property: fill, stroke; /* Multiple */
+  transition-property: all; /* Everything */
+}
+```
+
+### transition-duration
+
+How long the animation takes:
+
+```css
+.circle {
+  transition-duration: 0.3s; /* 300 milliseconds */
+  transition-duration: 500ms; /* Same thing */
+  transition-duration: 2s; /* 2 seconds */
+}
+```
+
+### transition-timing-function
+
+The acceleration curve:
+
+| Value               | Effect                                      |
+| ------------------- | ------------------------------------------- |
+| `ease`              | Slow start, fast middle, slow end (default) |
+| `linear`            | Constant speed                              |
+| `ease-in`           | Slow start                                  |
+| `ease-out`          | Slow end                                    |
+| `ease-in-out`       | Slow start and end                          |
+| `cubic-bezier(...)` | Custom curve                                |
+
+```css
+.circle {
+  transition-timing-function: ease-out;
+}
+```
+
+### transition-delay
+
+Wait before starting:
+
+```css
+.circle {
+  transition-delay: 0.1s; /* Wait 100ms, then animate */
+}
+```
+
+### Shorthand
+
+Combine all properties:
+
+```css
+.circle {
+  transition: fill 0.3s ease-out 0.1s;
+  /* property | duration | timing | delay */
+}
+```
+
+---
+
+## What Can You Transition?
+
+### ✅ Works Great
+
+- `fill` and `stroke` (colors)
+- `opacity`
+- `transform` (CSS transforms)
+- `stroke-width`
+- `stroke-dashoffset` (for line drawing effects)
+
+### ⚠️ Partially Works
+
+- `stroke-dasharray` (can be glitchy)
+
+### ❌ Doesn't Work
+
+- Geometric attributes: `cx`, `cy`, `r`, `x`, `y`, `width`, `height`
+- The `d` attribute (path data)
+- SVG-specific `transform` attribute
+
+This is a key limitation. You can't smoothly transition a circle's radius with CSS — you'd need to use `transform: scale()` instead.
+
+---
+
+## Transitioning Fill and Stroke
+
+```svg
+<svg width="200" height="200">
+  <rect x="50" y="50" width="100" height="100" class="box" />
+</svg>
+```
+
+```css
+.box {
+  fill: #3b82f6;
+  stroke: #1d4ed8;
+  stroke-width: 2;
+  transition: fill 0.2s, stroke 0.2s, stroke-width 0.2s;
+}
+
+.box:hover {
+  fill: #ef4444;
+  stroke: #b91c1c;
+  stroke-width: 4;
+}
+```
+
+---
+
+## Transitioning Transforms
+
+This is where CSS transitions really shine for SVG:
+
+```svg
+<svg width="200" height="200">
+  <rect x="60" y="60" width="80" height="80" class="spin-box" />
+</svg>
+```
+
+```css
+.spin-box {
+  fill: mediumseagreen;
+  transform-origin: center;
+  transform: rotate(0deg) scale(1);
+  transition: transform 0.4s ease-out;
+}
+
+.spin-box:hover {
+  transform: rotate(180deg) scale(1.1);
+}
+```
+
+<ExampleTwo />
+
+Note: `transform-origin: center` is crucial! Without it, the rotation happens around (0, 0).
+
+---
+
+## Transitioning Opacity
+
+Perfect for fade effects:
+
+```svg
+<svg width="200" height="200">
+  <circle cx="100" cy="100" r="60" fill="coral" class="fade" />
+  <text x="100" y="105" text-anchor="middle" class="label">Hover me</text>
+</svg>
+```
+
+```css
+.label {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+svg:hover .label {
+  opacity: 1;
+}
+```
+
+<ExampleThree />
+
+---
+
+## Staggered Transitions
+
+Add delays to create sequential animations:
+
+```svg
+<svg width="200" height="100">
+  <circle cx="40" cy="50" r="15" class="dot dot-1" />
+  <circle cx="80" cy="50" r="15" class="dot dot-2" />
+  <circle cx="120" cy="50" r="15" class="dot dot-3" />
+  <circle cx="160" cy="50" r="15" class="dot dot-4" />
+</svg>
+```
+
+```css
+.dot {
+  fill: steelblue;
+  transform-origin: center;
+  transform: scale(1);
+  transition: transform 0.2s ease-out;
+}
+
+svg:hover .dot {
+  transform: scale(1.3);
+}
+
+.dot-1 {
+  transition-delay: 0s;
+}
+.dot-2 {
+  transition-delay: 0.05s;
+}
+.dot-3 {
+  transition-delay: 0.1s;
+}
+.dot-4 {
+  transition-delay: 0.15s;
+}
+```
+
+When you hover the SVG, the dots scale up one after another.
+
+<ExampleFour />
+
+---
+
+## Transitioning stroke-dashoffset (Line Drawing)
+
+This technique creates the "drawing" effect:
+
+```svg
+<svg width="200" height="200">
+  <path d="M 20 100 Q 100 20, 180 100"
+        class="draw-line"
+        fill="none"
+        stroke="white"
+        stroke-width="3" />
+</svg>
+```
+
+```css
+.draw-line {
+  stroke-dasharray: 200; /* Total length of path */
+  stroke-dashoffset: 200; /* Hide all of it */
+  transition: stroke-dashoffset 1s ease-out;
+}
+
+svg:hover .draw-line {
+  stroke-dashoffset: 0; /* Reveal all of it */
+}
+```
+
+The line appears to draw itself on hover. We'll cover this technique in depth in Lesson 15.
+
+<ExampleFive />
+
+---
+
+## Using CSS Variables for Dynamic Transitions
+
+```css
+.icon {
+  --icon-color: #64748b;
+  --icon-scale: 1;
+
+  fill: var(--icon-color);
+  transform: scale(var(--icon-scale));
+  transform-origin: center;
+  transition: fill 0.2s, transform 0.2s;
+}
+
+.icon:hover {
+  --icon-color: #3b82f6;
+  --icon-scale: 1.1;
+}
+```
+
+This makes it easy to theme and adjust transitions.
+
+---
+
+## Multiple Elements, One Hover
+
+Trigger transitions on children when parent is hovered:
+
+```svg
+<svg width="200" height="200" class="icon-container">
+  <circle cx="100" cy="100" r="70" class="bg" />
+  <path d="M 70 100 L 90 120 L 130 80" class="check" />
+</svg>
+```
+
+```css
+.bg {
+  fill: #e2e8f0;
+  transition: fill 0.3s;
+}
+
+.check {
+  stroke: #64748b;
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  transition: stroke 0.3s;
+}
+
+.icon-container:hover .bg {
+  fill: #22c55e;
+}
+
+.icon-container:hover .check {
+  stroke: white;
+}
+```
+
+<ExampleSix />
+
+---
+
+## Practical Example: Button Icon
+
+```svg
+<button class="btn">
+  <svg width="24" height="24" viewBox="0 0 24 24" class="arrow">
+    <path d="M 5 12 H 19 M 12 5 L 19 12 L 12 19"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          fill="none" />
+  </svg>
+  Next
+</button>
+```
+
+```css
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+}
+
+.arrow {
+  transition: transform 0.2s ease-out;
+}
+
+.btn:hover .arrow {
+  transform: translateX(4px);
+}
+```
+
+The arrow slides right on hover...
+
+<ExampleSeven />
+
+---
+
+## Exercise 10.1: Color Transition
+
+Create a rectangle that transitions from `steelblue` to `coral` fill, and from `navy` to `darkred` stroke on hover.
+
+## Exercise 10.2: Scale on Hover
+
+Create three circles. On hover, they should:
+
+- Scale up by 20%
+- Change fill color
+- Stagger the animation (0ms, 100ms, 200ms delay)
+
+## Exercise 10.3: Icon Reveal
+
+Create an icon with two parts:
+
+- A background circle
+- A symbol (plus sign, check, arrow, etc.)
+
+On hover:
+
+- Background changes color
+- Symbol fades in from opacity 0
+
+---
+
+## Key Takeaways
+
+- `transition` smoothly animates between states
+- Works with: fill, stroke, opacity, transform
+- Doesn't work with: geometric attributes (cx, r, d, etc.)
+- Use `transform-origin: center` for intuitive rotations and scales
+- Use `transition-delay` for staggered effects
+- Combine with `:hover` for interactive animations
+
+---
+
+Next: [Lesson 11: Keyframe Animations](/articles/11-keyframe-animations)

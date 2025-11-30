@@ -1,0 +1,23 @@
+<div class="p-5 border border-slate-500">
+  <p>Hover below to see the animation...</p>
+  <svg width="200" height="200">
+    <path
+      d="M 20 100 Q 100 20, 180 100"
+      class="draw-line"
+      fill="none"
+      stroke="white"
+      stroke-width="3"></path>
+  </svg>
+</div>
+
+<style>
+  .draw-line {
+    stroke-dasharray: 200; /* Total length of path */
+    stroke-dashoffset: 200; /* Hide all of it */
+    transition: stroke-dashoffset 1s ease-out;
+  }
+
+  svg:hover .draw-line {
+    stroke-dashoffset: 0; /* Reveal all of it */
+  }
+</style>
