@@ -137,7 +137,7 @@ Pick a simple icon (heart, star, arrow, etc.) and recreate it using path command
 Example: Simple Arrow
 
 ```svg
-<svg viewBox="0 0 24 24">
+<svg viewBox="0 0 24 24" width="100" height="100">
   <path
     d="M 5 12 H 16 M 12 8 L 16 12 L 12 16"
     stroke="currentColor"
@@ -149,7 +149,7 @@ Example: Simple Arrow
 </svg>
 ```
 
-<svg viewBox="0 0 24 24">
+<svg viewBox="0 0 24 24" width="100" height="100">
   <path
     d="M 5 12 H 16 M 12 8 L 16 12 L 12 16"
     stroke="currentColor"
