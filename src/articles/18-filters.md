@@ -452,7 +452,7 @@ Style text with a bright colour and apply a multi-layer glow filter for a neon s
 
 ---
 
-## Course Complete! 🎉
+## Summary So Far
 
 You've covered everything from basic shapes to advanced filters. You now have the knowledge to:
 
@@ -469,3 +469,7 @@ You've covered everything from basic shapes to advanced filters. You now have th
 - **Optimise** — Learn about SVGO for production-ready files
 
 Happy animating!
+
+---
+
+Next: [Lesson 19: Text Typography](/articles/19-text-typography)
