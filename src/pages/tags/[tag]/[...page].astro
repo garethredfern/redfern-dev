@@ -1,0 +1,84 @@
+---
+import type { Page } from "astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths({ paginate }: any) {
+  const allArticles = await getCollection("articles");
+
+  const uniqueTags = [
+    ...new Set(allArticles.flatMap((article) => article.data.tags || [])),
+  ];
+
+  return uniqueTags.flatMap((tag) => {
+    const filteredArticles = allArticles
+      .filter((article) => article.data.tags?.includes(tag))
+      .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+    return paginate(filteredArticles, {
+      params: { tag },
+      pageSize: 10,
+    });
+  });
+}
+
+type Props = {
+  page: Page<any>;
+};
+
+const { tag } = Astro.params;
+const { page } = Astro.props;
+const title = `Articles tagged "${tag}"`;
+const description = `All articles and tutorials tagged with ${tag}.`;
+---
+
+<BaseLayout {title} {description}>
+  <div class="border-b border-white/10 p-5 ml-2 lg:pl-35">
+    <h2 class="text-sm text-primary uppercase">Tag: {tag}</h2>
+    <h3 class="text-sm text-primary lowercase">
+      {page.total} article{page.total !== 1 ? "s" : ""}
+    </h3>
+  </div>
+
+  <ul class="px-5 ml-2 lg:ml-30 lg:w-1/2">
+    {
+      page.data.map((article) => (
+        <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
+          <a
+            href={`/articles/${article.data.link}`}
+            class="text-white text-lg hover:underline"
+          >
+            {article.data.title}
+          </a>
+          <p class="text-gray-400 text-sm">{article.data.description}</p>
+          <div class="mt-2">
+            <a
+              href={`/articles/${article.data.link}`}
+              class="text-sm text-white hover:underline"
+            >
+              Read more
+            </a>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div
+    class="text-primary uppercase flex gap-4 my-5 px-5 ml-2 lg:ml-30 lg:w-1/2"
+  >
+    {page.url.first && page.url.prev ? <a href={page.url.first}>First</a> : null}
+    {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
+    {page.url.next ? <a href={page.url.next}>Next</a> : null}
+    {page.url.last && page.url.next ? <a href={page.url.last}>Last</a> : null}
+  </div>
+
+  <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2 flex gap-4">
+    <a href="/tags" class="text-primary uppercase text-sm hover:underline">
+      All Tags
+    </a>
+    <a href="/" class="text-primary uppercase text-sm hover:underline">
+      All Articles
+    </a>
+  </div>
+</BaseLayout>
