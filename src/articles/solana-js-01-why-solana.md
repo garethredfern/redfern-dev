@@ -100,3 +100,7 @@ But the core technology is genuinely impressive, and the x402 protocol specifica
 ## Next Up
 
 In the next post, we'll write our first code - connecting to Solana and reading data from the blockchain. No wallet required yet, just pure JavaScript talking to a global database.
+
+---
+
+Next: [Your First Solana Connection](/articles/solana-js-02-first-connection)
