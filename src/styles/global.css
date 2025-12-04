@@ -27,6 +27,7 @@
 
 @theme {
   --font-sans: "JetBrainsMono-Regular", monospace;
+  --color-primary: #8b8bb8;
 }
 
 .prose code::before,
