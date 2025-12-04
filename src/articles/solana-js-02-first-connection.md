@@ -262,3 +262,5 @@ A few things that might feel unfamiliar:
 We have a connection, but we can't do anything yet - we don't have a wallet. Next post, we'll create keypairs, understand addresses, and get some devnet SOL to play with.
 
 ---
+
+Next: [Wallets and Keypairs](/articles/solana-js-03-wallets-keypairs)
