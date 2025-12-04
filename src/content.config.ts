@@ -9,6 +9,8 @@ const articles = defineCollection({
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).optional(),
     link: z.string(),
+    series: z.string().optional(),
+    seriesOrder: z.number().optional(),
   }),
 });
 

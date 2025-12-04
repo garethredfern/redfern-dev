@@ -18,6 +18,34 @@ if (!article) {
 
 const { Content } = await render(article);
 const tags = article.data.tags || [];
+
+// Get series navigation
+let prevArticle = null;
+let nextArticle = null;
+let seriesName = null;
+
+if (article.data.series && article.data.seriesOrder) {
+  const allArticles = await getCollection("articles");
+  const seriesArticles = allArticles
+    .filter((a) => a.data.series === article.data.series)
+    .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+
+  const currentIndex = seriesArticles.findIndex(
+    (a) => a.data.link === article.data.link
+  );
+
+  if (currentIndex > 0) {
+    prevArticle = seriesArticles[currentIndex - 1];
+  }
+  if (currentIndex < seriesArticles.length - 1) {
+    nextArticle = seriesArticles[currentIndex + 1];
+  }
+
+  seriesName = article.data.series
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 ---
 
 <BaseLayout title={article.data.title} description={article.data.description}>
@@ -49,6 +77,44 @@ const tags = article.data.tags || [];
         <Content />
       </div>
     </div>
+    {
+      (prevArticle || nextArticle) && (
+        <nav class="my-8 px-5 ml-2 lg:ml-30 lg:w-1/2 border-t border-white/10 pt-6">
+          <p class="text-xs text-gray-400 uppercase mb-4">
+            Series: {seriesName}
+          </p>
+          <div class="flex justify-between gap-4">
+            <div class="flex-1">
+              {prevArticle && (
+                <a
+                  href={`/articles/${prevArticle.data.link}`}
+                  class="block group"
+                >
+                  <span class="text-xs text-gray-400 uppercase">Previous</span>
+                  <span class="block text-primary group-hover:underline">
+                    {prevArticle.data.title}
+                  </span>
+                </a>
+              )}
+            </div>
+            <div class="flex-1 text-right">
+              {nextArticle && (
+                <a
+                  href={`/articles/${nextArticle.data.link}`}
+                  class="block group"
+                >
+                  <span class="text-xs text-gray-400 uppercase">Next</span>
+                  <span class="block text-primary group-hover:underline">
+                    {nextArticle.data.title}
+                  </span>
+                </a>
+              )}
+            </div>
+          </div>
+        </nav>
+      )
+    }
+
     <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2">
       <a href="/" class="text-primary uppercase text-sm hover:underline">
         Back to Articles
