@@ -71,7 +71,7 @@ if (article.data.series && article.data.seriesOrder) {
       }
     </header>
     <div
-      class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-30 lg:w-1/2"
+      class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-30 lg:w-2/3"
     >
       <div>
         <Content />
@@ -79,11 +79,11 @@ if (article.data.series && article.data.seriesOrder) {
     </div>
     {
       (prevArticle || nextArticle) && (
-        <nav class="my-8 px-5 ml-2 lg:ml-30 lg:w-1/2 border-t border-white/10 pt-6">
+        <nav class="my-8 px-5 ml-2 lg:ml-30 lg:w-2/3 border-t border-white/10 pt-6">
           <p class="text-xs text-gray-400 uppercase mb-4">
             Series: {seriesName}
           </p>
-          <div class="flex justify-between gap-4">
+          <div class="flex justify-between gap-4 text-sm">
             <div class="flex-1">
               {prevArticle && (
                 <a
@@ -97,7 +97,7 @@ if (article.data.series && article.data.seriesOrder) {
                 </a>
               )}
             </div>
-            <div class="flex-1 text-right">
+            <div class="flex-1">
               {nextArticle && (
                 <a
                   href={`/articles/${nextArticle.data.link}`}
@@ -115,7 +115,7 @@ if (article.data.series && article.data.seriesOrder) {
       )
     }
 
-    <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2">
+    <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-2/3">
       <a href="/" class="text-primary uppercase text-sm hover:underline">
         Back to Articles
       </a>
