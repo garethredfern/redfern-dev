@@ -268,3 +268,5 @@ main().catch(console.error);
 We have a wallet with SOL. Now let's understand what we can actually read from the blockchain - the account model that makes Solana unique.
 
 ---
+
+Next: [Reading Data from Solana: Accounts Explained](/articles/solana-js-04-accounts-explained)
