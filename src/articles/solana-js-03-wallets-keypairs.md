@@ -201,8 +201,6 @@ const privateKeyBytes = JSON.parse(process.env.SOLANA_PRIVATE_KEY);
 const keypair = await createKeyPairFromBytes(privateKeyBytes);
 ```
 
-Or use a secrets manager (AWS Secrets Manager, Hashicorp Vault, etc.) for production deployments.
-
 ## A Complete Example
 
 Here's a script that creates or loads a wallet and ensures it has devnet SOL:
