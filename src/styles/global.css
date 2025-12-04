@@ -35,6 +35,10 @@
   content: none;
 }
 
+.prose {
+  color: #d1d5db;
+}
+
 .prose code {
   color: #f59e0b;
 }
