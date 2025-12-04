@@ -1,15 +1,15 @@
 @font-face {
-  font-family: "Lexend";
-  src: url("/fonts/lexend.woff2") format("woff2");
+  font-family: "JetBrainsMono-Regular";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "JetBrainsMono-Regular";
-  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
-  font-weight: normal;
+  font-family: "JetBrainsMono-Bold";
+  src: url("/fonts/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
@@ -26,8 +26,7 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "JetBrainsMono-Regular", sans-serif;
-  --font-heading: "Lexend", sans-serif;
+  --font-sans: "JetBrainsMono-Regular", monospace;
 }
 
 .prose code::before,
