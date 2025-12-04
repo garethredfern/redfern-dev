@@ -4,6 +4,8 @@ description: "Learn how to animate SVG transforms using animateTransform. Master
 tags: ["svg"]
 pubDate: "2025-12-01T08:00:00Z"
 link: "13-transform-animations"
+series: "svg-basics"
+seriesOrder: 13
 ---
 
 ## Lesson 13: Transform Animations (SMIL)

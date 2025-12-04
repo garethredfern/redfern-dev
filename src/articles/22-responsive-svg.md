@@ -4,6 +4,8 @@ description: "Make SVGs that scale beautifully across all screen sizes. Master v
 tags: ["svg"]
 pubDate: "2025-12-02T07:30:00Z"
 link: "22-responsive-svg"
+series: "svg-basics"
+seriesOrder: 22
 ---
 
 ## Lesson 22: Responsive SVG

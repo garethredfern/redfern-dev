@@ -4,6 +4,8 @@ description: "Add text to your SVGs with full control over positioning, styling,
 tags: ["svg"]
 pubDate: "2025-12-02T06:00:00Z"
 link: "19-text-typography"
+series: "svg-basics"
+seriesOrder: 19
 ---
 
 ## Lesson 19: Text & Typography

@@ -4,6 +4,8 @@ description: "Master the SVG arc command for drawing circular and elliptical cur
 tags: ["svg"]
 pubDate: "2025-11-30T15:00:00Z"
 link: "08-arcs"
+series: "svg-basics"
+seriesOrder: 8
 ---
 
 ## Lesson 08: Arcs

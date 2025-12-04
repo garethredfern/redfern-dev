@@ -4,6 +4,8 @@ description: "An introduction to Scalable Vector Graphics (SVGs) — learn what 
 tags: ["svg"]
 pubDate: "2025-11-28T09:00:00Z"
 link: "01-what-are-svgs"
+series: "svg-basics"
+seriesOrder: 1
 ---
 
 ## Lesson 01: What Are SVGs?

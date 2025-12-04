@@ -4,6 +4,8 @@ description: "Learn to create linear and radial gradients, plus repeating patter
 tags: ["svg"]
 pubDate: "2025-12-01T09:00:00Z"
 link: "16-gradients-patterns"
+series: "svg-basics"
+seriesOrder: 16
 ---
 
 ## Lesson 16: Gradients & Patterns

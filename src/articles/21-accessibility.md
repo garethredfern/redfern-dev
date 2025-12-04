@@ -4,6 +4,8 @@ description: "Make your SVGs usable by everyone. Learn to add meaningful titles,
 tags: ["svg"]
 pubDate: "2025-12-02T07:00:00Z"
 link: "21-accessibility"
+series: "svg-basics"
+seriesOrder: 21
 ---
 
 ## Lesson 21: Accessibility

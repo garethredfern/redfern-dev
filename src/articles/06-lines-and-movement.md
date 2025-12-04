@@ -4,6 +4,8 @@ description: "Learn how to draw straight lines and navigate paths in SVG. Master
 tags: ["svg"]
 pubDate: "2025-11-30"
 link: "06-lines-and-movement"
+series: "svg-basics"
+seriesOrder: 6
 ---
 
 ## Lesson 06: Lines and Movement

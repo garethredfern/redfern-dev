@@ -4,6 +4,8 @@ description: "Master SVG curves with an in-depth exploration of quadratic and cu
 tags: ["svg"]
 pubDate: "2025-11-30T10:00:00Z"
 link: "07-curves"
+series: "svg-basics"
+seriesOrder: 7
 ---
 
 ## Lesson 07: Curves Deep Dive

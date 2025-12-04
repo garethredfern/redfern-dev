@@ -4,6 +4,8 @@ description: "Apply visual effects like blur, drop shadows, colour manipulation,
 tags: ["svg"]
 pubDate: "2025-12-01T10:00:00Z"
 link: "18-filters"
+series: "svg-basics"
+seriesOrder: 18
 ---
 
 ## Lesson 18: Filters

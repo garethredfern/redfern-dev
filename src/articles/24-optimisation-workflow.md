@@ -4,6 +4,8 @@ description: "Ship production-ready SVGs. Learn to optimise file size with SVGO,
 tags: ["svg"]
 pubDate: "2025-12-02T08:30:00Z"
 link: "24-optimisation-workflow"
+series: "svg-basics"
+seriesOrder: 24
 ---
 
 ## Lesson 24: Optimisation & Workflow

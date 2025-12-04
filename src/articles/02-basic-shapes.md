@@ -4,6 +4,8 @@ description: "Learn about the fundamental SVG shapes — rectangles, circles, el
 tags: ["svg"]
 pubDate: "2025-11-28T10:00:00Z"
 link: "02-basic-shapes"
+series: "svg-basics"
+seriesOrder: 2
 ---
 
 ## Lesson 02: Basic Shapes

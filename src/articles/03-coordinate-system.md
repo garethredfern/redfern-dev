@@ -4,6 +4,8 @@ description: "Master the SVG coordinate system — understand how positioning wo
 tags: ["svg"]
 pubDate: "2025-11-29T09:00:00Z"
 link: "03-coordinate-system"
+series: "svg-basics"
+seriesOrder: 3
 ---
 
 ## Lesson 03: The Coordinate System

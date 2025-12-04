@@ -4,6 +4,8 @@ description: "Learn how to move SVG elements along custom paths using animateMot
 tags: ["svg"]
 pubDate: "2025-12-01T08:15:00Z"
 link: "14-motion-paths"
+series: "svg-basics"
+seriesOrder: 14
 ---
 
 ## Lesson 14: Motion Paths

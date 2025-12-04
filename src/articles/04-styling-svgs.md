@@ -4,6 +4,8 @@ description: "Learn how to style SVG elements using presentation attributes, inl
 tags: ["svg"]
 pubDate: "2025-11-29T10:00:00Z"
 link: "04-styling-svgs"
+series: "svg-basics"
+seriesOrder: 4
 ---
 
 ## Lesson 04: Styling SVGs

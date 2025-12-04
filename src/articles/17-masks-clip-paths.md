@@ -4,6 +4,8 @@ description: "Control visibility with clip paths for hard edges and masks for so
 tags: ["svg"]
 pubDate: "2025-12-01T09:30:00Z"
 link: "17-masks-clip-paths"
+series: "svg-basics"
+seriesOrder: 17
 ---
 
 ## Lesson 17: Masks & Clip Paths

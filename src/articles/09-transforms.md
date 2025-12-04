@@ -4,6 +4,8 @@ description: "Learn how to use SVG transforms to move, rotate, scale, and skew e
 tags: ["svg"]
 pubDate: "2025-11-30T15:30:00Z"
 link: "09-transforms"
+series: "svg-basics"
+seriesOrder: 9
 ---
 
 ## Lesson 09: Transforms

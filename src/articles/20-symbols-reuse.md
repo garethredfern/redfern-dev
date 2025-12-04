@@ -4,6 +4,8 @@ description: "Stop repeating yourself. Learn to define reusable SVG components w
 tags: ["svg"]
 pubDate: "2025-12-02T06:30:00Z"
 link: "20-symbols-reuse"
+series: "svg-basics"
+seriesOrder: 20
 ---
 
 ## Lesson 20: Symbols & Reuse
