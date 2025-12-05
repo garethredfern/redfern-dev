@@ -19,14 +19,29 @@ if (!article) {
 const { Content } = await render(article);
 const tags = article.data.tags || [];
 
-// Get series navigation
+// Calculate reading time (average 200 words per minute)
+const wordCount = article.body?.split(/\s+/).length || 0;
+const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
+// Breadcrumbs for SEO
+const breadcrumbs = [
+  { name: "Home", url: "/" },
+  { name: "Articles", url: "/" },
+  { name: article.data.title, url: `/articles/${article.id}` },
+];
+
+// Get series navigation and all series articles
 let prevArticle = null;
 let nextArticle = null;
 let seriesName = null;
+let seriesArticles: any[] = [];
+let seriesSlug = "";
+
+// Get all articles for series and related
+const allArticles = await getCollection("articles");
 
 if (article.data.series && article.data.seriesOrder) {
-  const allArticles = await getCollection("articles");
-  const seriesArticles = allArticles
+  seriesArticles = allArticles
     .filter((a) => a.data.series === article.data.series)
     .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 
@@ -41,22 +56,46 @@ if (article.data.series && article.data.seriesOrder) {
     nextArticle = seriesArticles[currentIndex + 1];
   }
 
+  seriesSlug = article.data.series;
   seriesName = article.data.series
     .split("-")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 }
+
+// Get related articles (same tags, excluding current and series articles)
+const seriesArticleIds = new Set(seriesArticles.map((a) => a.id));
+const relatedArticles = allArticles
+  .filter((a) => {
+    if (a.id === article.id) return false;
+    if (seriesArticleIds.has(a.id)) return false;
+    const articleTags = a.data.tags || [];
+    return tags.some((tag) => articleTags.includes(tag));
+  })
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout
   title={article.data.title}
   description={article.data.description}
-  article={{ pubDate: article.data.pubDate, tags: article.data.tags }}
+  article={{ pubDate: article.data.pubDate, updatedDate: article.data.updatedDate, tags: article.data.tags }}
+  breadcrumbs={breadcrumbs}
 >
   <article>
     <header class="border-b border-white/10 p-5 ml-2 lg:pl-35">
       <p class="text-sm text-primary uppercase">
-        Published on {new Date(article.data.pubDate).toLocaleDateString()}
+        Published {new Date(article.data.pubDate).toLocaleDateString()}
+        {
+          article.data.updatedDate && (
+            <>
+              <span class="text-gray-400 mx-2">·</span>
+              Updated {new Date(article.data.updatedDate).toLocaleDateString()}
+            </>
+          )
+        }
+        <span class="text-gray-400 mx-2">·</span>
+        <span class="text-secondary">{readingTime} min read</span>
       </p>
       {
         tags.length > 0 && (
@@ -74,55 +113,125 @@ if (article.data.series && article.data.seriesOrder) {
         )
       }
     </header>
-    <div
-      class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-30 lg:w-2/3"
-    >
-      <div>
-        <Content />
-      </div>
-    </div>
-    {
-      (prevArticle || nextArticle) && (
-        <nav class="my-8 px-5 ml-2 lg:ml-30 lg:w-2/3 border-t border-white/10 pt-6">
-          <p class="text-xs text-gray-400 uppercase mb-4">
-            Series: {seriesName}
-          </p>
-          <div class="flex justify-between gap-4 text-sm">
-            <div class="flex-1">
-              {prevArticle && (
-                <a
-                  href={`/articles/${prevArticle.id}`}
-                  class="block group"
-                >
-                  <span class="text-xs text-gray-400 uppercase">Previous</span>
-                  <span class="block text-primary group-hover:underline">
-                    {prevArticle.data.title}
-                  </span>
-                </a>
-              )}
-            </div>
-            <div class="flex-1">
-              {nextArticle && (
-                <a
-                  href={`/articles/${nextArticle.id}`}
-                  class="block group"
-                >
-                  <div class="text-xs text-gray-400 uppercase">Next</div>
-                  <div class="block text-primary group-hover:underline">
-                    {nextArticle.data.title}
-                  </div>
-                </a>
-              )}
-            </div>
-          </div>
-        </nav>
-      )
-    }
 
-    <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-2/3">
-      <a href="/" class="text-primary uppercase text-sm hover:underline">
-        Back to Articles
-      </a>
+    <div class="lg:flex lg:ml-30">
+      <!-- Article Content -->
+      <div class="lg:w-2/3">
+        <div class="text-white prose prose-invert max-w-4xl px-5 ml-2 lg:ml-0">
+          <div>
+            <Content />
+          </div>
+        </div>
+        {
+          (prevArticle || nextArticle) && (
+            <nav class="my-8 px-5 ml-2 lg:ml-0 border-t border-white/10 pt-6">
+              <p class="text-xs text-gray-400 uppercase mb-4">
+                Series: {seriesName}
+              </p>
+              <div class="flex justify-between gap-4 text-sm">
+                <div class="flex-1 min-w-0">
+                  {prevArticle && (
+                    <a
+                      href={`/articles/${prevArticle.id}`}
+                      class="block group"
+                      title={prevArticle.data.title}
+                    >
+                      <span class="text-xs text-gray-400 uppercase">Previous</span>
+                      <span class="block text-primary group-hover:underline truncate">
+                        {prevArticle.data.title}
+                      </span>
+                    </a>
+                  )}
+                </div>
+                <div class="flex-1 min-w-0">
+                  {nextArticle && (
+                    <a
+                      href={`/articles/${nextArticle.id}`}
+                      class="block group"
+                      title={nextArticle.data.title}
+                    >
+                      <div class="text-xs text-gray-400 uppercase">Next</div>
+                      <div class="block text-primary group-hover:underline truncate">
+                        {nextArticle.data.title}
+                      </div>
+                    </a>
+                  )}
+                </div>
+              </div>
+            </nav>
+          )
+        }
+
+        {
+          relatedArticles.length > 0 && (
+            <section class="my-8 px-5 ml-2 lg:ml-0 border-t border-white/10 pt-6">
+              <h3 class="text-sm text-primary uppercase mb-4">Related Articles</h3>
+              <ul class="space-y-3">
+                {relatedArticles.map((related) => (
+                  <li>
+                    <a
+                      href={`/articles/${related.id}`}
+                      class="text-white hover:text-primary hover:underline"
+                    >
+                      {related.data.title}
+                    </a>
+                    <p class="text-gray-400 text-sm truncate">
+                      {related.data.description}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )
+        }
+
+        <div class="my-5 px-5 ml-2 lg:ml-0">
+          <a href="/" class="text-primary uppercase text-sm hover:underline">
+            Back to Articles
+          </a>
+        </div>
+      </div>
+
+      <!-- Series Sidebar -->
+      {
+        seriesArticles.length > 0 && (
+          <aside class="hidden lg:block lg:w-1/4 px-5 py-5 lg:ml-10">
+            <div class="sticky top-5">
+              <a
+                href={`/series/${seriesSlug}`}
+                class="text-sm text-primary uppercase hover:underline"
+              >
+                {seriesName}
+              </a>
+              <p class="text-xs text-gray-400 mb-4">
+                {seriesArticles.length} articles in series
+              </p>
+              <ol class="space-y-2 text-sm">
+                {seriesArticles.map((seriesArticle, index) => (
+                  <li class="flex">
+                    <span class="text-gray-400 shrink-0 mr-1">
+                      {String(index + 1).padStart(2, "0")}.
+                    </span>
+                    {seriesArticle.id === article.id ? (
+                      <span class="text-primary font-bold truncate">
+                        {seriesArticle.data.title}
+                      </span>
+                    ) : (
+                      <a
+                        href={`/articles/${seriesArticle.id}`}
+                        class="text-gray-400 hover:text-white hover:underline truncate"
+                        title={seriesArticle.data.title}
+                      >
+                        {seriesArticle.data.title}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </aside>
+        )
+      }
     </div>
   </article>
 </BaseLayout>

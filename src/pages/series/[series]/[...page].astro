@@ -43,9 +43,40 @@ function formatSeriesName(slug: string) {
 const seriesName = formatSeriesName(series as string);
 const title = `${seriesName} Series`;
 const description = `Follow along with the ${seriesName} tutorial series.`;
+
+// Course schema for SEO (only on first page)
+const isFirstPage = !Astro.url.pathname.match(/\/\d+\/?$/);
+const courseSchema = isFirstPage
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      name: `${seriesName} Series`,
+      description: description,
+      provider: {
+        "@type": "Organization",
+        name: "redfern.dev",
+        url: "https://redfern.dev",
+      },
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        courseWorkload: `${page.total} lessons`,
+      },
+      syllabusSections: page.data.map((article, index) => ({
+        "@type": "Syllabus",
+        name: article.data.title,
+        position: index + 1,
+      })),
+    }
+  : null;
 ---
 
-<BaseLayout {title} {description} pagination={{ prev: page.url.prev, next: page.url.next }}>
+<BaseLayout
+  {title}
+  {description}
+  pagination={{ prev: page.url.prev, next: page.url.next }}
+  customSchema={courseSchema}
+>
   <div class="border-b border-white/10 p-5 ml-2 lg:pl-35">
     <h2 class="text-sm text-primary uppercase">Series: {seriesName}</h2>
     <h3 class="text-sm text-primary lowercase">

@@ -4,15 +4,21 @@ interface Props {
   description: string;
   article?: {
     pubDate: Date;
+    updatedDate?: Date;
     tags?: string[];
   };
   pagination?: {
     prev?: string;
     next?: string;
   };
+  breadcrumbs?: {
+    name: string;
+    url: string;
+  }[];
+  customSchema?: Record<string, any>;
 }
 
-const { title, description, article, pagination } = Astro.props;
+const { title, description, article, pagination, breadcrumbs, customSchema } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const siteName = "redfern.dev";
 const fullTitle = Astro.url.pathname === "/" ? title : `${title} | ${siteName}`;
@@ -25,6 +31,7 @@ const articleSchema = article
       headline: title,
       description: description,
       datePublished: article.pubDate.toISOString(),
+      dateModified: (article.updatedDate || article.pubDate).toISOString(),
       url: canonicalURL.href,
       author: {
         "@type": "Person",
@@ -46,6 +53,20 @@ const websiteSchema = !article
       "@type": "WebSite",
       name: siteName,
       url: Astro.site,
+    }
+  : null;
+
+// Breadcrumb schema
+const breadcrumbSchema = breadcrumbs?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: new URL(crumb.url, Astro.site).href,
+      })),
     }
   : null;
 ---
@@ -88,4 +109,6 @@ const websiteSchema = !article
   <!-- Structured Data -->
   {articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
   {websiteSchema && <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />}
+  {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
+  {customSchema && <script type="application/ld+json" set:html={JSON.stringify(customSchema)} />}
 </head>

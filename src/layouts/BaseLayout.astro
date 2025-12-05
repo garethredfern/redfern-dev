@@ -11,19 +11,25 @@ interface Props {
   description: string;
   article?: {
     pubDate: Date;
+    updatedDate?: Date;
     tags?: string[];
   };
   pagination?: {
     prev?: string;
     next?: string;
   };
+  breadcrumbs?: {
+    name: string;
+    url: string;
+  }[];
+  customSchema?: Record<string, any>;
 }
 
-const { title, description, article, pagination } = Astro.props;
+const { title, description, article, pagination, breadcrumbs, customSchema } = Astro.props;
 ---
 
 <html lang="en">
-  <SiteHead {title} {description} {article} {pagination} />
+  <SiteHead {title} {description} {article} {pagination} {breadcrumbs} {customSchema} />
 
   <SpeedInsights />
   <Analytics />

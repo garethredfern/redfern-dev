@@ -34,6 +34,21 @@ const sortedSeries = Object.entries(seriesCounts).sort((a, b) =>
   a[0].localeCompare(b[0])
 );
 
+// Get all tags with counts, sorted by popularity
+const tagCounts = allArticles.reduce(
+  (acc, article) => {
+    const tags = article.data.tags || [];
+    tags.forEach((tag) => {
+      acc[tag] = (acc[tag] || 0) + 1;
+    });
+    return acc;
+  },
+  {} as Record<string, number>
+);
+const popularTags = Object.entries(tagCounts)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 5);
+
 function formatSeriesName(slug: string) {
   return slug
     .split("-")
@@ -82,8 +97,9 @@ function formatSeriesName(slug: string) {
       </div>
     </div>
 
-    <!-- Series Sidebar -->
+    <!-- Sidebar -->
     <aside class="px-5 py-5 ml-2 lg:ml-10 lg:w-1/4">
+      <!-- Series -->
       <h3 class="text-sm text-primary uppercase mb-4">Series</h3>
       <ul class="space-y-2">
         {
@@ -105,6 +121,30 @@ function formatSeriesName(slug: string) {
         class="inline-block mt-4 text-xs text-primary uppercase hover:underline"
       >
         View All Series
+      </a>
+
+      <!-- Popular Tags -->
+      <h3 class="text-sm text-primary uppercase mb-4 mt-8">Popular Tags</h3>
+      <ul class="space-y-2">
+        {
+          popularTags.map(([tag, count]) => (
+            <li>
+              <a
+                href={`/tags/${tag}`}
+                class="text-white hover:text-primary hover:underline text-sm"
+              >
+                {tag}
+                <span class="text-gray-400 ml-1">({count})</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="/tags"
+        class="inline-block mt-4 text-xs text-primary uppercase hover:underline"
+      >
+        View All Tags
       </a>
     </aside>
   </div>

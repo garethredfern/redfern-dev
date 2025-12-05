@@ -1,4 +1,14 @@
+# robots.txt for redfern.dev
+
+# Allow all crawlers
 User-agent: *
 Allow: /
 
+# Disallow crawling of asset files
+Disallow: /_astro/
+
+# Sitemaps
 Sitemap: https://redfern.dev/sitemap-index.xml
+
+# Host
+Host: https://redfern.dev
