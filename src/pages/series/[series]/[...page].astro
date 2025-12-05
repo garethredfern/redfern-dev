@@ -6,17 +6,21 @@ import { getCollection } from "astro:content";
 export async function getStaticPaths({ paginate }: any) {
   const allArticles = await getCollection("articles");
 
-  const uniqueTags = [
-    ...new Set(allArticles.flatMap((article) => article.data.tags || [])),
+  const uniqueSeries = [
+    ...new Set(
+      allArticles
+        .filter((article) => article.data.series)
+        .map((article) => article.data.series)
+    ),
   ];
 
-  return uniqueTags.flatMap((tag) => {
+  return uniqueSeries.flatMap((series) => {
     const filteredArticles = allArticles
-      .filter((article) => article.data.tags?.includes(tag))
-      .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+      .filter((article) => article.data.series === series)
+      .sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 
     return paginate(filteredArticles, {
-      params: { tag },
+      params: { series },
       pageSize: 10,
     });
   });
@@ -26,15 +30,24 @@ type Props = {
   page: Page<any>;
 };
 
-const { tag } = Astro.params;
+const { series } = Astro.params;
 const { page } = Astro.props;
-const title = `Articles tagged "${tag}"`;
-const description = `All articles and tutorials tagged with ${tag}.`;
+
+function formatSeriesName(slug: string) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+const seriesName = formatSeriesName(series as string);
+const title = `${seriesName} Series`;
+const description = `Follow along with the ${seriesName} tutorial series.`;
 ---
 
 <BaseLayout {title} {description} pagination={{ prev: page.url.prev, next: page.url.next }}>
   <div class="border-b border-white/10 p-5 ml-2 lg:pl-35">
-    <h2 class="text-sm text-primary uppercase">Tag: {tag}</h2>
+    <h2 class="text-sm text-primary uppercase">Series: {seriesName}</h2>
     <h3 class="text-sm text-primary lowercase">
       {page.total} article{page.total !== 1 ? "s" : ""}
     </h3>
@@ -42,23 +55,18 @@ const description = `All articles and tutorials tagged with ${tag}.`;
 
   <ul class="px-5 ml-2 lg:ml-30 lg:w-1/2">
     {
-      page.data.map((article) => (
+      page.data.map((article, index) => (
         <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
           <a
             href={`/articles/${article.id}`}
             class="text-white text-lg hover:underline"
           >
+            <span class="text-gray-400 mr-2">
+              {String(article.data.seriesOrder || index + 1).padStart(2, "0")}.
+            </span>
             {article.data.title}
           </a>
-          <p class="text-gray-400 text-sm">{article.data.description}</p>
-          <div class="mt-2">
-            <a
-              href={`/articles/${article.id}`}
-              class="text-sm text-white hover:underline"
-            >
-              Read more
-            </a>
-          </div>
+          <p class="text-gray-400 text-sm ml-8">{article.data.description}</p>
         </li>
       ))
     }
@@ -74,8 +82,8 @@ const description = `All articles and tutorials tagged with ${tag}.`;
   </div>
 
   <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2 flex gap-4">
-    <a href="/tags" class="text-primary uppercase text-sm hover:underline">
-      All Tags
+    <a href="/series" class="text-primary uppercase text-sm hover:underline">
+      All Series
     </a>
     <a href="/" class="text-primary uppercase text-sm hover:underline">
       All Articles

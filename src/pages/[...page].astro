@@ -18,46 +18,94 @@ type Props = {
 };
 
 const { page } = Astro.props;
+
+// Get all series with counts
+const allArticles = await getCollection("articles");
+const seriesCounts = allArticles.reduce(
+  (acc, article) => {
+    if (article.data.series) {
+      acc[article.data.series] = (acc[article.data.series] || 0) + 1;
+    }
+    return acc;
+  },
+  {} as Record<string, number>
+);
+const sortedSeries = Object.entries(seriesCounts).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+
+function formatSeriesName(slug: string) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
 ---
 
-<BaseLayout {title} {description}>
+<BaseLayout {title} {description} pagination={{ prev: page.url.prev, next: page.url.next }}>
   <div class="border-b border-white/10 p-5 ml-2 lg:pl-35">
     <h2 class="text-sm text-primary uppercase">Articles & Tutorials</h2>
     <h3 class="text-sm text-primary lowercase">for you to read...</h3>
   </div>
 
-  <ul class="px-5 ml-2 lg:ml-30 lg:w-1/2">
-    {
-      page.data.map((article) => (
-        <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
-          <a
-            href={`/articles/${article.id}`}
-            class="text-white text-lg hover:underline"
-          >
-            {article.data.title}
-          </a>
-          <p class="text-gray-400 text-sm">{article.data.description}</p>
-          <div class="mt-2">
-            <a
-              href={`/articles/${article.id}`}
-              class="text-sm text-white hover:underline"
-            >
-              Read more
-            </a>
-          </div>
-        </li>
-      ))
-    }
-  </ul>
-  <div
-    class="text-primary uppercase flex gap-4 my-5 px-5 ml-2 lg:ml-30 lg:w-1/2"
-  >
-    {page.url.first ? <a href={page.url.first}>First</a> : null}
+  <div class="lg:flex lg:ml-30">
+    <!-- Article List -->
+    <div class="lg:w-1/2">
+      <ul class="px-5 ml-2 lg:ml-0">
+        {
+          page.data.map((article) => (
+            <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
+              <a
+                href={`/articles/${article.id}`}
+                class="text-white text-lg hover:underline"
+              >
+                {article.data.title}
+              </a>
+              <p class="text-gray-400 text-sm">{article.data.description}</p>
+              <div class="mt-2">
+                <a
+                  href={`/articles/${article.id}`}
+                  class="text-sm text-white hover:underline"
+                >
+                  Read more
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="text-primary uppercase flex gap-4 my-5 px-5 ml-2 lg:ml-0">
+        {page.url.first && page.url.prev ? <a href={page.url.first}>First</a> : null}
+        {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
+        {page.url.next ? <a href={page.url.next}>Next</a> : null}
+        {page.url.last && page.url.next ? <a href={page.url.last}>Last</a> : null}
+      </div>
+    </div>
 
-    {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
-
-    {page.url.next ? <a href={page.url.next}>Next</a> : null}
-
-    {page.url.last ? <a href={page.url.last}>Last</a> : null}
+    <!-- Series Sidebar -->
+    <aside class="px-5 py-5 ml-2 lg:ml-10 lg:w-1/4">
+      <h3 class="text-sm text-primary uppercase mb-4">Series</h3>
+      <ul class="space-y-2">
+        {
+          sortedSeries.map(([series, count]) => (
+            <li>
+              <a
+                href={`/series/${series}`}
+                class="text-white hover:text-primary hover:underline text-sm"
+              >
+                {formatSeriesName(series)}
+                <span class="text-gray-400 ml-1">({count})</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href="/series"
+        class="inline-block mt-4 text-xs text-primary uppercase hover:underline"
+      >
+        View All Series
+      </a>
+    </aside>
   </div>
 </BaseLayout>

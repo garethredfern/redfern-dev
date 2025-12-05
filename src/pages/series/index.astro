@@ -1,0 +1,65 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allArticles = await getCollection("articles");
+
+const seriesCounts = allArticles.reduce(
+  (acc, article) => {
+    if (article.data.series) {
+      acc[article.data.series] = (acc[article.data.series] || 0) + 1;
+    }
+    return acc;
+  },
+  {} as Record<string, number>
+);
+
+const sortedSeries = Object.entries(seriesCounts).sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+
+function formatSeriesName(slug: string) {
+  return slug
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+const title = "All Series";
+const description = "Browse all article series and follow along with tutorials.";
+---
+
+<BaseLayout {title} {description}>
+  <div class="border-b border-white/10 p-5 ml-2 lg:pl-35">
+    <h2 class="text-sm text-primary uppercase">All Series</h2>
+    <h3 class="text-sm text-primary lowercase">
+      {sortedSeries.length} series
+    </h3>
+  </div>
+
+  <div class="px-5 py-5 ml-2 lg:ml-30 lg:w-1/2">
+    <ul class="space-y-4">
+      {
+        sortedSeries.map(([series, count]) => (
+          <li class="border-b border-white/10 border-dashed pb-4 last:border-0">
+            <a
+              href={`/series/${series}`}
+              class="text-white text-lg hover:text-primary hover:underline"
+            >
+              {formatSeriesName(series)}
+            </a>
+            <p class="text-gray-400 text-sm mt-1">
+              {count} article{count !== 1 ? "s" : ""} in this series
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="my-5 px-5 ml-2 lg:ml-30 lg:w-1/2">
+    <a href="/" class="text-primary uppercase text-sm hover:underline">
+      Back to Articles
+    </a>
+  </div>
+</BaseLayout>

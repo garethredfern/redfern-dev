@@ -48,7 +48,11 @@ if (article.data.series && article.data.seriesOrder) {
 }
 ---
 
-<BaseLayout title={article.data.title} description={article.data.description}>
+<BaseLayout
+  title={article.data.title}
+  description={article.data.description}
+  article={{ pubDate: article.data.pubDate, tags: article.data.tags }}
+>
   <article>
     <header class="border-b border-white/10 p-5 ml-2 lg:pl-35">
       <p class="text-sm text-primary uppercase">
