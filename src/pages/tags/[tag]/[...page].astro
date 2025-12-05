@@ -45,7 +45,7 @@ const description = `All articles and tutorials tagged with ${tag}.`;
       page.data.map((article) => (
         <li class="my-2 border-b border-white/10 border-dashed py-2 last:border-0">
           <a
-            href={`/articles/${article.data.link}`}
+            href={`/articles/${article.id}`}
             class="text-white text-lg hover:underline"
           >
             {article.data.title}
@@ -53,7 +53,7 @@ const description = `All articles and tutorials tagged with ${tag}.`;
           <p class="text-gray-400 text-sm">{article.data.description}</p>
           <div class="mt-2">
             <a
-              href={`/articles/${article.data.link}`}
+              href={`/articles/${article.id}`}
               class="text-sm text-white hover:underline"
             >
               Read more

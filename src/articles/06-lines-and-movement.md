@@ -3,7 +3,6 @@ title: "Lines and Movement in SVG Paths"
 description: "Learn how to draw straight lines and navigate paths in SVG. Master the M, L, H, V, and Z commands to create connected and disconnected shapes."
 tags: ["svg"]
 pubDate: "2025-11-30"
-link: "06-lines-and-movement"
 series: "svg-basics"
 seriesOrder: 6
 ---

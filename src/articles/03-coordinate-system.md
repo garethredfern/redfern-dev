@@ -3,7 +3,6 @@ title: "The SVG Coordinate System"
 description: "Master the SVG coordinate system — understand how positioning works, how the origin is placed, and how to precisely control element placement in your graphics."
 tags: ["svg"]
 pubDate: "2025-11-29T09:00:00Z"
-link: "03-coordinate-system"
 series: "svg-basics"
 seriesOrder: 3
 ---

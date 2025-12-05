@@ -8,7 +8,6 @@ const articles = defineCollection({
     description: z.string(),
     pubDate: z.coerce.date(),
     tags: z.array(z.string()).optional(),
-    link: z.string(),
     series: z.string().optional(),
     seriesOrder: z.number().optional(),
   }),

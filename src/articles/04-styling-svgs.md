@@ -3,7 +3,6 @@ title: "Styling SVGs"
 description: "Learn how to style SVG elements using presentation attributes, inline CSS, and external stylesheets. Understand the cascade and specificity in SVG styling."
 tags: ["svg"]
 pubDate: "2025-11-29T10:00:00Z"
-link: "04-styling-svgs"
 series: "svg-basics"
 seriesOrder: 4
 ---

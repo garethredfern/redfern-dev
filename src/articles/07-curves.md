@@ -3,7 +3,6 @@ title: "Curves Deep Dive: Quadratic and Cubic Curves"
 description: "Master SVG curves with an in-depth exploration of quadratic and cubic Bezier curves. Learn when to use each type and how to create smooth, organic shapes."
 tags: ["svg"]
 pubDate: "2025-11-30T10:00:00Z"
-link: "07-curves"
 series: "svg-basics"
 seriesOrder: 7
 ---

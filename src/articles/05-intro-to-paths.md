@@ -3,7 +3,6 @@ title: "Introduction to SVG Paths"
 description: "Master the SVG path element — the most powerful shape in SVG. Learn how to draw custom shapes, curves, and complex graphics with the path data syntax."
 tags: ["svg"]
 pubDate: "2025-11-29T13:00:00Z"
-link: "05-intro-to-paths"
 series: "svg-basics"
 seriesOrder: 5
 ---
