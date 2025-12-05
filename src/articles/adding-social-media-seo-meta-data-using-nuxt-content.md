@@ -3,7 +3,6 @@ title: Adding Social Media & SEO Meta Data Using Nuxt Content
 description: "Here is how to add social media and SEO meta data to your Nuxt project when using the content module."
 tags: ["vue", "nuxt"]
 pubDate: "2020-09-17T09:00:00Z"
-link: "adding-social-media-seo-meta-data-using-nuxt-content"
 ---
 
 ## Adding Social Media & SEO Meta Data Using Nuxt Content
@@ -120,7 +119,6 @@ meta: [
 While not part of the meta tag, it is also important to have a [canonical tag](https://moz.com/learn/seo/canonicalization) on each page of your site. Within the `head` property of your `nuxt.config.js` file, after the meta array, add the following code:
 
 ```js
-link: [
   {
     hid: "canonical",
     rel: "canonical",
@@ -166,7 +164,6 @@ There are some additional tags that we can use on a post to help provide even mo
 You will also need to update the canonical link tag too:
 
 ```js
-link: [
   {
     hid: "canonical",
     rel: "canonical",

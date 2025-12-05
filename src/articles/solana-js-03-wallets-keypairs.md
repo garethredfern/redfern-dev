@@ -3,7 +3,6 @@ title: "Wallets and Keypairs: The Solana Identity System"
 description: "Understanding public keys, private keys, and wallets. Create your first Solana keypair and get devnet SOL."
 tags: ["solana", "javascript", "web3", "wallets"]
 pubDate: "2025-12-04T10:00:00Z"
-link: "solana-js-03-wallets-keypairs"
 series: "solana-for-js-devs"
 seriesOrder: 3
 ---

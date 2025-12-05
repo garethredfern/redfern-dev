@@ -3,7 +3,6 @@ title: "JavaScript Async Await"
 description: "Working with JavaScript Promises you have a couple of approaches to consider for interacting with the response. The Promise doesn't give you the response in the exact format you can work with, let's dive in and explore things."
 tags: ["javascript"]
 pubDate: "2020-08-21T09:00:00Z"
-link: "javascript-async-await"
 ---
 
 ## JavaScript Async Await

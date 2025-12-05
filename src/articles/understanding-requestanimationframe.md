@@ -3,7 +3,6 @@ title: "Understanding requestAnimationFrame"
 description: "A practical guide to browser animation timing. Learn what requestAnimationFrame actually does, why it beats setInterval, and how to use it properly."
 tags: ["javascript", "animation", "performance"]
 pubDate: "2025-12-02T11:30:00Z"
-link: "understanding-requestanimationframe"
 ---
 
 ## Understanding requestAnimationFrame

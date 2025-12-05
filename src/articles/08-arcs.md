@@ -3,7 +3,6 @@ title: "Arcs in SVG Paths"
 description: "Master the SVG arc command for drawing circular and elliptical curves. Learn the arc parameters, flags, and how to create rounded corners and pie charts."
 tags: ["svg"]
 pubDate: "2025-11-30T15:00:00Z"
-link: "08-arcs"
 series: "svg-basics"
 seriesOrder: 8
 ---

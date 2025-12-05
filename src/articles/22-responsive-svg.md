@@ -3,7 +3,6 @@ title: "Responsive SVG"
 description: "Make SVGs that scale beautifully across all screen sizes. Master viewBox, preserveAspectRatio, and CSS techniques for fluid, responsive graphics."
 tags: ["svg"]
 pubDate: "2025-12-02T07:30:00Z"
-link: "22-responsive-svg"
 series: "svg-basics"
 seriesOrder: 22
 ---

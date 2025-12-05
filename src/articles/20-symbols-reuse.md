@@ -3,7 +3,6 @@ title: "Symbols & Reuse"
 description: "Stop repeating yourself. Learn to define reusable SVG components with symbol and use elements, and build efficient icon sprite systems."
 tags: ["svg"]
 pubDate: "2025-12-02T06:30:00Z"
-link: "20-symbols-reuse"
 series: "svg-basics"
 seriesOrder: 20
 ---

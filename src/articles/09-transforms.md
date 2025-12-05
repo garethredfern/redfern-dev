@@ -3,7 +3,6 @@ title: "SVG Transforms: Translate, Rotate, Scale, and Skew"
 description: "Learn how to use SVG transforms to move, rotate, scale, and skew elements. Understand the foundation of SVG animation and complex graphics."
 tags: ["svg"]
 pubDate: "2025-11-30T15:30:00Z"
-link: "09-transforms"
 series: "svg-basics"
 seriesOrder: 9
 ---

@@ -3,7 +3,6 @@ title: "Reading Data from Solana: Accounts Explained"
 description: "Understanding Solana's account model - how data is stored, who owns it, and how to read it from JavaScript."
 tags: ["solana", "javascript", "web3", "accounts"]
 pubDate: "2025-12-04T10:30:00Z"
-link: "solana-js-04-accounts-explained"
 series: "solana-for-js-devs"
 seriesOrder: 4
 ---

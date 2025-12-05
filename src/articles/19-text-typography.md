@@ -3,7 +3,6 @@ title: "Text & Typography"
 description: "Add text to your SVGs with full control over positioning, styling, and even flowing text along curved paths. Learn the text, tspan, and textPath elements."
 tags: ["svg"]
 pubDate: "2025-12-02T06:00:00Z"
-link: "19-text-typography"
 series: "svg-basics"
 seriesOrder: 19
 ---

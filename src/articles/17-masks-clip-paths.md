@@ -3,7 +3,6 @@ title: "Masks & Clip Paths"
 description: "Control visibility with clip paths for hard edges and masks for soft transparency. Create reveal effects, spotlight animations, and complex composite shapes."
 tags: ["svg"]
 pubDate: "2025-12-01T09:30:00Z"
-link: "17-masks-clip-paths"
 series: "svg-basics"
 seriesOrder: 17
 ---

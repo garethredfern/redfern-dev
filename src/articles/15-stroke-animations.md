@@ -3,7 +3,6 @@ title: "Stroke Animations: The Line Drawing Effect"
 description: "Master the popular line drawing effect using stroke-dasharray and stroke-dashoffset. Create smooth animations that make paths appear to draw themselves."
 tags: ["svg"]
 pubDate: "2025-12-01T08:30:00Z"
-link: "15-stroke-animations"
 series: "svg-basics"
 seriesOrder: 15
 ---

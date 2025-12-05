@@ -3,7 +3,6 @@ title: "SVG Filters"
 description: "Apply visual effects like blur, drop shadows, colour manipulation, and more using SVG's powerful filter primitives. Chain effects together for complex visual treatments."
 tags: ["svg"]
 pubDate: "2025-12-01T10:00:00Z"
-link: "18-filters"
 series: "svg-basics"
 seriesOrder: 18
 ---

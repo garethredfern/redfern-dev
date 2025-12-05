@@ -3,7 +3,6 @@ title: Adding Pagination to a Nuxt Blog
 description: "As your blog grows it will more than likely become necessary to paginate the listing page of articles. This post explains one way this can be achieved."
 tags: ["vue", "nuxt"]
 pubDate: "2020-09-28T09:00:00Z"
-link: "adding-pagination-nuxt-content-blog"
 ---
 
 ## Adding Pagination With Nuxt Content

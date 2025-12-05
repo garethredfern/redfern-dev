@@ -3,7 +3,6 @@ title: "Transform Animations with SMIL"
 description: "Learn how to animate SVG transforms using animateTransform. Master rotation, scaling, translation, and skewing animations with precise control points."
 tags: ["svg"]
 pubDate: "2025-12-01T08:00:00Z"
-link: "13-transform-animations"
 series: "svg-basics"
 seriesOrder: 13
 ---

@@ -3,7 +3,6 @@ title: "Accessibility"
 description: "Make your SVGs usable by everyone. Learn to add meaningful titles, descriptions, and ARIA attributes so screen readers can interpret your graphics."
 tags: ["svg"]
 pubDate: "2025-12-02T07:00:00Z"
-link: "21-accessibility"
 series: "svg-basics"
 seriesOrder: 21
 ---

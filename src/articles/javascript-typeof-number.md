@@ -3,7 +3,6 @@ title: "JavaScript typeof Number"
 description: "Often you will need to check that you have a number before using it in your JavaScript, here's how."
 tags: ["javascript"]
 pubDate: "2020-08-28T09:00:00Z"
-link: "javascript-typeof-number"
 ---
 
 ## JavaScript typeof Number

@@ -3,7 +3,6 @@ title: "Gradients & Patterns"
 description: "Learn to create linear and radial gradients, plus repeating patterns for textures and backgrounds. Master the defs element for reusable SVG definitions."
 tags: ["svg"]
 pubDate: "2025-12-01T09:00:00Z"
-link: "16-gradients-patterns"
 series: "svg-basics"
 seriesOrder: 16
 ---

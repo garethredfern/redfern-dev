@@ -3,7 +3,6 @@ title: "Your First Solana Connection: Hello Blockchain"
 description: "Connect to Solana from Node.js and read your first data from the blockchain. No wallet needed - just JavaScript."
 tags: ["solana", "javascript", "web3", "tutorial"]
 pubDate: "2025-12-04T09:30:00Z"
-link: "solana-js-02-first-connection"
 series: "solana-for-js-devs"
 seriesOrder: 2
 ---

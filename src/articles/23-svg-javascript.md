@@ -3,7 +3,6 @@ title: "SVG + JavaScript"
 description: "Bring SVGs to life with JavaScript. Learn to manipulate SVG elements, handle events, create dynamic graphics, and build interactive visualisations."
 tags: ["svg"]
 pubDate: "2025-12-02T08:00:00Z"
-link: "23-svg-javascript"
 series: "svg-basics"
 seriesOrder: 23
 ---

@@ -3,7 +3,6 @@ title: "Why a JS Developer Should Care About Solana"
 description: "A no-hype introduction to Solana for JavaScript developers. What it actually is, why it matters for web apps, and what you can build with it."
 tags: ["solana", "javascript", "web3", "x402"]
 pubDate: "2025-12-04T09:00:00Z"
-link: "solana-js-01-why-solana"
 series: "solana-for-js-devs"
 seriesOrder: 1
 ---
