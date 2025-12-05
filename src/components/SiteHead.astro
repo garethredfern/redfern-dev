@@ -1,11 +1,13 @@
 ---
 const { title, description } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="canonical" href={canonicalURL} />
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="icon" href="/favicon.svg?v=1" type="image/svg+xml" />
@@ -15,4 +17,16 @@ const { title, description } = Astro.props;
     title="redfern.dev RSS Feed"
     href="/rss.xml"
   />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:site_name" content="redfern.dev" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
 </head>
