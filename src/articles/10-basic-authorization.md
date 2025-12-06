@@ -3,7 +3,7 @@ title: "Basic Authorization with Admin Roles"
 description: "How to set up basic authorization in a Laravel 11 API and Vue 3 SPA, adding an is_admin field to control access to protected content."
 tags: ["laravel", "vue", "authorization", "admin", "roles"]
 pubDate: "2024-01-10T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 10
 ---
 
@@ -203,44 +203,44 @@ The auth store already has an `isAdmin` computed property. Let's use it to prote
 Update `src/router/index.ts`:
 
 ```typescript
-import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     // ... other routes
     {
-      path: '/users',
-      name: 'users',
-      component: () => import('@/views/UsersView.vue'),
+      path: "/users",
+      name: "users",
+      component: () => import("@/views/UsersView.vue"),
       meta: { requiresAuth: true, requiresAdmin: true },
     },
   ],
-})
+});
 
 router.beforeEach(async (to) => {
-  const auth = useAuthStore()
+  const auth = useAuthStore();
 
   if (!auth.user && !auth.isLoading) {
-    await auth.fetchUser()
+    await auth.fetchUser();
   }
 
   if (to.meta.guest && auth.isAuthenticated) {
-    return { name: 'dashboard' }
+    return { name: "dashboard" };
   }
 
   if (to.meta.requiresAuth && !auth.isAuthenticated) {
-    return { name: 'login', query: { redirect: to.fullPath } }
+    return { name: "login", query: { redirect: to.fullPath } };
   }
 
   // Check admin requirement
   if (to.meta.requiresAdmin && !auth.isAdmin) {
-    return { name: 'dashboard' }
+    return { name: "dashboard" };
   }
-})
+});
 
-export default router
+export default router;
 ```
 
 ## Conditional UI Rendering
@@ -249,9 +249,9 @@ Use the `isAdmin` computed property to show/hide admin-only content:
 
 ```vue
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from "@/stores/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 </script>
 
 <template>
@@ -298,4 +298,4 @@ Now you can log in with `admin@example.com` / `password` to access admin feature
 
 ---
 
-*Next up: Uploading files to cloud storage with Laravel.*
+_Next up: Uploading files to cloud storage with Laravel._

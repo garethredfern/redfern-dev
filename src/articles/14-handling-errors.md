@@ -3,7 +3,7 @@ title: "Handling API Errors in Your Vue 3 SPA"
 description: "How to handle validation errors, server errors, and network failures gracefully in a Vue 3 SPA consuming a Laravel API."
 tags: ["vue", "laravel", "error-handling", "api", "typescript"]
 pubDate: "2024-01-14T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 14
 ---
 
@@ -29,9 +29,7 @@ Laravel returns validation errors in this format:
 {
   "message": "The email field is required.",
   "errors": {
-    "email": [
-      "The email field is required."
-    ],
+    "email": ["The email field is required."],
     "password": [
       "The password field is required.",
       "The password must be at least 8 characters."
@@ -45,71 +43,71 @@ Laravel returns validation errors in this format:
 Create `src/utils/errors.ts`:
 
 ```typescript
-import type { AxiosError } from 'axios'
+import type { AxiosError } from "axios";
 
 export interface ValidationErrors {
-  [key: string]: string[]
+  [key: string]: string[];
 }
 
 export interface ApiError {
-  message: string
-  errors?: ValidationErrors
-  status?: number
+  message: string;
+  errors?: ValidationErrors;
+  status?: number;
 }
 
 export function parseError(error: unknown): ApiError {
   // Network error - no response received
-  if (error instanceof Error && !('response' in error)) {
+  if (error instanceof Error && !("response" in error)) {
     return {
-      message: 'Network error. Please check your connection.',
+      message: "Network error. Please check your connection.",
       status: 0,
-    }
+    };
   }
 
   const axiosError = error as AxiosError<{
-    message?: string
-    errors?: ValidationErrors
-  }>
+    message?: string;
+    errors?: ValidationErrors;
+  }>;
 
   // No response object (shouldn't happen with Axios, but just in case)
   if (!axiosError.response) {
     return {
-      message: 'An unexpected error occurred.',
+      message: "An unexpected error occurred.",
       status: 0,
-    }
+    };
   }
 
-  const { status, data } = axiosError.response
+  const { status, data } = axiosError.response;
 
   // Validation errors
   if (status === 422 && data.errors) {
     return {
-      message: data.message || 'Validation failed.',
+      message: data.message || "Validation failed.",
       errors: data.errors,
       status,
-    }
+    };
   }
 
   // Standard error messages by status
   const statusMessages: Record<number, string> = {
-    401: 'Please log in to continue.',
-    403: 'You don\'t have permission to do that.',
-    404: 'The requested resource was not found.',
-    419: 'Your session has expired. Please refresh and try again.',
-    429: 'Too many requests. Please slow down.',
-    500: 'Server error. Please try again later.',
-    503: 'Service temporarily unavailable.',
-  }
+    401: "Please log in to continue.",
+    403: "You don't have permission to do that.",
+    404: "The requested resource was not found.",
+    419: "Your session has expired. Please refresh and try again.",
+    429: "Too many requests. Please slow down.",
+    500: "Server error. Please try again later.",
+    503: "Service temporarily unavailable.",
+  };
 
   return {
-    message: data.message || statusMessages[status] || 'An error occurred.',
+    message: data.message || statusMessages[status] || "An error occurred.",
     status,
-  }
+  };
 }
 
 export function getFirstError(errors: ValidationErrors): string | null {
-  const firstKey = Object.keys(errors)[0]
-  return firstKey ? errors[firstKey][0] : null
+  const firstKey = Object.keys(errors)[0];
+  return firstKey ? errors[firstKey][0] : null;
 }
 ```
 
@@ -118,44 +116,44 @@ export function getFirstError(errors: ValidationErrors): string | null {
 Update `src/services/api.ts` to handle errors globally:
 
 ```typescript
-import axios from 'axios'
-import { useAuthStore } from '@/stores/auth'
-import router from '@/router'
+import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
+import router from "@/router";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
-})
+});
 
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const status = error.response?.status
+    const status = error.response?.status;
 
     // Handle authentication errors
     if (status === 401 || status === 419) {
-      const auth = useAuthStore()
-      auth.user = null
+      const auth = useAuthStore();
+      auth.user = null;
 
       // Only redirect if not already on a guest page
-      const currentRoute = router.currentRoute.value
+      const currentRoute = router.currentRoute.value;
       if (currentRoute.meta.requiresAuth) {
         router.push({
-          name: 'login',
+          name: "login",
           query: { redirect: currentRoute.fullPath },
-        })
+        });
       }
     }
 
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default api
+export default api;
 ```
 
 ## Form Error Display Component
@@ -164,11 +162,11 @@ Create `src/components/FormErrors.vue`:
 
 ```vue
 <script setup lang="ts">
-import type { ValidationErrors } from '@/utils/errors'
+import type { ValidationErrors } from "@/utils/errors";
 
 defineProps<{
-  errors: ValidationErrors
-}>()
+  errors: ValidationErrors;
+}>();
 </script>
 
 <template>
@@ -199,71 +197,71 @@ defineProps<{
 Create a toast notification system. First, the store `src/stores/toast.ts`:
 
 ```typescript
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { defineStore } from "pinia";
+import { ref } from "vue";
 
-export type ToastType = 'success' | 'error' | 'warning' | 'info'
+export type ToastType = "success" | "error" | "warning" | "info";
 
 export interface Toast {
-  id: number
-  message: string
-  type: ToastType
+  id: number;
+  message: string;
+  type: ToastType;
 }
 
-export const useToastStore = defineStore('toast', () => {
-  const toasts = ref<Toast[]>([])
-  let nextId = 0
+export const useToastStore = defineStore("toast", () => {
+  const toasts = ref<Toast[]>([]);
+  let nextId = 0;
 
-  function show(message: string, type: ToastType = 'info', duration = 5000) {
-    const id = nextId++
-    toasts.value.push({ id, message, type })
+  function show(message: string, type: ToastType = "info", duration = 5000) {
+    const id = nextId++;
+    toasts.value.push({ id, message, type });
 
     if (duration > 0) {
-      setTimeout(() => remove(id), duration)
+      setTimeout(() => remove(id), duration);
     }
   }
 
   function remove(id: number) {
-    const index = toasts.value.findIndex((t) => t.id === id)
+    const index = toasts.value.findIndex((t) => t.id === id);
     if (index !== -1) {
-      toasts.value.splice(index, 1)
+      toasts.value.splice(index, 1);
     }
   }
 
   function success(message: string) {
-    show(message, 'success')
+    show(message, "success");
   }
 
   function error(message: string) {
-    show(message, 'error')
+    show(message, "error");
   }
 
   function warning(message: string) {
-    show(message, 'warning')
+    show(message, "warning");
   }
 
   function info(message: string) {
-    show(message, 'info')
+    show(message, "info");
   }
 
-  return { toasts, show, remove, success, error, warning, info }
-})
+  return { toasts, show, remove, success, error, warning, info };
+});
 ```
 
 Create `src/components/ToastContainer.vue`:
 
 ```vue
 <script setup lang="ts">
-import { useToastStore } from '@/stores/toast'
+import { useToastStore } from "@/stores/toast";
 
-const toast = useToastStore()
+const toast = useToastStore();
 
 const typeClasses = {
-  success: 'bg-green-500',
-  error: 'bg-red-500',
-  warning: 'bg-yellow-500',
-  info: 'bg-blue-500',
-}
+  success: "bg-green-500",
+  error: "bg-red-500",
+  warning: "bg-yellow-500",
+  info: "bg-blue-500",
+};
 </script>
 
 <template>
@@ -309,7 +307,7 @@ Add it to your `App.vue`:
 
 ```vue
 <script setup lang="ts">
-import ToastContainer from '@/components/ToastContainer.vue'
+import ToastContainer from "@/components/ToastContainer.vue";
 </script>
 
 <template>
@@ -322,32 +320,32 @@ import ToastContainer from '@/components/ToastContainer.vue'
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
-import { parseError, type ValidationErrors } from '@/utils/errors'
-import { useToastStore } from '@/stores/toast'
-import FormErrors from '@/components/FormErrors.vue'
+import { ref } from "vue";
+import { parseError, type ValidationErrors } from "@/utils/errors";
+import { useToastStore } from "@/stores/toast";
+import FormErrors from "@/components/FormErrors.vue";
 
-const toast = useToastStore()
-const errors = ref<ValidationErrors>({})
-const isLoading = ref(false)
+const toast = useToastStore();
+const errors = ref<ValidationErrors>({});
+const isLoading = ref(false);
 
 async function handleSubmit() {
-  errors.value = {}
-  isLoading.value = true
+  errors.value = {};
+  isLoading.value = true;
 
   try {
-    await someApiCall()
-    toast.success('Operation completed successfully!')
+    await someApiCall();
+    toast.success("Operation completed successfully!");
   } catch (e) {
-    const apiError = parseError(e)
+    const apiError = parseError(e);
 
     if (apiError.errors) {
-      errors.value = apiError.errors
+      errors.value = apiError.errors;
     } else {
-      toast.error(apiError.message)
+      toast.error(apiError.message);
     }
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
 }
 </script>
@@ -358,13 +356,11 @@ async function handleSubmit() {
 
     <!-- Form fields -->
 
-    <button type="submit" :disabled="isLoading">
-      Submit
-    </button>
+    <button type="submit" :disabled="isLoading">Submit</button>
   </form>
 </template>
 ```
 
 ---
 
-*Next up: Vue middleware patterns for route protection.*
+_Next up: Vue middleware patterns for route protection._

@@ -3,7 +3,7 @@ title: "Vue 3 SPA Authentication with Sanctum"
 description: "How to set up full authentication in a Vue 3 SPA using Laravel Sanctum, Pinia, and the Composition API."
 tags: ["vue", "authentication", "sanctum", "pinia", "composition-api"]
 pubDate: "2024-01-08T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 8
 ---
 
@@ -14,83 +14,83 @@ Now let's build out the authentication UI in our Vue 3 SPA using the Composition
 First, let's create a dedicated auth service. Create `src/services/auth.ts`:
 
 ```typescript
-import api from './api'
+import api from "./api";
 
 export interface User {
-  id: number
-  name: string
-  email: string
-  email_verified_at: string | null
-  is_admin?: boolean
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: string | null;
+  is_admin?: boolean;
 }
 
 export interface LoginCredentials {
-  email: string
-  password: string
-  remember?: boolean
+  email: string;
+  password: string;
+  remember?: boolean;
 }
 
 export interface RegisterData {
-  name: string
-  email: string
-  password: string
-  password_confirmation: string
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
 }
 
 export const authService = {
   async getCsrfCookie() {
-    await api.get('/sanctum/csrf-cookie')
+    await api.get("/sanctum/csrf-cookie");
   },
 
   async login(credentials: LoginCredentials) {
-    await this.getCsrfCookie()
-    return api.post('/login', credentials)
+    await this.getCsrfCookie();
+    return api.post("/login", credentials);
   },
 
   async register(data: RegisterData) {
-    await this.getCsrfCookie()
-    return api.post('/register', data)
+    await this.getCsrfCookie();
+    return api.post("/register", data);
   },
 
   async logout() {
-    return api.post('/logout')
+    return api.post("/logout");
   },
 
   async getUser() {
-    return api.get<User>('/api/user')
+    return api.get<User>("/api/user");
   },
 
   async forgotPassword(email: string) {
-    await this.getCsrfCookie()
-    return api.post('/forgot-password', { email })
+    await this.getCsrfCookie();
+    return api.post("/forgot-password", { email });
   },
 
   async resetPassword(data: {
-    token: string
-    email: string
-    password: string
-    password_confirmation: string
+    token: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
   }) {
-    await this.getCsrfCookie()
-    return api.post('/reset-password', data)
+    await this.getCsrfCookie();
+    return api.post("/reset-password", data);
   },
 
   async updateProfile(data: { name: string; email: string }) {
-    return api.put('/user/profile-information', data)
+    return api.put("/user/profile-information", data);
   },
 
   async updatePassword(data: {
-    current_password: string
-    password: string
-    password_confirmation: string
+    current_password: string;
+    password: string;
+    password_confirmation: string;
   }) {
-    return api.put('/user/password', data)
+    return api.put("/user/password", data);
   },
 
   async sendVerificationEmail() {
-    return api.post('/email/verification-notification')
+    return api.post("/email/verification-notification");
   },
-}
+};
 ```
 
 ## Auth Store with Pinia
@@ -98,94 +98,99 @@ export const authService = {
 Update `src/stores/auth.ts`:
 
 ```typescript
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import { authService, type User, type LoginCredentials, type RegisterData } from '@/services/auth'
-import { useRouter } from 'vue-router'
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import {
+  authService,
+  type User,
+  type LoginCredentials,
+  type RegisterData,
+} from "@/services/auth";
+import { useRouter } from "vue-router";
 
-export const useAuthStore = defineStore('auth', () => {
-  const router = useRouter()
+export const useAuthStore = defineStore("auth", () => {
+  const router = useRouter();
 
-  const user = ref<User | null>(null)
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
+  const user = ref<User | null>(null);
+  const isLoading = ref(false);
+  const error = ref<string | null>(null);
 
-  const isAuthenticated = computed(() => !!user.value)
-  const isAdmin = computed(() => user.value?.is_admin ?? false)
-  const isVerified = computed(() => !!user.value?.email_verified_at)
+  const isAuthenticated = computed(() => !!user.value);
+  const isAdmin = computed(() => user.value?.is_admin ?? false);
+  const isVerified = computed(() => !!user.value?.email_verified_at);
 
   async function fetchUser() {
-    if (isLoading.value) return
+    if (isLoading.value) return;
 
     try {
-      isLoading.value = true
-      error.value = null
-      const response = await authService.getUser()
-      user.value = response.data
+      isLoading.value = true;
+      error.value = null;
+      const response = await authService.getUser();
+      user.value = response.data;
     } catch (e) {
-      user.value = null
+      user.value = null;
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   async function login(credentials: LoginCredentials) {
     try {
-      isLoading.value = true
-      error.value = null
-      await authService.login(credentials)
-      await fetchUser()
+      isLoading.value = true;
+      error.value = null;
+      await authService.login(credentials);
+      await fetchUser();
 
-      const redirect = router.currentRoute.value.query.redirect as string
-      router.push(redirect || '/dashboard')
+      const redirect = router.currentRoute.value.query.redirect as string;
+      router.push(redirect || "/dashboard");
     } catch (e: any) {
-      error.value = e.response?.data?.message || 'Login failed'
-      throw e
+      error.value = e.response?.data?.message || "Login failed";
+      throw e;
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   async function register(data: RegisterData) {
     try {
-      isLoading.value = true
-      error.value = null
-      await authService.register(data)
-      await fetchUser()
-      router.push('/dashboard')
+      isLoading.value = true;
+      error.value = null;
+      await authService.register(data);
+      await fetchUser();
+      router.push("/dashboard");
     } catch (e: any) {
-      error.value = e.response?.data?.message || 'Registration failed'
-      throw e
+      error.value = e.response?.data?.message || "Registration failed";
+      throw e;
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   async function logout() {
     try {
-      await authService.logout()
+      await authService.logout();
     } finally {
-      user.value = null
-      router.push('/login')
+      user.value = null;
+      router.push("/login");
     }
   }
 
   async function forgotPassword(email: string) {
-    await authService.forgotPassword(email)
+    await authService.forgotPassword(email);
   }
 
   async function resetPassword(data: {
-    token: string
-    email: string
-    password: string
-    password_confirmation: string
+    token: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
   }) {
-    await authService.resetPassword(data)
-    router.push('/login')
+    await authService.resetPassword(data);
+    router.push("/login");
   }
 
   function clearError() {
-    error.value = null
+    error.value = null;
   }
 
   return {
@@ -202,8 +207,8 @@ export const useAuthStore = defineStore('auth', () => {
     forgotPassword,
     resetPassword,
     clearError,
-  }
-})
+  };
+});
 ```
 
 ## Login Component
@@ -212,28 +217,28 @@ Create `src/views/LoginView.vue`:
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 
 const form = ref({
-  email: '',
-  password: '',
+  email: "",
+  password: "",
   remember: false,
-})
+});
 
-const errors = ref<Record<string, string[]>>({})
+const errors = ref<Record<string, string[]>>({});
 
 async function handleSubmit() {
-  errors.value = {}
-  auth.clearError()
+  errors.value = {};
+  auth.clearError();
 
   try {
-    await auth.login(form.value)
+    await auth.login(form.value);
   } catch (e: any) {
     if (e.response?.data?.errors) {
-      errors.value = e.response.data.errors
+      errors.value = e.response.data.errors;
     }
   }
 }
@@ -291,7 +296,7 @@ async function handleSubmit() {
         :disabled="auth.isLoading"
         class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50"
       >
-        {{ auth.isLoading ? 'Logging in...' : 'Login' }}
+        {{ auth.isLoading ? "Logging in..." : "Login" }}
       </button>
 
       <div class="text-center text-sm">
@@ -317,29 +322,29 @@ Create `src/views/RegisterView.vue`:
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useAuthStore } from '@/stores/auth'
+import { ref } from "vue";
+import { useAuthStore } from "@/stores/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 
 const form = ref({
-  name: '',
-  email: '',
-  password: '',
-  password_confirmation: '',
-})
+  name: "",
+  email: "",
+  password: "",
+  password_confirmation: "",
+});
 
-const errors = ref<Record<string, string[]>>({})
+const errors = ref<Record<string, string[]>>({});
 
 async function handleSubmit() {
-  errors.value = {}
-  auth.clearError()
+  errors.value = {};
+  auth.clearError();
 
   try {
-    await auth.register(form.value)
+    await auth.register(form.value);
   } catch (e: any) {
     if (e.response?.data?.errors) {
-      errors.value = e.response.data.errors
+      errors.value = e.response.data.errors;
     }
   }
 }
@@ -414,7 +419,7 @@ async function handleSubmit() {
         :disabled="auth.isLoading"
         class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50"
       >
-        {{ auth.isLoading ? 'Creating account...' : 'Register' }}
+        {{ auth.isLoading ? "Creating account..." : "Register" }}
       </button>
 
       <div class="text-center text-sm">
@@ -434,29 +439,33 @@ Create `src/views/DashboardView.vue`:
 
 ```vue
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from "@/stores/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 </script>
 
 <template>
   <div class="max-w-4xl mx-auto mt-10">
     <h1 class="text-2xl font-bold mb-6">Dashboard</h1>
 
-    <div v-if="!auth.isVerified" class="bg-yellow-100 text-yellow-800 p-4 rounded mb-6">
+    <div
+      v-if="!auth.isVerified"
+      class="bg-yellow-100 text-yellow-800 p-4 rounded mb-6"
+    >
       Please verify your email address.
-      <button
-        @click="auth.sendVerificationEmail"
-        class="underline ml-2"
-      >
+      <button @click="auth.sendVerificationEmail" class="underline ml-2">
         Resend verification email
       </button>
     </div>
 
     <div class="bg-white shadow rounded p-6">
-      <h2 class="text-lg font-semibold mb-4">Welcome, {{ auth.user?.name }}!</h2>
+      <h2 class="text-lg font-semibold mb-4">
+        Welcome, {{ auth.user?.name }}!
+      </h2>
       <p class="text-gray-600">Email: {{ auth.user?.email }}</p>
-      <p v-if="auth.isAdmin" class="text-green-600 mt-2">You have admin privileges.</p>
+      <p v-if="auth.isAdmin" class="text-green-600 mt-2">
+        You have admin privileges.
+      </p>
     </div>
 
     <button
@@ -474,35 +483,35 @@ const auth = useAuthStore()
 Update `src/services/api.ts` to handle session expiration:
 
 ```typescript
-import axios from 'axios'
-import { useAuthStore } from '@/stores/auth'
-import router from '@/router'
+import axios from "axios";
+import { useAuthStore } from "@/stores/auth";
+import router from "@/router";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   withCredentials: true,
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json',
+    Accept: "application/json",
+    "Content-Type": "application/json",
   },
-})
+});
 
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     // Session expired or unauthorized
     if (error.response?.status === 401 || error.response?.status === 419) {
-      const auth = useAuthStore()
-      auth.user = null
-      router.push('/login')
+      const auth = useAuthStore();
+      auth.user = null;
+      router.push("/login");
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default api
+export default api;
 ```
 
 ---
 
-*Next up: Updating the authenticated user's details.*
+_Next up: Updating the authenticated user's details._

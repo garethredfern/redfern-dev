@@ -3,7 +3,7 @@ title: "Setting Up Laravel 11 with Sanctum and Fortify"
 description: "How to set up Laravel 11 with Sanctum and Fortify for use as a headless API that your Vue SPA can consume."
 tags: ["laravel", "sanctum", "fortify", "api", "authentication"]
 pubDate: "2024-01-02T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 2
 ---
 
@@ -58,6 +58,7 @@ sail artisan install:api
 ```
 
 This command:
+
 - Publishes the Sanctum configuration
 - Adds the API routes file
 - Runs the necessary migrations
@@ -191,4 +192,4 @@ The default password for factory users is `password`.
 
 ---
 
-*Next up: Setting up the Vue 3 SPA with Vite and Pinia.*
+_Next up: Setting up the Vue 3 SPA with Vite and Pinia._

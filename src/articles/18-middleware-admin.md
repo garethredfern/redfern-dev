@@ -3,7 +3,7 @@ title: "Vue Admin Middleware: Role-Based Access Control"
 description: "A Vue 3 middleware function with TypeScript to check if the authenticated user has admin privileges before allowing access to admin routes."
 tags: ["vue", "middleware", "authorization", "admin", "typescript"]
 pubDate: "2024-01-18T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 18
 ---
 
@@ -14,18 +14,18 @@ The admin middleware checks if the authenticated user has admin privileges. This
 Create `src/middleware/admin.ts`:
 
 ```typescript
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default function admin({ next }: MiddlewareContext) {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
 
   if (authStore.isAdmin) {
-    return next()
+    return next();
   }
 
   // Not an admin, redirect to 404 or dashboard
-  return next({ name: 'not-found' })
+  return next({ name: "not-found" });
 }
 ```
 
@@ -42,18 +42,18 @@ Make sure your auth store exposes an `isAdmin` computed:
 
 ```typescript
 // src/stores/auth.ts
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
-export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(null)
+export const useAuthStore = defineStore("auth", () => {
+  const user = ref<User | null>(null);
 
-  const isAdmin = computed(() => user.value?.is_admin ?? false)
+  const isAdmin = computed(() => user.value?.is_admin ?? false);
 
   // ... rest of store
 
-  return { user, isAdmin, /* ... */ }
-})
+  return { user, isAdmin /* ... */ };
+});
 ```
 
 ## Chaining Middleware
@@ -61,23 +61,23 @@ export const useAuthStore = defineStore('auth', () => {
 The order of middleware matters. Always put `auth` before `admin`:
 
 ```typescript
-import auth from '@/middleware/auth'
-import admin from '@/middleware/admin'
+import auth from "@/middleware/auth";
+import admin from "@/middleware/admin";
 
 const routes = [
   {
-    path: '/users',
-    name: 'users',
-    component: () => import('@/views/UsersView.vue'),
+    path: "/users",
+    name: "users",
+    component: () => import("@/views/UsersView.vue"),
     meta: { middleware: [auth, admin] },
   },
   {
-    path: '/admin/settings',
-    name: 'admin-settings',
-    component: () => import('@/views/AdminSettingsView.vue'),
+    path: "/admin/settings",
+    name: "admin-settings",
+    component: () => import("@/views/AdminSettingsView.vue"),
     meta: { middleware: [auth, admin] },
   },
-]
+];
 ```
 
 The execution flow:
@@ -96,21 +96,21 @@ You have options for what to do when a non-admin tries to access admin routes:
 
 ```typescript
 // User doesn't even know the route exists
-return next({ name: 'not-found' })
+return next({ name: "not-found" });
 ```
 
 ### Option 2: Redirect to Dashboard
 
 ```typescript
 // User knows the route exists but can't access it
-return next({ name: 'dashboard' })
+return next({ name: "dashboard" });
 ```
 
 ### Option 3: Show Forbidden Page
 
 ```typescript
 // Explicit "you don't have permission" message
-return next({ name: 'forbidden' })
+return next({ name: "forbidden" });
 ```
 
 Create a simple forbidden view:
@@ -120,8 +120,13 @@ Create a simple forbidden view:
 <template>
   <div class="text-center py-20">
     <h1 class="text-4xl font-bold text-gray-900">403</h1>
-    <p class="mt-4 text-gray-600">You don't have permission to access this page.</p>
-    <RouterLink to="/dashboard" class="mt-6 inline-block text-blue-600 hover:underline">
+    <p class="mt-4 text-gray-600">
+      You don't have permission to access this page.
+    </p>
+    <RouterLink
+      to="/dashboard"
+      class="mt-6 inline-block text-blue-600 hover:underline"
+    >
       Return to Dashboard
     </RouterLink>
   </div>
@@ -134,18 +139,16 @@ Besides protecting routes, use `isAdmin` to show/hide admin-only UI elements:
 
 ```vue
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from "@/stores/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 </script>
 
 <template>
   <nav class="flex gap-4">
     <RouterLink to="/dashboard">Dashboard</RouterLink>
     <RouterLink to="/settings">Settings</RouterLink>
-    <RouterLink v-if="auth.isAdmin" to="/users">
-      Manage Users
-    </RouterLink>
+    <RouterLink v-if="auth.isAdmin" to="/users"> Manage Users </RouterLink>
   </nav>
 </template>
 ```
@@ -156,42 +159,42 @@ For more complex role systems, create a middleware factory:
 
 ```typescript
 // src/middleware/hasRole.ts
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default function hasRole(role: string) {
   return function ({ next }: MiddlewareContext) {
-    const authStore = useAuthStore()
+    const authStore = useAuthStore();
 
     if (authStore.user?.roles?.includes(role)) {
-      return next()
+      return next();
     }
 
-    return next({ name: 'forbidden' })
-  }
+    return next({ name: "forbidden" });
+  };
 }
 ```
 
 Usage:
 
 ```typescript
-import auth from '@/middleware/auth'
-import hasRole from '@/middleware/hasRole'
+import auth from "@/middleware/auth";
+import hasRole from "@/middleware/hasRole";
 
 const routes = [
   {
-    path: '/users',
-    name: 'users',
-    meta: { middleware: [auth, hasRole('admin')] },
+    path: "/users",
+    name: "users",
+    meta: { middleware: [auth, hasRole("admin")] },
   },
   {
-    path: '/reports',
-    name: 'reports',
-    meta: { middleware: [auth, hasRole('manager')] },
+    path: "/reports",
+    name: "reports",
+    meta: { middleware: [auth, hasRole("manager")] },
   },
-]
+];
 ```
 
 ---
 
-*Next up: Building a pagination component with Pinia.*
+_Next up: Building a pagination component with Pinia._

@@ -3,7 +3,7 @@ title: "File Uploads with Laravel and S3-Compatible Storage"
 description: "Set up file uploads in Laravel 11 using Flysystem with S3-compatible storage like Digital Ocean Spaces or AWS S3."
 tags: ["laravel", "file-uploads", "s3", "flysystem", "storage"]
 pubDate: "2024-01-11T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 11
 ---
 
@@ -259,4 +259,4 @@ If you want to upload directly to S3/Spaces from the browser (bypassing your ser
 
 ---
 
-*Next up: Building the file upload component in Vue.*
+_Next up: Building the file upload component in Vue._

@@ -3,7 +3,7 @@ title: "Laravel 11 API Authentication with Sanctum and Fortify"
 description: "How to set up full authentication using Laravel Sanctum and Fortify including CORS, email verification, and password resets."
 tags: ["laravel", "sanctum", "fortify", "authentication", "api"]
 pubDate: "2024-01-07T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 7
 ---
 
@@ -17,6 +17,7 @@ Sanctum provides two authentication methods:
 2. **Cookie/Session-based** - For SPAs on the same top-level domain (what we're using)
 
 Cookie-based authentication is more secure for SPAs because:
+
 - Tokens can't be stolen via XSS (cookies are httpOnly)
 - CSRF protection is built-in
 - Session management is handled by Laravel
@@ -24,6 +25,7 @@ Cookie-based authentication is more secure for SPAs because:
 ## CORS Configuration
 
 Your SPA and API must share the same top-level domain. In development:
+
 - API: `http://localhost` (port 80)
 - SPA: `http://localhost:5173` (Vite's default)
 
@@ -233,4 +235,4 @@ Use Telescope to inspect requests and debug any issues.
 
 ---
 
-*Next up: Setting up authentication in the Vue SPA.*
+_Next up: Setting up authentication in the Vue SPA._

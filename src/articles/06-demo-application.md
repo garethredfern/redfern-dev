@@ -3,7 +3,7 @@ title: "The Demo Application"
 description: "Overview of the demo application you'll be building - a Vue 3 SPA with Laravel 11 API authentication."
 tags: ["vue", "laravel", "demo", "spa"]
 pubDate: "2024-01-06T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 6
 ---
 
@@ -19,22 +19,26 @@ To see what you'll be building, clone and run the example projects locally.
 The demo application includes:
 
 ### Authentication
+
 - User registration with email verification
 - Login/logout with session-based authentication
 - Password reset via email
 - "Remember me" functionality
 
 ### User Management
+
 - Update profile information
 - Change password
 - Upload avatar image
 
 ### Authorization
+
 - Role-based access control (admin vs regular user)
 - Protected routes that require authentication
 - Admin-only routes and content
 
 ### API Features
+
 - RESTful API design
 - API resources for consistent JSON responses
 - Pagination
@@ -80,4 +84,4 @@ If you ran the database seeder, you can log in with:
 
 ---
 
-*Next up: Setting up authentication in the Laravel API.*
+_Next up: Setting up authentication in the Laravel API._

@@ -3,7 +3,7 @@ title: "Vue Guest Middleware: Redirecting Logged-In Users"
 description: "A Vue 3 middleware function with TypeScript that redirects authenticated users away from guest-only pages like login and register."
 tags: ["vue", "middleware", "authentication", "routing", "typescript"]
 pubDate: "2024-01-17T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 17
 ---
 
@@ -14,34 +14,34 @@ The guest middleware prevents authenticated users from accessing pages meant for
 Create `src/middleware/guest.ts`:
 
 ```typescript
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default async function guest({ next }: MiddlewareContext) {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
 
   // If we already know the user is authenticated, redirect
   if (authStore.user) {
-    return next({ name: 'dashboard' })
+    return next({ name: "dashboard" });
   }
 
   // Check if we might have a session (user was previously logged in)
-  const wasAuthenticated = localStorage.getItem('wasAuthenticated')
+  const wasAuthenticated = localStorage.getItem("wasAuthenticated");
 
-  if (wasAuthenticated === 'true') {
+  if (wasAuthenticated === "true") {
     // Verify with the API
-    await authStore.fetchUser()
+    await authStore.fetchUser();
 
     if (authStore.user) {
-      return next({ name: 'dashboard' })
+      return next({ name: "dashboard" });
     }
 
     // Session expired, clear the flag
-    localStorage.removeItem('wasAuthenticated')
+    localStorage.removeItem("wasAuthenticated");
   }
 
   // Not authenticated, allow access to guest page
-  return next()
+  return next();
 }
 ```
 
@@ -61,28 +61,28 @@ Update your auth store to set the flag on login and clear it on logout:
 
 ```typescript
 // In src/stores/auth.ts
-export const useAuthStore = defineStore('auth', () => {
-  const user = ref<User | null>(null)
+export const useAuthStore = defineStore("auth", () => {
+  const user = ref<User | null>(null);
 
   async function login(credentials: LoginCredentials) {
-    await authService.getCsrfCookie()
-    await authService.login(credentials)
-    await fetchUser()
+    await authService.getCsrfCookie();
+    await authService.login(credentials);
+    await fetchUser();
 
     // Set flag for guest middleware
-    localStorage.setItem('wasAuthenticated', 'true')
+    localStorage.setItem("wasAuthenticated", "true");
   }
 
   async function logout() {
-    await authService.logout()
-    user.value = null
+    await authService.logout();
+    user.value = null;
 
     // Clear flag
-    localStorage.removeItem('wasAuthenticated')
+    localStorage.removeItem("wasAuthenticated");
   }
 
   // ... rest of store
-})
+});
 ```
 
 ## Using the Middleware
@@ -90,28 +90,28 @@ export const useAuthStore = defineStore('auth', () => {
 Add to login, register, and other guest-only routes:
 
 ```typescript
-import guest from '@/middleware/guest'
+import guest from "@/middleware/guest";
 
 const routes = [
   {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/LoginView.vue'),
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/LoginView.vue"),
     meta: { middleware: [guest] },
   },
   {
-    path: '/register',
-    name: 'register',
-    component: () => import('@/views/RegisterView.vue'),
+    path: "/register",
+    name: "register",
+    component: () => import("@/views/RegisterView.vue"),
     meta: { middleware: [guest] },
   },
   {
-    path: '/forgot-password',
-    name: 'forgot-password',
-    component: () => import('@/views/ForgotPasswordView.vue'),
+    path: "/forgot-password",
+    name: "forgot-password",
+    component: () => import("@/views/ForgotPasswordView.vue"),
     meta: { middleware: [guest] },
   },
-]
+];
 ```
 
 ## Simpler Alternative
@@ -119,24 +119,24 @@ const routes = [
 If you don't need the localStorage optimization, here's a simpler version:
 
 ```typescript
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default async function guest({ next }: MiddlewareContext) {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
 
   // Try to fetch user if we don't have one
   if (!authStore.user) {
-    await authStore.fetchUser()
+    await authStore.fetchUser();
   }
 
   // If authenticated, redirect to dashboard
   if (authStore.user) {
-    return next({ name: 'dashboard' })
+    return next({ name: "dashboard" });
   }
 
   // Not authenticated, allow access
-  return next()
+  return next();
 }
 ```
 
@@ -144,4 +144,4 @@ This version always checks with the API but is simpler to understand and maintai
 
 ---
 
-*Next up: Building the admin middleware for role-based access.*
+_Next up: Building the admin middleware for role-based access._

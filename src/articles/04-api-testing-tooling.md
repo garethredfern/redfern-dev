@@ -3,7 +3,7 @@ title: "Testing API Endpoints with Insomnia or Postman"
 description: "Testing your API endpoints is essential when building a Laravel API. Here's how to use Insomnia or Postman with Sanctum token authentication."
 tags: ["laravel", "api", "testing", "postman", "insomnia"]
 pubDate: "2024-01-04T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 4
 ---
 
@@ -172,4 +172,4 @@ $request->user()->currentAccessToken()->delete();
 
 ---
 
-*Next up: Using Laravel Telescope for debugging your API.*
+_Next up: Using Laravel Telescope for debugging your API._

@@ -3,13 +3,14 @@ title: "Building a Laravel API with Vue SPA: Introduction"
 description: "A step by step guide on how to build a Laravel 11 API with a Vue 3 SPA to consume its data using Sanctum and Fortify."
 tags: ["laravel", "vue", "api", "sanctum", "spa"]
 pubDate: "2024-01-01T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 1
 ---
 
 If you want to build a completely separate SPA that consumes a Laravel API, this series provides everything you need to get set up with modern tooling.
 
 We'll be using:
+
 - **Laravel 11** with Sanctum for API authentication
 - **Vue 3** with the Composition API
 - **Pinia** for state management (the official replacement for Vuex)
@@ -46,4 +47,4 @@ If you have any questions please feel free to [start a discussion](https://githu
 
 ---
 
-*Next up: Setting up the Laravel API with Sanctum and Fortify.*
+_Next up: Setting up the Laravel API with Sanctum and Fortify._

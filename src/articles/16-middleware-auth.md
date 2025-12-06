@@ -3,7 +3,7 @@ title: "Vue Auth Middleware: Protecting Routes"
 description: "A Vue 3 middleware function with TypeScript to check if a user is authenticated before displaying a protected route."
 tags: ["vue", "middleware", "authentication", "routing", "typescript"]
 pubDate: "2024-01-16T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 16
 ---
 
@@ -14,30 +14,30 @@ The auth middleware checks if a user is authenticated before allowing access to 
 Create `src/middleware/auth.ts`:
 
 ```typescript
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default async function auth({ to, next }: MiddlewareContext) {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
 
   // If we already have a user, allow access
   if (authStore.user) {
-    return next()
+    return next();
   }
 
   // Try to fetch the user from the API
-  await authStore.fetchUser()
+  await authStore.fetchUser();
 
   // Check again after API call
   if (authStore.user) {
-    return next()
+    return next();
   }
 
   // Not authenticated, redirect to login with return URL
   return next({
-    name: 'login',
+    name: "login",
     query: { redirect: to.fullPath },
-  })
+  });
 }
 ```
 
@@ -58,22 +58,22 @@ Let's break down what this middleware does:
 Import and add to any route that requires authentication:
 
 ```typescript
-import auth from '@/middleware/auth'
+import auth from "@/middleware/auth";
 
 const routes = [
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    component: () => import('@/views/DashboardView.vue'),
+    path: "/dashboard",
+    name: "dashboard",
+    component: () => import("@/views/DashboardView.vue"),
     meta: { middleware: [auth] },
   },
   {
-    path: '/settings',
-    name: 'settings',
-    component: () => import('@/views/SettingsView.vue'),
+    path: "/settings",
+    name: "settings",
+    component: () => import("@/views/SettingsView.vue"),
     meta: { middleware: [auth] },
   },
-]
+];
 ```
 
 ## Handling the Redirect After Login
@@ -82,25 +82,25 @@ In your login component, check for the redirect query parameter:
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 
-const router = useRouter()
-const route = useRoute()
-const auth = useAuthStore()
+const router = useRouter();
+const route = useRoute();
+const auth = useAuthStore();
 
 const form = ref({
-  email: '',
-  password: '',
-})
+  email: "",
+  password: "",
+});
 
 async function handleLogin() {
-  await auth.login(form.value)
+  await auth.login(form.value);
 
   // Redirect to original destination or dashboard
-  const redirect = route.query.redirect as string
-  router.push(redirect || { name: 'dashboard' })
+  const redirect = route.query.redirect as string;
+  router.push(redirect || { name: "dashboard" });
 }
 </script>
 ```
@@ -110,39 +110,39 @@ async function handleLogin() {
 If you want to avoid the async/await pattern and handle loading states differently:
 
 ```typescript
-import type { MiddlewareContext } from './types'
-import { useAuthStore } from '@/stores/auth'
+import type { MiddlewareContext } from "./types";
+import { useAuthStore } from "@/stores/auth";
 
 export default function auth({ to, next }: MiddlewareContext) {
-  const authStore = useAuthStore()
+  const authStore = useAuthStore();
 
   const loginQuery = {
-    name: 'login',
+    name: "login",
     query: { redirect: to.fullPath },
-  }
+  };
 
   // If no user and not currently loading, try to fetch
   if (!authStore.user && !authStore.isLoading) {
     authStore.fetchUser().then(() => {
       if (!authStore.user) {
-        next(loginQuery)
+        next(loginQuery);
       } else {
-        next()
+        next();
       }
-    })
-    return
+    });
+    return;
   }
 
   // User exists, allow access
   if (authStore.user) {
-    return next()
+    return next();
   }
 
   // No user and not loading, redirect to login
-  return next(loginQuery)
+  return next(loginQuery);
 }
 ```
 
 ---
 
-*Next up: Building the guest middleware for login pages.*
+_Next up: Building the guest middleware for login pages._

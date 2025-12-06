@@ -3,7 +3,7 @@ title: "Deploying Your Laravel API and Vue SPA"
 description: "Deploy your Vue 3 SPA on Vercel or Netlify while hosting the Laravel 11 API via Laravel Forge on Digital Ocean or Railway."
 tags: ["laravel", "vue", "deployment", "vercel", "forge", "hosting"]
 pubDate: "2024-01-20T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 20
 ---
 
@@ -26,6 +26,7 @@ Laravel Forge is purpose-built for deploying Laravel applications. It handles se
 For simpler deployments without managing servers:
 
 **Railway:**
+
 ```bash
 # Install Railway CLI
 npm install -g @railway/cli
@@ -37,6 +38,7 @@ railway up
 ```
 
 **Render:**
+
 - Create a new Web Service
 - Connect your GitHub repo
 - Set build command: `composer install && php artisan migrate --force`
@@ -108,9 +110,7 @@ Create `vercel.json` for SPA routing:
 
 ```json
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
 ```
 
@@ -130,6 +130,7 @@ Create `netlify.toml` in your project root:
 ```
 
 Add environment variables in the Netlify dashboard:
+
 - `VITE_API_URL` = `https://api.yourapp.com`
 
 ### Environment Files
@@ -151,6 +152,7 @@ VITE_API_URL=http://localhost:8000
 ### If using Vercel for SPA + Forge for API:
 
 1. **SPA (yourapp.com):**
+
    - Add domain in Vercel dashboard
    - Point DNS to Vercel's nameservers or add CNAME record
 
@@ -199,6 +201,7 @@ Both Vercel and Netlify provide automatic SSL. For Forge:
 ## Deployment Checklist
 
 ### Laravel API:
+
 - [ ] `APP_ENV=production` and `APP_DEBUG=false`
 - [ ] Database migrations run: `php artisan migrate --force`
 - [ ] Config cached: `php artisan config:cache`
@@ -211,6 +214,7 @@ Both Vercel and Netlify provide automatic SSL. For Forge:
 - [ ] Scheduler configured (if using scheduled tasks)
 
 ### Vue SPA:
+
 - [ ] `VITE_API_URL` points to production API
 - [ ] SPA routing configured (vercel.json or netlify.toml)
 - [ ] Build succeeds: `npm run build`
@@ -220,22 +224,25 @@ Both Vercel and Netlify provide automatic SSL. For Forge:
 ## Troubleshooting
 
 ### CORS Errors
+
 - Verify `SANCTUM_STATEFUL_DOMAINS` includes your exact SPA domain
 - Check `supports_credentials` is `true` in cors.php
 - Ensure both SPA and API use HTTPS
 
 ### 419 Session Expired
+
 - Check `SESSION_DOMAIN` has the leading dot
 - Verify cookies are being set (check browser dev tools)
 - Ensure CSRF cookie is being fetched before login
 
 ### 401 Unauthenticated
+
 - Confirm `withCredentials: true` in Axios config
 - Check the session driver is correctly configured
 - Verify the user exists and credentials are correct
 
 ---
 
-*This concludes the Laravel Vue SPA series. You now have a complete authentication system with a Vue 3 SPA consuming a Laravel 11 API, including authorization, file uploads, middleware patterns, and deployment guidance.*
+_This concludes the Laravel Vue SPA series. You now have a complete authentication system with a Vue 3 SPA consuming a Laravel 11 API, including authorization, file uploads, middleware patterns, and deployment guidance._
 
 **All code examples are copy-paste ready.** If something doesn't work, double-check environment variables and CORS configuration first.

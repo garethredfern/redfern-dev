@@ -3,7 +3,7 @@ title: "Building a Pagination Component with Vue 3 and Pinia"
 description: "A complete guide to building a reusable Vue 3 pagination component with Pinia state management and TypeScript, consuming paginated data from a Laravel API."
 tags: ["vue", "pinia", "pagination", "components", "typescript"]
 pubDate: "2024-01-19T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 19
 ---
 
@@ -40,25 +40,25 @@ First, define the types for paginated responses. Create `src/types/pagination.ts
 
 ```typescript
 export interface PaginationLinks {
-  first: string
-  last: string
-  prev: string | null
-  next: string | null
+  first: string;
+  last: string;
+  prev: string | null;
+  next: string | null;
 }
 
 export interface PaginationMeta {
-  current_page: number
-  from: number
-  last_page: number
-  per_page: number
-  to: number
-  total: number
+  current_page: number;
+  from: number;
+  last_page: number;
+  per_page: number;
+  to: number;
+  total: number;
 }
 
 export interface PaginatedResponse<T> {
-  data: T[]
-  links: PaginationLinks
-  meta: PaginationMeta
+  data: T[];
+  links: PaginationLinks;
+  meta: PaginationMeta;
 }
 ```
 
@@ -67,30 +67,30 @@ export interface PaginatedResponse<T> {
 Create `src/services/users.ts`:
 
 ```typescript
-import api from './api'
-import type { PaginatedResponse } from '@/types/pagination'
+import api from "./api";
+import type { PaginatedResponse } from "@/types/pagination";
 
 export interface User {
-  id: number
-  name: string
-  email: string
-  email_verified_at: string | null
-  is_admin: boolean
-  avatar: string | null
-  created_at: string
+  id: number;
+  name: string;
+  email: string;
+  email_verified_at: string | null;
+  is_admin: boolean;
+  avatar: string | null;
+  created_at: string;
 }
 
 export const userService = {
   async getUsers(page = 1): Promise<PaginatedResponse<User>> {
-    const response = await api.get(`/api/users?page=${page}`)
-    return response.data
+    const response = await api.get(`/api/users?page=${page}`);
+    return response.data;
   },
 
   async getUsersByUrl(url: string): Promise<PaginatedResponse<User>> {
-    const response = await api.get(url)
-    return response.data
+    const response = await api.get(url);
+    return response.data;
   },
-}
+};
 ```
 
 ## Users Store with Pinia
@@ -98,77 +98,77 @@ export const userService = {
 Create `src/stores/users.ts`:
 
 ```typescript
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import { userService, type User } from '@/services/users'
-import type { PaginationLinks, PaginationMeta } from '@/types/pagination'
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import { userService, type User } from "@/services/users";
+import type { PaginationLinks, PaginationMeta } from "@/types/pagination";
 
-export const useUsersStore = defineStore('users', () => {
-  const users = ref<User[]>([])
-  const meta = ref<PaginationMeta | null>(null)
-  const links = ref<PaginationLinks | null>(null)
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
+export const useUsersStore = defineStore("users", () => {
+  const users = ref<User[]>([]);
+  const meta = ref<PaginationMeta | null>(null);
+  const links = ref<PaginationLinks | null>(null);
+  const isLoading = ref(false);
+  const error = ref<string | null>(null);
 
-  const hasUsers = computed(() => users.value.length > 0)
-  const currentPage = computed(() => meta.value?.current_page ?? 1)
-  const lastPage = computed(() => meta.value?.last_page ?? 1)
-  const hasPrevPage = computed(() => links.value?.prev !== null)
-  const hasNextPage = computed(() => links.value?.next !== null)
+  const hasUsers = computed(() => users.value.length > 0);
+  const currentPage = computed(() => meta.value?.current_page ?? 1);
+  const lastPage = computed(() => meta.value?.last_page ?? 1);
+  const hasPrevPage = computed(() => links.value?.prev !== null);
+  const hasNextPage = computed(() => links.value?.next !== null);
 
   async function fetchUsers(page = 1) {
-    isLoading.value = true
-    error.value = null
+    isLoading.value = true;
+    error.value = null;
 
     try {
-      const response = await userService.getUsers(page)
-      users.value = response.data
-      meta.value = response.meta
-      links.value = response.links
+      const response = await userService.getUsers(page);
+      users.value = response.data;
+      meta.value = response.meta;
+      links.value = response.links;
     } catch (e: any) {
-      error.value = e.response?.data?.message || 'Failed to fetch users'
+      error.value = e.response?.data?.message || "Failed to fetch users";
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   async function goToPage(url: string) {
-    isLoading.value = true
-    error.value = null
+    isLoading.value = true;
+    error.value = null;
 
     try {
-      const response = await userService.getUsersByUrl(url)
-      users.value = response.data
-      meta.value = response.meta
-      links.value = response.links
+      const response = await userService.getUsersByUrl(url);
+      users.value = response.data;
+      meta.value = response.meta;
+      links.value = response.links;
     } catch (e: any) {
-      error.value = e.response?.data?.message || 'Failed to fetch users'
+      error.value = e.response?.data?.message || "Failed to fetch users";
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   function goToFirst() {
     if (links.value?.first) {
-      goToPage(links.value.first)
+      goToPage(links.value.first);
     }
   }
 
   function goToPrev() {
     if (links.value?.prev) {
-      goToPage(links.value.prev)
+      goToPage(links.value.prev);
     }
   }
 
   function goToNext() {
     if (links.value?.next) {
-      goToPage(links.value.next)
+      goToPage(links.value.next);
     }
   }
 
   function goToLast() {
     if (links.value?.last) {
-      goToPage(links.value.last)
+      goToPage(links.value.last);
     }
   }
 
@@ -189,8 +189,8 @@ export const useUsersStore = defineStore('users', () => {
     goToPrev,
     goToNext,
     goToLast,
-  }
-})
+  };
+});
 ```
 
 ## Pagination Component
@@ -199,24 +199,24 @@ Create a reusable `src/components/BasePagination.vue`:
 
 ```vue
 <script setup lang="ts">
-import type { PaginationLinks, PaginationMeta } from '@/types/pagination'
+import type { PaginationLinks, PaginationMeta } from "@/types/pagination";
 
 interface Props {
-  meta: PaginationMeta
-  links: PaginationLinks
-  isLoading?: boolean
+  meta: PaginationMeta;
+  links: PaginationLinks;
+  isLoading?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   isLoading: false,
-})
+});
 
 const emit = defineEmits<{
-  (e: 'first'): void
-  (e: 'prev'): void
-  (e: 'next'): void
-  (e: 'last'): void
-}>()
+  (e: "first"): void;
+  (e: "prev"): void;
+  (e: "next"): void;
+  (e: "last"): void;
+}>();
 </script>
 
 <template>
@@ -256,7 +256,9 @@ const emit = defineEmits<{
         Previous
       </button>
 
-      <span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700">
+      <span
+        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700"
+      >
         {{ meta.current_page }} / {{ meta.last_page }}
       </span>
 
@@ -288,43 +290,43 @@ Create `src/views/UsersView.vue`:
 
 ```vue
 <script setup lang="ts">
-import { onMounted, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useUsersStore } from '@/stores/users'
-import BasePagination from '@/components/BasePagination.vue'
+import { onMounted, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useUsersStore } from "@/stores/users";
+import BasePagination from "@/components/BasePagination.vue";
 
-const route = useRoute()
-const router = useRouter()
-const usersStore = useUsersStore()
+const route = useRoute();
+const router = useRouter();
+const usersStore = useUsersStore();
 
 // Fetch users on mount
 onMounted(() => {
-  const page = parseInt(route.query.page as string) || 1
-  usersStore.fetchUsers(page)
-})
+  const page = parseInt(route.query.page as string) || 1;
+  usersStore.fetchUsers(page);
+});
 
 // Update URL when page changes
 watch(
   () => usersStore.currentPage,
   (page) => {
-    router.replace({ query: { page: page.toString() } })
+    router.replace({ query: { page: page.toString() } });
   }
-)
+);
 
 function handleFirst() {
-  usersStore.goToFirst()
+  usersStore.goToFirst();
 }
 
 function handlePrev() {
-  usersStore.goToPrev()
+  usersStore.goToPrev();
 }
 
 function handleNext() {
-  usersStore.goToNext()
+  usersStore.goToNext();
 }
 
 function handleLast() {
-  usersStore.goToLast()
+  usersStore.goToLast();
 }
 </script>
 
@@ -338,7 +340,10 @@ function handleLast() {
     </div>
 
     <!-- Error State -->
-    <div v-else-if="usersStore.error" class="bg-red-50 text-red-600 p-4 rounded">
+    <div
+      v-else-if="usersStore.error"
+      class="bg-red-50 text-red-600 p-4 rounded"
+    >
       {{ usersStore.error }}
     </div>
 
@@ -348,13 +353,19 @@ function handleLast() {
         <table class="min-w-full divide-y divide-gray-200">
           <thead class="bg-gray-50">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
                 Name
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
                 Email
               </th>
-              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              <th
+                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+              >
                 Status
               </th>
             </tr>
@@ -427,58 +438,62 @@ function handleLast() {
 For more flexibility, create a composable that works with any paginated data. Create `src/composables/usePagination.ts`:
 
 ```typescript
-import { ref, computed } from 'vue'
-import type { PaginationLinks, PaginationMeta, PaginatedResponse } from '@/types/pagination'
+import { ref, computed } from "vue";
+import type {
+  PaginationLinks,
+  PaginationMeta,
+  PaginatedResponse,
+} from "@/types/pagination";
 
 export function usePagination<T>(
   fetchFunction: (page: number) => Promise<PaginatedResponse<T>>
 ) {
-  const items = ref<T[]>([]) as { value: T[] }
-  const meta = ref<PaginationMeta | null>(null)
-  const links = ref<PaginationLinks | null>(null)
-  const isLoading = ref(false)
-  const error = ref<string | null>(null)
+  const items = ref<T[]>([]) as { value: T[] };
+  const meta = ref<PaginationMeta | null>(null);
+  const links = ref<PaginationLinks | null>(null);
+  const isLoading = ref(false);
+  const error = ref<string | null>(null);
 
-  const currentPage = computed(() => meta.value?.current_page ?? 1)
-  const lastPage = computed(() => meta.value?.last_page ?? 1)
-  const hasPrev = computed(() => links.value?.prev !== null)
-  const hasNext = computed(() => links.value?.next !== null)
+  const currentPage = computed(() => meta.value?.current_page ?? 1);
+  const lastPage = computed(() => meta.value?.last_page ?? 1);
+  const hasPrev = computed(() => links.value?.prev !== null);
+  const hasNext = computed(() => links.value?.next !== null);
 
   async function fetchPage(page = 1) {
-    isLoading.value = true
-    error.value = null
+    isLoading.value = true;
+    error.value = null;
 
     try {
-      const response = await fetchFunction(page)
-      items.value = response.data
-      meta.value = response.meta
-      links.value = response.links
+      const response = await fetchFunction(page);
+      items.value = response.data;
+      meta.value = response.meta;
+      links.value = response.links;
     } catch (e: any) {
-      error.value = e.response?.data?.message || 'Failed to fetch data'
+      error.value = e.response?.data?.message || "Failed to fetch data";
     } finally {
-      isLoading.value = false
+      isLoading.value = false;
     }
   }
 
   function goToFirst() {
-    fetchPage(1)
+    fetchPage(1);
   }
 
   function goToPrev() {
     if (meta.value && meta.value.current_page > 1) {
-      fetchPage(meta.value.current_page - 1)
+      fetchPage(meta.value.current_page - 1);
     }
   }
 
   function goToNext() {
     if (meta.value && meta.value.current_page < meta.value.last_page) {
-      fetchPage(meta.value.current_page + 1)
+      fetchPage(meta.value.current_page + 1);
     }
   }
 
   function goToLast() {
     if (meta.value) {
-      fetchPage(meta.value.last_page)
+      fetchPage(meta.value.last_page);
     }
   }
 
@@ -497,7 +512,7 @@ export function usePagination<T>(
     goToPrev,
     goToNext,
     goToLast,
-  }
+  };
 }
 ```
 
@@ -505,9 +520,9 @@ Usage example:
 
 ```vue
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { usePagination } from '@/composables/usePagination'
-import { userService, type User } from '@/services/users'
+import { onMounted } from "vue";
+import { usePagination } from "@/composables/usePagination";
+import { userService, type User } from "@/services/users";
 
 const {
   items: users,
@@ -517,12 +532,12 @@ const {
   fetchPage,
   goToNext,
   goToPrev,
-} = usePagination<User>(userService.getUsers)
+} = usePagination<User>(userService.getUsers);
 
-onMounted(() => fetchPage(1))
+onMounted(() => fetchPage(1));
 </script>
 ```
 
 ---
 
-*Next up: Hosting and deploying your application.*
+_Next up: Hosting and deploying your application._

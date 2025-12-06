@@ -3,7 +3,7 @@ title: "Vue Middleware Pipelines: An Overview"
 description: "Adding middleware to a Vue 3 SPA with TypeScript keeps code clean and provides a way to have multiple functions run before a route loads."
 tags: ["vue", "middleware", "routing", "typescript", "patterns"]
 pubDate: "2024-01-15T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 15
 ---
 
@@ -18,15 +18,15 @@ Instead of cramming all logic into a single `beforeEach` hook, we can use the mi
 First, let's define the types. Create `src/middleware/types.ts`:
 
 ```typescript
-import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router'
+import type { RouteLocationNormalized, NavigationGuardNext } from "vue-router";
 
 export interface MiddlewareContext {
-  to: RouteLocationNormalized
-  from: RouteLocationNormalized
-  next: NavigationGuardNext
+  to: RouteLocationNormalized;
+  from: RouteLocationNormalized;
+  next: NavigationGuardNext;
 }
 
-export type Middleware = (context: MiddlewareContext) => void | Promise<void>
+export type Middleware = (context: MiddlewareContext) => void | Promise<void>;
 ```
 
 ## The Middleware Pipeline
@@ -34,25 +34,25 @@ export type Middleware = (context: MiddlewareContext) => void | Promise<void>
 Create `src/middleware/pipeline.ts`:
 
 ```typescript
-import type { MiddlewareContext, Middleware } from './types'
+import type { MiddlewareContext, Middleware } from "./types";
 
 export function middlewarePipeline(
   context: MiddlewareContext,
   middleware: Middleware[],
   index: number
 ): () => void {
-  const nextMiddleware = middleware[index]
+  const nextMiddleware = middleware[index];
 
   if (!nextMiddleware) {
-    return context.next
+    return context.next;
   }
 
   return () => {
     nextMiddleware({
       ...context,
       next: middlewarePipeline(context, middleware, index + 1),
-    })
-  }
+    });
+  };
 }
 ```
 
@@ -68,17 +68,17 @@ Breaking down the `middlewarePipeline` function:
 Update `src/router/index.ts`:
 
 ```typescript
-import { createRouter, createWebHistory } from 'vue-router'
-import { middlewarePipeline } from '@/middleware/pipeline'
-import type { Middleware } from '@/middleware/types'
-import auth from '@/middleware/auth'
-import guest from '@/middleware/guest'
-import admin from '@/middleware/admin'
+import { createRouter, createWebHistory } from "vue-router";
+import { middlewarePipeline } from "@/middleware/pipeline";
+import type { Middleware } from "@/middleware/types";
+import auth from "@/middleware/auth";
+import guest from "@/middleware/guest";
+import admin from "@/middleware/admin";
 
 // Extend route meta type
-declare module 'vue-router' {
+declare module "vue-router" {
   interface RouteMeta {
-    middleware?: Middleware[]
+    middleware?: Middleware[];
   }
 }
 
@@ -86,61 +86,61 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      path: "/",
+      name: "home",
+      component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('@/views/LoginView.vue'),
+      path: "/login",
+      name: "login",
+      component: () => import("@/views/LoginView.vue"),
       meta: { middleware: [guest] },
     },
     {
-      path: '/register',
-      name: 'register',
-      component: () => import('@/views/RegisterView.vue'),
+      path: "/register",
+      name: "register",
+      component: () => import("@/views/RegisterView.vue"),
       meta: { middleware: [guest] },
     },
     {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: () => import('@/views/DashboardView.vue'),
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("@/views/DashboardView.vue"),
       meta: { middleware: [auth] },
     },
     {
-      path: '/settings',
-      name: 'settings',
-      component: () => import('@/views/SettingsView.vue'),
+      path: "/settings",
+      name: "settings",
+      component: () => import("@/views/SettingsView.vue"),
       meta: { middleware: [auth] },
     },
     {
-      path: '/users',
-      name: 'users',
-      component: () => import('@/views/UsersView.vue'),
+      path: "/users",
+      name: "users",
+      component: () => import("@/views/UsersView.vue"),
       meta: { middleware: [auth, admin] },
     },
   ],
-})
+});
 
 router.beforeEach((to, from, next) => {
-  const middleware = to.meta.middleware
+  const middleware = to.meta.middleware;
 
   // No middleware required, continue
   if (!middleware || middleware.length === 0) {
-    return next()
+    return next();
   }
 
-  const context = { to, from, next }
+  const context = { to, from, next };
 
   // Start the middleware pipeline
   middleware[0]({
     ...context,
     next: middlewarePipeline(context, middleware, 1),
-  })
-})
+  });
+});
 
-export default router
+export default router;
 ```
 
 ## How It Works
@@ -166,4 +166,4 @@ The key insight is that each middleware controls whether to continue by calling 
 
 ---
 
-*Next up: Building the auth middleware function.*
+_Next up: Building the auth middleware function._

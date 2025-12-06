@@ -3,7 +3,7 @@ title: "Debugging Your API with Laravel Telescope"
 description: "Laravel Telescope provides insight into requests, exceptions, and database queries. Essential for debugging your API."
 tags: ["laravel", "telescope", "debugging", "api"]
 pubDate: "2024-01-05T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 5
 ---
 
@@ -52,7 +52,9 @@ Visit `http://localhost/telescope` in your browser. You'll see a dashboard with 
 When building an API, the most useful tabs are:
 
 ### Requests
+
 See every request that comes in, including:
+
 - Request headers
 - Request payload
 - Response status and body
@@ -61,7 +63,9 @@ See every request that comes in, including:
 This is incredibly helpful for debugging authentication issues with Sanctum.
 
 ### Queries
+
 View all database queries for each request:
+
 - The raw SQL
 - Execution time
 - Where it was called from
@@ -69,6 +73,7 @@ View all database queries for each request:
 Great for spotting N+1 query problems.
 
 ### Exceptions
+
 See full stack traces for any exceptions, even if they're caught and handled.
 
 ## Production Considerations
@@ -99,4 +104,4 @@ This keeps only the last 48 hours of data.
 
 ---
 
-*Next up: A look at the demo application you'll be building.*
+_Next up: A look at the demo application you'll be building._

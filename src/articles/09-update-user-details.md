@@ -3,7 +3,7 @@ title: "Updating User Profile Information"
 description: "How to update a user's profile details in a Vue 3 SPA using Laravel Fortify's profile update functionality."
 tags: ["vue", "laravel", "fortify", "user-profile", "forms"]
 pubDate: "2024-01-09T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 9
 ---
 
@@ -28,43 +28,43 @@ Create `src/components/ProfileForm.vue`:
 
 ```vue
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/auth'
-import { authService } from '@/services/auth'
+import { ref, onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
+import { authService } from "@/services/auth";
 
-const auth = useAuthStore()
+const auth = useAuthStore();
 
 const form = ref({
-  name: '',
-  email: '',
-})
+  name: "",
+  email: "",
+});
 
-const errors = ref<Record<string, string[]>>({})
-const message = ref<string | null>(null)
-const isLoading = ref(false)
+const errors = ref<Record<string, string[]>>({});
+const message = ref<string | null>(null);
+const isLoading = ref(false);
 
 onMounted(() => {
   if (auth.user) {
-    form.value.name = auth.user.name
-    form.value.email = auth.user.email
+    form.value.name = auth.user.name;
+    form.value.email = auth.user.email;
   }
-})
+});
 
 async function handleSubmit() {
-  errors.value = {}
-  message.value = null
-  isLoading.value = true
+  errors.value = {};
+  message.value = null;
+  isLoading.value = true;
 
   try {
-    await authService.updateProfile(form.value)
-    await auth.fetchUser()
-    message.value = 'Profile updated successfully.'
+    await authService.updateProfile(form.value);
+    await auth.fetchUser();
+    message.value = "Profile updated successfully.";
   } catch (e: any) {
     if (e.response?.data?.errors) {
-      errors.value = e.response.data.errors
+      errors.value = e.response.data.errors;
     }
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
 }
 </script>
@@ -108,7 +108,7 @@ async function handleSubmit() {
       :disabled="isLoading"
       class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50"
     >
-      {{ isLoading ? 'Saving...' : 'Update Profile' }}
+      {{ isLoading ? "Saving..." : "Update Profile" }}
     </button>
   </form>
 </template>
@@ -120,40 +120,40 @@ Create `src/components/PasswordForm.vue`:
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue'
-import { authService } from '@/services/auth'
+import { ref } from "vue";
+import { authService } from "@/services/auth";
 
 const form = ref({
-  current_password: '',
-  password: '',
-  password_confirmation: '',
-})
+  current_password: "",
+  password: "",
+  password_confirmation: "",
+});
 
-const errors = ref<Record<string, string[]>>({})
-const message = ref<string | null>(null)
-const isLoading = ref(false)
+const errors = ref<Record<string, string[]>>({});
+const message = ref<string | null>(null);
+const isLoading = ref(false);
 
 async function handleSubmit() {
-  errors.value = {}
-  message.value = null
-  isLoading.value = true
+  errors.value = {};
+  message.value = null;
+  isLoading.value = true;
 
   try {
-    await authService.updatePassword(form.value)
-    message.value = 'Password updated successfully.'
+    await authService.updatePassword(form.value);
+    message.value = "Password updated successfully.";
 
     // Clear form
     form.value = {
-      current_password: '',
-      password: '',
-      password_confirmation: '',
-    }
+      current_password: "",
+      password: "",
+      password_confirmation: "",
+    };
   } catch (e: any) {
     if (e.response?.data?.errors) {
-      errors.value = e.response.data.errors
+      errors.value = e.response.data.errors;
     }
   } finally {
-    isLoading.value = false
+    isLoading.value = false;
   }
 }
 </script>
@@ -214,7 +214,7 @@ async function handleSubmit() {
       :disabled="isLoading"
       class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 disabled:opacity-50"
     >
-      {{ isLoading ? 'Updating...' : 'Update Password' }}
+      {{ isLoading ? "Updating..." : "Update Password" }}
     </button>
   </form>
 </template>
@@ -226,8 +226,8 @@ Create `src/views/SettingsView.vue` to combine both forms:
 
 ```vue
 <script setup lang="ts">
-import ProfileForm from '@/components/ProfileForm.vue'
-import PasswordForm from '@/components/PasswordForm.vue'
+import ProfileForm from "@/components/ProfileForm.vue";
+import PasswordForm from "@/components/PasswordForm.vue";
 </script>
 
 <template>
@@ -260,4 +260,4 @@ Update `src/router/index.ts`:
 
 ---
 
-*Next up: Setting up basic authorization with admin roles.*
+_Next up: Setting up basic authorization with admin roles._

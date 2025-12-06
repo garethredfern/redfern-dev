@@ -3,7 +3,7 @@ title: "Shaping API Responses with Laravel Resources"
 description: "Laravel API resources provide fine-grained control over JSON responses, letting you transform models and include relationships consistently."
 tags: ["laravel", "api", "resources", "json", "rest"]
 pubDate: "2024-01-13T10:00:00Z"
-series: "Laravel Vue SPA"
+series: "laravel-vue-spa"
 seriesOrder: 13
 ---
 
@@ -240,4 +240,4 @@ return (new UserResource($user))
 
 ---
 
-*Next up: Handling API errors gracefully in your Vue SPA.*
+_Next up: Handling API errors gracefully in your Vue SPA._
