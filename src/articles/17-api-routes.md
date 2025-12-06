@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 18
 ---
 
-# Lesson 17: API Routes
+## Lesson 17: API Routes
 
 SvelteKit isn't just for pages. You can build full API endpoints right alongside your frontend. Perfect for JSON APIs, webhooks, and more.
 

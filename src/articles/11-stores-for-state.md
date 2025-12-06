@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 12
 ---
 
-# Lesson 11: Stores for State
+## Lesson 11: Stores for State
 
 So far, state has lived inside components. But what about state that needs to be shared across many components? Svelte stores solve this elegantly.
 

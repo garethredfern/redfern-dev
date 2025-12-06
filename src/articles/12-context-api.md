@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 13
 ---
 
-# Lesson 12: Context API
+## Lesson 12: Context API
 
 Props pass data explicitly. Stores share data globally. Context sits between — sharing data through a component tree without drilling props through every level.
 

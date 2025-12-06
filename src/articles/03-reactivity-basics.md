@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 4
 ---
 
-# Lesson 3: Reactivity Basics
+## Lesson 3: Reactivity Basics
 
 Reactivity is Svelte's superpower. When your data changes, your UI updates automatically. But Svelte's approach is different from other frameworks — and simpler.
 

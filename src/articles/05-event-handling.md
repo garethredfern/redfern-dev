@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 6
 ---
 
-# Lesson 5: Event Handling
+## Lesson 5: Event Handling
 
 Svelte makes event handling straightforward. DOM events work like you'd expect, and custom events let your components communicate with their parents.
 

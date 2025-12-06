@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 14
 ---
 
-# Lesson 13: Introduction to SvelteKit
+## Lesson 13: Introduction to SvelteKit
 
 You've learned Svelte — the component framework. Now let's add SvelteKit — the application framework that turns Svelte components into full websites and apps.
 

@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 11
 ---
 
-# Lesson 10: Component Lifecycle
+## Lesson 10: Component Lifecycle
 
 Components aren't static. They're created, updated, and eventually destroyed. Svelte gives you hooks to run code at each stage.
 

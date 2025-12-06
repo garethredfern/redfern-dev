@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 10
 ---
 
-# Lesson 9: Slots and Composition
+## Lesson 9: Slots and Composition
 
 Props pass data down. But what about passing entire chunks of UI? That's where slots come in. They let you compose components like you compose HTML elements.
 

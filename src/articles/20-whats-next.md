@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 21
 ---
 
-# Lesson 20: What's Next
+## Lesson 20: What's Next
 
 You've covered a lot of ground. You now understand Svelte's reactivity, component patterns, and SvelteKit's full-stack capabilities. Here's where to go from here.
 

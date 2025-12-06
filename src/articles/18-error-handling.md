@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 19
 ---
 
-# Lesson 18: Error Handling
+## Lesson 18: Error Handling
 
 Things go wrong. Users visit pages that don't exist. APIs fail. Data is invalid. SvelteKit gives you tools to handle all of this gracefully.
 

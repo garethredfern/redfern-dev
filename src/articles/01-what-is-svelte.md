@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 2
 ---
 
-# Lesson 1: What Is Svelte?
+## Lesson 1: What Is Svelte?
 
 Svelte is a JavaScript framework for building user interfaces. But unlike React or Vue, Svelte doesn't ship a runtime to the browser. Instead, it compiles your components into efficient vanilla JavaScript at build time.
 

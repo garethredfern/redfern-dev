@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 9
 ---
 
-# Lesson 8: Two-Way Binding
+## Lesson 8: Two-Way Binding
 
 In Lesson 4, we learned that data flows one way: parent to child. But forms need something more — when a user types in an input, you want your state to update. Svelte's `bind:` directive makes this effortless.
 

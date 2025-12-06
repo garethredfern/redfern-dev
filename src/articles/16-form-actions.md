@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 17
 ---
 
-# Lesson 16: Form Actions
+## Lesson 16: Form Actions
 
 Forms are fundamental to web apps. SvelteKit handles them beautifully with progressive enhancement — forms work without JavaScript, and get enhanced when it's available.
 

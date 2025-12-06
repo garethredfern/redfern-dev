@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 5
 ---
 
-# Lesson 4: Props and Data Flow
+## Lesson 4: Props and Data Flow
 
 Components become powerful when they can receive data from their parents. In Svelte, this happens through props — and the syntax is delightfully simple.
 

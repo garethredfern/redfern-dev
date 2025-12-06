@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 1
 ---
 
-# Learn Svelte & SvelteKit
+## Learn Svelte & SvelteKit
 
 A practical course for JavaScript developers ready to learn Svelte. If you're coming from Vue, React, or vanilla JS, you'll find Svelte refreshingly simple.
 

@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 3
 ---
 
-# Lesson 2: Your First Component
+## Lesson 2: Your First Component
 
 Every Svelte component lives in a `.svelte` file. This file contains three parts: JavaScript logic, HTML markup, and CSS styles. All in one place.
 

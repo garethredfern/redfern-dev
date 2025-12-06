@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 20
 ---
 
-# Lesson 19: Deployment
+## Lesson 19: Deployment
 
 Your app is ready. Time to ship it. SvelteKit uses adapters to deploy to different platforms — from serverless to Node.js to static hosting.
 

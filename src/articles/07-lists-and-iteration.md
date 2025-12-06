@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 8
 ---
 
-# Lesson 7: Lists and Iteration
+## Lesson 7: Lists and Iteration
 
 Most apps need to render lists — products, users, comments, todo items. Svelte's `{#each}` block makes this straightforward and performant.
 

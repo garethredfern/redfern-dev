@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 16
 ---
 
-# Lesson 15: Loading Data
+## Lesson 15: Loading Data
 
 Every real app needs to fetch data. SvelteKit's load functions make this elegant — your data arrives before the page renders.
 

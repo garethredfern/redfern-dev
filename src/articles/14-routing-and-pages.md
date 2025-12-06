@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 15
 ---
 
-# Lesson 14: Routing and Pages
+## Lesson 14: Routing and Pages
 
 SvelteKit's routing is file-based. Your folder structure becomes your URL structure. Simple concept, powerful results.
 

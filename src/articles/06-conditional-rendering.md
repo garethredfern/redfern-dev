@@ -7,7 +7,7 @@ series: "svelte-basics"
 seriesOrder: 7
 ---
 
-# Lesson 6: Conditional Rendering
+## Lesson 6: Conditional Rendering
 
 Not everything should show all the time. Svelte's `{#if}` blocks let you conditionally render parts of your UI based on state.
 
