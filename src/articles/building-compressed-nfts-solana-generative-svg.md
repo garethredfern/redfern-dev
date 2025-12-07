@@ -351,6 +351,54 @@ The key differences for production:
 - **Smaller transactions** — The on-chain data is just a URL, not the entire SVG
 - **Cost** — About $0.01-0.02 per upload for small files
 
+## Preventing Duplicate Mints
+
+For most cNFT projects, you'll want to ensure each wallet can only receive one mint. Since compressed NFTs don't have individual on-chain accounts, you can't use standard RPC calls to check ownership — you need the DAS (Digital Asset Standard) API.
+
+First, add the DAS API plugin:
+
+```bash
+bun add @metaplex-foundation/digital-asset-standard-api
+```
+
+Then update your Umi setup to use a DAS-compatible RPC. Standard Solana RPC doesn't index cNFTs, so we need Helius (or Triton):
+
+```js
+import { dasApi } from "@metaplex-foundation/digital-asset-standard-api";
+
+// Use Helius RPC for DAS support (free tier available)
+const umi = createUmi("https://devnet.helius-rpc.com/?api-key=YOUR_API_KEY")
+  .use(mplBubblegum())
+  .use(dasApi())
+  .use(irysUploader({ address: "https://devnet.irys.xyz" }));
+```
+
+Now you can query owned assets before minting:
+
+```js
+async function checkExistingMint(umi, ownerAddress, treeAddress) {
+  // Query all assets owned by this wallet
+  const assets = await umi.rpc.getAssetsByOwner({
+    owner: publicKey(ownerAddress),
+  });
+
+  // Filter for compressed NFTs from our specific tree
+  return assets.items.filter(
+    (asset) =>
+      asset.compression?.compressed && asset.compression?.tree === treeAddress
+  );
+}
+
+// Before minting, check for duplicates
+const existing = await checkExistingMint(umi, recipientAddress, treeAddress);
+if (existing.length > 0) {
+  console.log("Wallet already has a mint from this tree");
+  return;
+}
+```
+
+This check queries the DAS API for all assets owned by the recipient, then filters for compressed NFTs that came from our specific Merkle tree. If any exist, we skip minting.
+
 ## Running It Yourself
 
 Here's the full workflow:
@@ -365,6 +413,7 @@ bun add @metaplex-foundation/mpl-bubblegum \
         @metaplex-foundation/umi \
         @metaplex-foundation/umi-bundle-defaults \
         @metaplex-foundation/umi-uploader-irys \
+        @metaplex-foundation/digital-asset-standard-api \
         bs58
 
 # Make sure Solana CLI is on devnet
