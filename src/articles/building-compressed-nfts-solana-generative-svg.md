@@ -187,11 +187,12 @@ Creating the tree:
 ```js
 const merkleTree = generateSigner(umi);
 
-const tx = await createTree(umi, {
+const builder = await createTree(umi, {
   merkleTree,
   maxDepth: 14,
   maxBufferSize: 64,
-}).sendAndConfirm(umi);
+});
+const tx = await builder.sendAndConfirm(umi);
 ```
 
 The tree configuration is important:
@@ -265,6 +266,86 @@ For devnet testing, embedding the SVG as a data URI works fine. For production, 
 4. Use that JSON URI in the mint
 
 [Irys](https://irys.xyz/) (formerly Bundlr) makes Arweave uploads easy and relatively cheap — about $0.01-0.02 per file for small SVGs.
+
+### Uploading to Arweave with Irys
+
+Here's how to upload your SVG and metadata to Arweave for production use:
+
+```bash
+bun add @irys/sdk
+```
+
+```js
+import Irys from "@irys/sdk";
+
+// Initialize Irys client
+const irys = new Irys({
+  network: "devnet", // Use "mainnet" for production
+  token: "solana",
+  key: secretKey,
+  config: { providerUrl: "https://api.devnet.solana.com" },
+});
+
+// Fund your Irys account (one-time, funds are reusable)
+await irys.fund(irys.utils.toAtomic(0.05)); // 0.05 SOL
+
+// Generate the SVG
+const svg = generateSvg(recipientAddress);
+
+// Upload the SVG
+const svgReceipt = await irys.upload(svg, {
+  tags: [{ name: "Content-Type", value: "image/svg+xml" }],
+});
+const imageUrl = `https://gateway.irys.xyz/${svgReceipt.id}`;
+
+// Create and upload metadata JSON
+const metadata = {
+  name: `Generative #${recipientAddress.slice(0, 8)}`,
+  symbol: "GENV",
+  description: "A generative animated artwork.",
+  image: imageUrl,
+  attributes: [
+    { trait_type: "Seed", value: recipientAddress.slice(0, 8) },
+    { trait_type: "Type", value: "Animated SVG" },
+  ],
+  properties: {
+    files: [{ uri: imageUrl, type: "image/svg+xml" }],
+    category: "image",
+  },
+};
+
+const metadataReceipt = await irys.upload(JSON.stringify(metadata), {
+  tags: [{ name: "Content-Type", value: "application/json" }],
+});
+const metadataUrl = `https://gateway.irys.xyz/${metadataReceipt.id}`;
+
+console.log("Image:", imageUrl);
+console.log("Metadata:", metadataUrl);
+```
+
+Then use `metadataUrl` as the `uri` in your mint call:
+
+```js
+const tx = await mintV1(umi, {
+  leafOwner: publicKey(recipientAddress),
+  merkleTree: publicKey(treeConfig.treeAddress),
+  metadata: {
+    name: `Generative #${recipientAddress.slice(0, 8)}`,
+    symbol: "GENV",
+    uri: metadataUrl, // Arweave URL instead of data URI
+    sellerFeeBasisPoints: 0,
+    collection: null,
+    creators: [{ address: keypair.publicKey, verified: false, share: 100 }],
+  },
+}).sendAndConfirm(umi);
+```
+
+The key differences for production:
+
+- **Permanent storage** — Arweave stores data forever, no renewal fees
+- **Better compatibility** — All wallets and marketplaces can fetch the metadata
+- **Smaller transactions** — The on-chain data is just a URL, not the entire SVG
+- **Cost** — About $0.01-0.02 per upload for small files
 
 ## Running It Yourself
 
