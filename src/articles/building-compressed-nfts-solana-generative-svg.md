@@ -269,61 +269,65 @@ For devnet testing, embedding the SVG as a data URI works fine. For production, 
 
 ### Uploading to Arweave with Irys
 
-Here's how to upload your SVG and metadata to Arweave for production use:
+Here's how to upload your SVG and metadata to Arweave for production use. We'll use Metaplex's Umi integration with Irys:
 
 ```bash
-bun add @irys/sdk
+bun add @metaplex-foundation/umi-uploader-irys
 ```
 
+Update your imports and Umi setup:
+
 ```js
-import Irys from "@irys/sdk";
+import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { mintV1, mplBubblegum } from "@metaplex-foundation/mpl-bubblegum";
+import { createGenericFile, keypairIdentity, publicKey } from "@metaplex-foundation/umi";
+import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
 
-// Initialize Irys client
-const irys = new Irys({
-  network: "devnet", // Use "mainnet" for production
-  token: "solana",
-  key: secretKey,
-  config: { providerUrl: "https://api.devnet.solana.com" },
-});
+// Set up Umi with Irys uploader
+const umi = createUmi("https://api.devnet.solana.com")
+  .use(mplBubblegum())
+  .use(irysUploader({ address: "https://devnet.irys.xyz" }));
 
-// Fund your Irys account (one-time, funds are reusable)
-await irys.fund(irys.utils.toAtomic(0.05)); // 0.05 SOL
+const keypair = umi.eddsa.createKeypairFromSecretKey(secretKey);
+umi.use(keypairIdentity(keypair));
+```
 
+Then upload the SVG and metadata before minting:
+
+```js
 // Generate the SVG
 const svg = generateSvg(recipientAddress);
 
-// Upload the SVG
-const svgReceipt = await irys.upload(svg, {
-  tags: [{ name: "Content-Type", value: "image/svg+xml" }],
-});
-const imageUrl = `https://gateway.irys.xyz/${svgReceipt.id}`;
+// Upload SVG to Arweave via Irys
+const svgFile = createGenericFile(
+  Buffer.from(svg),
+  "image.svg",
+  { contentType: "image/svg+xml" }
+);
+const [imageUri] = await umi.uploader.upload([svgFile]);
 
-// Create and upload metadata JSON
+// Upload metadata JSON to Arweave
 const metadata = {
   name: `Generative #${recipientAddress.slice(0, 8)}`,
   symbol: "GENV",
   description: "A generative animated artwork.",
-  image: imageUrl,
+  image: imageUri,
   attributes: [
     { trait_type: "Seed", value: recipientAddress.slice(0, 8) },
     { trait_type: "Type", value: "Animated SVG" },
   ],
   properties: {
-    files: [{ uri: imageUrl, type: "image/svg+xml" }],
+    files: [{ uri: imageUri, type: "image/svg+xml" }],
     category: "image",
   },
 };
+const metadataUri = await umi.uploader.uploadJson(metadata);
 
-const metadataReceipt = await irys.upload(JSON.stringify(metadata), {
-  tags: [{ name: "Content-Type", value: "application/json" }],
-});
-const metadataUrl = `https://gateway.irys.xyz/${metadataReceipt.id}`;
-
-console.log("Image:", imageUrl);
-console.log("Metadata:", metadataUrl);
+console.log("Image:", imageUri);
+console.log("Metadata:", metadataUri);
 ```
 
-Then use `metadataUrl` as the `uri` in your mint call:
+Then use `metadataUri` in your mint call:
 
 ```js
 const tx = await mintV1(umi, {
@@ -332,7 +336,7 @@ const tx = await mintV1(umi, {
   metadata: {
     name: `Generative #${recipientAddress.slice(0, 8)}`,
     symbol: "GENV",
-    uri: metadataUrl, // Arweave URL instead of data URI
+    uri: metadataUri, // Arweave URL instead of data URI
     sellerFeeBasisPoints: 0,
     collection: null,
     creators: [{ address: keypair.publicKey, verified: false, share: 100 }],
@@ -360,7 +364,8 @@ bun init -y
 bun add @metaplex-foundation/mpl-bubblegum \
         @metaplex-foundation/umi \
         @metaplex-foundation/umi-bundle-defaults \
-        @solana/web3.js bs58
+        @metaplex-foundation/umi-uploader-irys \
+        bs58
 
 # Make sure Solana CLI is on devnet
 solana config set --url devnet
