@@ -142,12 +142,12 @@ CSS animations work in most wallets and marketplaces because they don't require 
 
 ### Why SVG?
 
-SVGs have several advantages for on-chain art:
+SVGs have several advantages for NFT art:
 
 1. **Small file size** — Our generated SVGs are ~5KB, compared to 50-500KB for PNGs
 2. **Infinitely scalable** — Vector graphics look sharp at any resolution
 3. **Animations without JS** — CSS keyframes work everywhere
-4. **Fully on-chain** — Can be stored as a base64 data URI in the metadata
+4. **Cheap to store** — Small files mean lower Arweave upload costs
 
 ## Part 2: Creating the Merkle Tree
 
@@ -212,64 +212,14 @@ For a collection of ~3,000 NFTs, depth 14 gives us plenty of headroom.
 
 ## Part 3: Minting
 
-With the tree created, minting is straightforward:
+With the tree created, we can mint NFTs. The process is:
 
-```js
-import { mintV1, mplBubblegum } from "@metaplex-foundation/mpl-bubblegum";
-import { publicKey } from "@metaplex-foundation/umi";
-import { generateSvg, generateMetadata } from "./generateSvg.js";
+1. Generate the SVG artwork
+2. Upload the SVG to Arweave (permanent storage)
+3. Upload metadata JSON to Arweave
+4. Mint the cNFT with the metadata URL
 
-// Generate artwork for this wallet
-const svg = generateSvg(recipientAddress);
-const svgBase64 = Buffer.from(svg).toString("base64");
-const dataUri = `data:image/svg+xml;base64,${svgBase64}`;
-```
-
-The SVG gets converted to a base64 data URI. This means the entire image is embedded in the metadata — no external hosting required.
-
-```js
-const tx = await mintV1(umi, {
-  leafOwner: publicKey(recipientAddress),
-  merkleTree: publicKey(treeConfig.treeAddress),
-  metadata: {
-    name: `Generative #${recipientAddress.slice(0, 8)}`,
-    symbol: "GENV",
-    uri: dataUri,
-    sellerFeeBasisPoints: 0,
-    collection: null,
-    creators: [
-      {
-        address: keypair.publicKey,
-        verified: false,
-        share: 100,
-      },
-    ],
-  },
-}).sendAndConfirm(umi);
-```
-
-Breaking down the mint parameters:
-
-- `leafOwner` — Who receives the NFT. This is the wallet we're minting to
-- `merkleTree` — The tree we created in step 2
-- `metadata.uri` — Normally this would be an Arweave/IPFS link, but we're using a data URI for simplicity
-- `sellerFeeBasisPoints: 0` — No royalties (100 basis points = 1%)
-- `creators` — Who created this NFT. Required for marketplace compatibility
-
-### A Note on Metadata Storage
-
-For devnet testing, embedding the SVG as a data URI works fine. For production, you'd typically:
-
-1. Upload the SVG to Arweave (permanent storage) or IPFS
-2. Create a JSON metadata file pointing to that image
-3. Upload the JSON to Arweave/IPFS
-4. Use that JSON URI in the mint
-
-[Irys](https://irys.xyz/) (formerly Bundlr) makes Arweave uploads easy and relatively cheap — about $0.01-0.02 per file for small SVGs.
-
-### Uploading to Arweave with Irys
-
-Here's how to upload your SVG and metadata to Arweave for production use. We'll use Metaplex's Umi integration with Irys:
+We use [Irys](https://irys.xyz/) (formerly Bundlr) for Arweave uploads — it handles payment in SOL and provides instant uploads. Cost is about $0.01-0.02 per file for small SVGs.
 
 ```bash
 bun add @metaplex-foundation/umi-uploader-irys
@@ -280,8 +230,13 @@ Update your imports and Umi setup:
 ```js
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { mintV1, mplBubblegum } from "@metaplex-foundation/mpl-bubblegum";
-import { createGenericFile, keypairIdentity, publicKey } from "@metaplex-foundation/umi";
+import {
+  createGenericFile,
+  keypairIdentity,
+  publicKey,
+} from "@metaplex-foundation/umi";
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
+import { generateSvg } from "./generateSvg.js";
 
 // Set up Umi with Irys uploader
 const umi = createUmi("https://api.devnet.solana.com")
@@ -299,11 +254,9 @@ Then upload the SVG and metadata before minting:
 const svg = generateSvg(recipientAddress);
 
 // Upload SVG to Arweave via Irys
-const svgFile = createGenericFile(
-  Buffer.from(svg),
-  "image.svg",
-  { contentType: "image/svg+xml" }
-);
+const svgFile = createGenericFile(Buffer.from(svg), "image.svg", {
+  contentType: "image/svg+xml",
+});
 const [imageUri] = await umi.uploader.upload([svgFile]);
 
 // Upload metadata JSON to Arweave
@@ -336,7 +289,7 @@ const tx = await mintV1(umi, {
   metadata: {
     name: `Generative #${recipientAddress.slice(0, 8)}`,
     symbol: "GENV",
-    uri: metadataUri, // Arweave URL instead of data URI
+    uri: metadataUri, // Arweave URL pointing to our JSON metadata
     sellerFeeBasisPoints: 0,
     collection: null,
     creators: [{ address: keypair.publicKey, verified: false, share: 100 }],
@@ -344,12 +297,15 @@ const tx = await mintV1(umi, {
 }).sendAndConfirm(umi);
 ```
 
-The key differences for production:
+Breaking down the mint parameters:
 
-- **Permanent storage** — Arweave stores data forever, no renewal fees
-- **Better compatibility** — All wallets and marketplaces can fetch the metadata
-- **Smaller transactions** — The on-chain data is just a URL, not the entire SVG
-- **Cost** — About $0.01-0.02 per upload for small files
+- `leafOwner` — Who receives the NFT (the recipient's wallet)
+- `merkleTree` — The tree we created in step 2
+- `uri` — The Arweave URL pointing to our metadata JSON
+- `sellerFeeBasisPoints` — Royalties in basis points (0 = no royalties)
+- `creators` — Who created this NFT (required for marketplace compatibility)
+
+Why Arweave? It's permanent storage — once uploaded, data exists forever with no renewal fees. All wallets and marketplaces can fetch the metadata via standard HTTP.
 
 ## Preventing Duplicate Mints
 
