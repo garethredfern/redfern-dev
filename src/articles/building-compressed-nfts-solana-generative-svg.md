@@ -2,6 +2,8 @@
 title: "Building Compressed NFTs on Solana with Generative SVG Art"
 description: "A practical guide to creating and minting compressed NFTs (cNFTs) on Solana using Metaplex Bubblegum, with animated SVG artwork generated from wallet addresses."
 tags: ["solana", "nft", "web3", "javascript"]
+series: "build-a-cnft-mint-on-solana"
+seriesOrder: 1
 pubDate: "2025-12-07T12:00:00Z"
 ---
 
