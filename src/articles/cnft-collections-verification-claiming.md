@@ -1,5 +1,5 @@
 ---
-title: "Compressed NFTs Part 2: Collections, Verification, and Building a Claim Page"
+title: "Compressed NFTs: Collections, Verification, and Building a Claim Page"
 description: "Taking our cNFT minting system to production: creating verified collections, building a web-based claim flow, and preparing for mainnet deployment."
 tags: ["solana", "nft", "web3", "javascript", "svelte"]
 series: "build-a-cnft-mint-on-solana"
@@ -7,7 +7,7 @@ seriesOrder: 2
 pubDate: "2025-12-09T12:00:00Z"
 ---
 
-## Compressed NFTs Part 2: Collections, Verification, and Building a Claim Page
+## Compressed NFTs: Collections, Verification, and Building a Claim Page
 
 In [Part 1](/articles/building-compressed-nfts-solana-generative-svg), we built a complete cNFT minting system — generative SVG artwork, Merkle tree creation, and minting scripts. That's enough to mint thousands of NFTs from the command line, but most projects need more:
 
