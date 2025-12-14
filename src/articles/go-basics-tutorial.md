@@ -7,7 +7,7 @@ series: "go-basics"
 seriesOrder: 1
 ---
 
-# Go for JavaScript Developers: The Very Basics
+## Go for JavaScript Developers: The Very Basics
 
 If you're a JavaScript developer curious about Go, you're in the right place. I've been writing JS for years and recently started exploring Go for backend work — specifically for building services that sync data between APIs and databases.
 

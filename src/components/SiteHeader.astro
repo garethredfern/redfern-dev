@@ -1,25 +1,11 @@
 ---
-const redev = "{redev}";
+import Logo from "../components/Logo.astro";
 ---
 
 <header class="py-2 border-b border-white/10 pl-5 lg:pl-30">
-  <div class="flex items-center justify-center">
-    <h1>
-      <a href="/" class="inline-block">
-        <svg width="200" height="100">
-          <text
-            x="100"
-            y="50"
-            font-family="'JetBrainsMono-Bold', monospace"
-            font-size="48"
-            font-weight="700"
-            fill="#fe8181"
-            text-anchor="middle"
-            dominant-baseline="middle"
-            >{redev}
-          </text>
-        </svg>
-      </a>
-    </h1>
+  <div class="px-6 pt-2">
+    <a href="/" class="inline-block">
+      <Logo />
+    </a>
   </div>
 </header>
