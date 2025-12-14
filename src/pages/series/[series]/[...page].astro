@@ -106,7 +106,11 @@ const courseSchema = isFirstPage
   <div
     class="text-primary uppercase flex gap-4 my-5 px-5 ml-2 lg:ml-30 lg:w-1/2"
   >
-    {page.url.first && page.url.prev ? <a href={page.url.first}>First</a> : null}
+    {
+      page.url.first && page.url.prev ? (
+        <a href={page.url.first}>First</a>
+      ) : null
+    }
     {page.url.prev ? <a href={page.url.prev}>Prev</a> : null}
     {page.url.next ? <a href={page.url.next}>Next</a> : null}
     {page.url.last && page.url.next ? <a href={page.url.last}>Last</a> : null}
