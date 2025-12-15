@@ -1,7 +1,7 @@
 ---
 title: "Adding Drizzle ORM to Your SvelteKit + SQLite Setup"
 description: "Level up from raw SQL to type-safe queries with Drizzle—the lightweight ORM that doesn't hide the SQL you've learned."
-tags: ["drizzle", "sqlite", "sveltekit", "database"]
+tags: ["svelte", "sveltekit", "drizzle", "sqlite", "database"]
 pubDate: "2025-12-08T12:00:00Z"
 ---
 
