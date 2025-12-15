@@ -243,12 +243,12 @@ Svelte can bind to other DOM properties:
 
 ## Component Binding
 
-You can also bind to component props:
+You can also bind to component props using `$bindable`:
 
 ```svelte
 <!-- Counter.svelte -->
 <script>
-  export let count = 0
+  let { count = $bindable(0) } = $props()
 </script>
 
 <button onclick={() => count++}>
@@ -261,16 +261,16 @@ You can also bind to component props:
 <script>
   import Counter from './Counter.svelte'
 
-  let value = 0
+  let value = $state(0)
 </script>
 
 <Counter bind:count={value} />
 <p>The count is {value}</p>
 ```
 
-When the Counter updates `count`, the parent's `value` updates too.
+The `$bindable` rune marks a prop as two-way bindable. When the Counter updates `count`, the parent's `value` updates too.
 
-Use this sparingly. It can make data flow confusing. Often, events are clearer.
+Use this sparingly. It can make data flow confusing. Often, callback props are clearer.
 
 ## Comparing to Vue
 
@@ -311,34 +311,33 @@ Or create a custom action (covered in advanced topics).
 
 ```svelte
 <script>
-  let form = {
+  let form = $state({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
     newsletter: false,
     plan: 'free'
-  }
+  })
 
-  let errors = {}
-
-  $: {
-    errors = {}
+  let errors = $derived.by(() => {
+    const errs = {}
     if (form.name.length < 2) {
-      errors.name = 'Name must be at least 2 characters'
+      errs.name = 'Name must be at least 2 characters'
     }
     if (!form.email.includes('@')) {
-      errors.email = 'Please enter a valid email'
+      errs.email = 'Please enter a valid email'
     }
     if (form.password.length < 8) {
-      errors.password = 'Password must be at least 8 characters'
+      errs.password = 'Password must be at least 8 characters'
     }
     if (form.password !== form.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match'
+      errs.confirmPassword = 'Passwords do not match'
     }
-  }
+    return errs
+  })
 
-  $: isValid = Object.keys(errors).length === 0
+  let isValid = $derived(Object.keys(errors).length === 0)
 
   function handleSubmit() {
     if (isValid) {

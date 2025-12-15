@@ -9,34 +9,20 @@ seriesOrder: 11
 
 ## Lesson 10: Component Lifecycle
 
-Components aren't static. They're created, updated, and eventually destroyed. Svelte gives you hooks to run code at each stage.
+Components aren't static. They're created, updated, and eventually destroyed. Svelte 5 simplifies lifecycle management with the `$effect` rune.
 
-## The Lifecycle Functions
+## The $effect Rune
 
-Svelte provides four lifecycle functions:
-
-- `onMount` — runs after the component is first rendered
-- `onDestroy` — runs before the component is removed
-- `beforeUpdate` — runs before the DOM updates
-- `afterUpdate` — runs after the DOM updates
-
-Plus a utility function:
-
-- `tick` — returns a promise that resolves when pending state changes are applied
-
-## onMount
-
-The most commonly used lifecycle function. It runs once, after the component is first rendered to the DOM.
+In Svelte 5, most lifecycle needs are handled by `$effect`. It runs after the component mounts and re-runs when its dependencies change:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
+  let data = $state(null)
 
-  let data = null
-
-  onMount(async () => {
-    const response = await fetch('/api/data')
-    data = await response.json()
+  $effect(() => {
+    fetch('/api/data')
+      .then(res => res.json())
+      .then(json => data = json)
   })
 </script>
 
@@ -47,21 +33,19 @@ The most commonly used lifecycle function. It runs once, after the component is 
 {/if}
 ```
 
-**Why not just fetch in the script?**
+**Why use `$effect` instead of running code directly?**
 
-The script runs during component initialization, which might happen on the server (with SSR). `onMount` only runs in the browser, where `fetch` and DOM APIs are available.
+Code in `$effect` only runs in the browser, not during server-side rendering. This makes it safe for `fetch`, DOM APIs, and browser-only code.
 
 **Cleanup:**
 
-If you return a function from `onMount`, it runs when the component is destroyed:
+Return a function from `$effect` to run cleanup when the component unmounts or before the effect re-runs:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
+  let seconds = $state(0)
 
-  let seconds = 0
-
-  onMount(() => {
+  $effect(() => {
     const interval = setInterval(() => {
       seconds++
     }, 1000)
@@ -78,52 +62,53 @@ If you return a function from `onMount`, it runs when the component is destroyed
 
 This pattern is essential for preventing memory leaks.
 
-## onDestroy
+## Legacy Lifecycle Functions
 
-Runs before the component is removed from the DOM.
+Svelte 5 still supports the traditional lifecycle functions for compatibility, but `$effect` handles most use cases more elegantly:
 
 ```svelte
 <script>
-  import { onDestroy } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
 
-  // Subscribe to something
-  const subscription = eventBus.subscribe('message', handleMessage)
-
-  onDestroy(() => {
-    // Clean up
-    subscription.unsubscribe()
+  // onMount still works
+  onMount(() => {
+    console.log('Component mounted')
+    return () => console.log('Cleanup')
   })
 
-  function handleMessage(msg) {
-    console.log(msg)
-  }
+  // onDestroy still works
+  onDestroy(() => {
+    console.log('Component destroying')
+  })
 </script>
 ```
 
-You can use either the cleanup return from `onMount` or a separate `onDestroy`. They're equivalent for most cases.
+**When to use which:**
 
-## beforeUpdate and afterUpdate
+- **`$effect`** — Default choice. Handles mount, cleanup, and reactive updates
+- **`onMount`** — When you specifically need something to run only once at mount
+- **`onDestroy`** — When you have cleanup not tied to a reactive effect
 
-These run before and after DOM updates. They're less common but useful for specific scenarios.
+## Scroll Position Example
+
+Here's a common pattern for auto-scrolling a chat container:
 
 ```svelte
 <script>
-  import { beforeUpdate, afterUpdate } from 'svelte'
-
-  let messages = []
+  let messages = $state([])
   let div
-  let autoscroll = false
+  let autoscroll = $state(false)
 
-  beforeUpdate(() => {
-    // Check if we're scrolled to the bottom
+  $effect.pre(() => {
+    // Check scroll position before DOM updates
     if (div) {
       autoscroll = div.scrollHeight - div.scrollTop === div.clientHeight
     }
   })
 
-  afterUpdate(() => {
-    // If we were at the bottom, stay at the bottom
-    if (autoscroll) {
+  $effect(() => {
+    // After DOM updates, scroll if needed
+    if (autoscroll && div) {
       div.scrollTop = div.scrollHeight
     }
   })
@@ -136,7 +121,7 @@ These run before and after DOM updates. They're less common but useful for speci
 </div>
 ```
 
-This pattern keeps a chat scroll pinned to the bottom as new messages arrive, but only if the user was already at the bottom.
+`$effect.pre` runs before DOM updates, while regular `$effect` runs after.
 
 ## tick
 
@@ -146,7 +131,7 @@ Svelte batches DOM updates for performance. Sometimes you need to wait for the D
 <script>
   import { tick } from 'svelte'
 
-  let text = ''
+  let text = $state('')
   let input
 
   async function addExclamation() {
@@ -177,7 +162,7 @@ Vue's lifecycle hooks:
 
 ```vue
 <script setup>
-import { onMounted, onUnmounted, onBeforeUpdate, onUpdated } from "vue";
+import { onMounted, onUnmounted, watch } from "vue";
 
 onMounted(() => {
   console.log("Mounted");
@@ -186,21 +171,29 @@ onMounted(() => {
 onUnmounted(() => {
   console.log("Unmounted");
 });
+
+watch(someValue, () => {
+  console.log("Value changed");
+});
 </script>
 ```
 
-Svelte:
+Svelte 5:
 
 ```svelte
 <script>
-  import { onMount, onDestroy } from 'svelte'
+  $effect(() => {
+    console.log('Mounted')
+    return () => console.log('Unmounted')
+  })
 
-  onMount(() => console.log('Mounted'))
-  onDestroy(() => console.log('Destroyed'))
+  $effect(() => {
+    console.log('someValue changed:', someValue)
+  })
 </script>
 ```
 
-Very similar. Vue has `nextTick`, Svelte has `tick`.
+Svelte's `$effect` combines mounting, cleanup, and watching into one unified pattern. Vue has `nextTick`, Svelte has `tick`.
 
 ## Common Patterns
 
@@ -208,24 +201,24 @@ Very similar. Vue has `nextTick`, Svelte has `tick`.
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
+  let { userId } = $props()
 
-  export let userId
+  let user = $state(null)
+  let loading = $state(true)
+  let error = $state(null)
 
-  let user = null
-  let loading = true
-  let error = null
+  $effect(() => {
+    loading = true
+    error = null
 
-  onMount(async () => {
-    try {
-      const response = await fetch(`/api/users/${userId}`)
-      if (!response.ok) throw new Error('Failed to fetch')
-      user = await response.json()
-    } catch (e) {
-      error = e.message
-    } finally {
-      loading = false
-    }
+    fetch(`/api/users/${userId}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch')
+        return res.json()
+      })
+      .then(data => user = data)
+      .catch(e => error = e.message)
+      .finally(() => loading = false)
   })
 </script>
 ```
@@ -234,11 +227,9 @@ Very similar. Vue has `nextTick`, Svelte has `tick`.
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
+  let windowWidth = $state(0)
 
-  let windowWidth
-
-  onMount(() => {
+  $effect(() => {
     function handleResize() {
       windowWidth = window.innerWidth
     }
@@ -259,16 +250,14 @@ Very similar. Vue has `nextTick`, Svelte has `tick`.
 
 ```svelte
 <script>
-  import { onMount, onDestroy } from 'svelte'
   import Chart from 'chart.js/auto'
 
-  export let data
+  let { data } = $props()
 
   let canvas
-  let chart
 
-  onMount(() => {
-    chart = new Chart(canvas, {
+  $effect(() => {
+    const chart = new Chart(canvas, {
       type: 'bar',
       data: {
         labels: data.map(d => d.label),
@@ -277,31 +266,25 @@ Very similar. Vue has `nextTick`, Svelte has `tick`.
         }]
       }
     })
-  })
 
-  onDestroy(() => {
-    if (chart) {
-      chart.destroy()
-    }
+    return () => chart.destroy()
   })
 </script>
 
 <canvas bind:this={canvas} />
 ```
 
-## Lifecycle and SSR
+## Effects and SSR
 
-Important: `onMount` doesn't run during server-side rendering. This is intentional — the DOM doesn't exist on the server.
+Important: `$effect` doesn't run during server-side rendering. This is intentional — the DOM doesn't exist on the server.
 
-This means you can safely use browser-only APIs inside `onMount`:
+This means you can safely use browser-only APIs inside `$effect`:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
+  let position = $state({ x: 0, y: 0 })
 
-  let position = { x: 0, y: 0 }
-
-  onMount(() => {
+  $effect(() => {
     function handleMouseMove(event) {
       position = { x: event.clientX, y: event.clientY }
     }
@@ -315,38 +298,38 @@ This means you can safely use browser-only APIs inside `onMount`:
 </script>
 ```
 
-If you try to access `window` directly in the script (outside `onMount`), you'll get errors during SSR.
+If you try to access `window` directly in the script (outside `$effect`), you'll get errors during SSR.
 
-## Multiple Lifecycle Calls
+## Multiple Effects
 
-You can call lifecycle functions multiple times:
+You can have multiple effects, each handling different concerns:
 
 ```svelte
 <script>
-  import { onMount } from 'svelte'
-
-  // Set up first thing
-  onMount(() => {
-    console.log('First mount callback')
+  // Track window size
+  $effect(() => {
+    console.log('Setting up resize listener')
+    // ...
   })
 
-  // Set up second thing
-  onMount(() => {
-    console.log('Second mount callback')
+  // Track mouse position
+  $effect(() => {
+    console.log('Setting up mouse listener')
+    // ...
   })
 </script>
 ```
 
-Both callbacks run in order. This is useful when different parts of your component have their own setup needs.
+Each effect runs independently and has its own cleanup.
 
 ## Key Takeaways
 
-- `onMount` runs once after first render — use for fetching, DOM setup
-- Return a cleanup function from `onMount` to run on destroy
-- `onDestroy` runs before component removal
-- `beforeUpdate` and `afterUpdate` run around DOM updates
+- `$effect` runs after mount and when dependencies change
+- Return a cleanup function to prevent memory leaks
+- `$effect.pre` runs before DOM updates
 - `tick()` returns a promise that resolves after pending updates
-- `onMount` doesn't run during SSR — safe for browser APIs
+- Effects don't run during SSR — safe for browser APIs
+- Legacy `onMount`/`onDestroy` still work but `$effect` is preferred
 - Always clean up subscriptions, intervals, and event listeners
 
 Next: [Lesson 11: Stores for State](/articles/11-stores-for-state)

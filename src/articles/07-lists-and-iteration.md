@@ -297,24 +297,28 @@ Or `Object.keys()`:
 
 ```svelte
 <script>
-  let products = [
+  let products = $state([
     { id: 1, name: 'Widget', price: 25, category: 'Tools' },
     { id: 2, name: 'Gadget', price: 50, category: 'Electronics' },
     { id: 3, name: 'Thingamajig', price: 15, category: 'Tools' },
     { id: 4, name: 'Doohickey', price: 35, category: 'Electronics' }
-  ]
+  ])
 
-  let categoryFilter = ''
-  let sortBy = 'name'
+  let categoryFilter = $state('')
+  let sortBy = $state('name')
 
-  $: filtered = categoryFilter
-    ? products.filter(p => p.category === categoryFilter)
-    : products
+  let filtered = $derived(
+    categoryFilter
+      ? products.filter(p => p.category === categoryFilter)
+      : products
+  )
 
-  $: sorted = [...filtered].sort((a, b) => {
-    if (sortBy === 'price') return a.price - b.price
-    return a.name.localeCompare(b.name)
-  })
+  let sorted = $derived(
+    [...filtered].sort((a, b) => {
+      if (sortBy === 'price') return a.price - b.price
+      return a.name.localeCompare(b.name)
+    })
+  )
 </script>
 
 <select bind:value={categoryFilter}>
@@ -390,6 +394,6 @@ Or `Object.keys()`:
 - Use keys for dynamic lists: `{#each array as item (item.id)}`
 - Destructure objects: `{#each users as { name, role }}`
 - Handle empty arrays with `{:else}`
-- Use reactive declarations for filtered/sorted lists
+- Use `$derived()` for filtered/sorted lists
 
 Next: [Lesson 8: Two-Way Binding](/articles/08-two-way-binding)

@@ -117,13 +117,13 @@ You can nest if blocks:
 {/if}
 ```
 
-But consider if this is readable. Sometimes separate components or computed values are clearer:
+But consider if this is readable. Sometimes separate components or derived values are clearer:
 
 ```svelte
 <script>
-  let user = { isAdmin: true }
+  let user = $state({ isAdmin: true })
 
-  $: showAdmin = user && user.isAdmin
+  let showAdmin = $derived(user && user.isAdmin)
 </script>
 
 {#if !user}
@@ -186,9 +186,9 @@ In Vue, you'd need a wrapper element or `<template>`.
 
 ```svelte
 <script>
-  let loading = true
-  let data = null
-  let error = null
+  let loading = $state(true)
+  let data = $state(null)
+  let error = $state(null)
 
   async function loadData() {
     loading = true
@@ -223,10 +223,7 @@ In Vue, you'd need a wrapper element or `<template>`.
 
 ```svelte
 <script>
-  export let features = {
-    darkMode: true,
-    betaFeatures: false
-  }
+  let { features = { darkMode: true, betaFeatures: false } } = $props()
 </script>
 
 {#if features.darkMode}
@@ -243,10 +240,10 @@ In Vue, you'd need a wrapper element or `<template>`.
 
 ```svelte
 <script>
-  export let user
+  let { user } = $props()
 
-  $: canEdit = user?.permissions?.includes('edit')
-  $: canDelete = user?.permissions?.includes('delete')
+  let canEdit = $derived(user?.permissions?.includes('edit'))
+  let canDelete = $derived(user?.permissions?.includes('delete'))
 </script>
 
 {#if canEdit}
@@ -262,11 +259,11 @@ In Vue, you'd need a wrapper element or `<template>`.
 
 ```svelte
 <script>
-  let email = ''
-  let touched = false
+  let email = $state('')
+  let touched = $state(false)
 
-  $: isValid = email.includes('@')
-  $: showError = touched && !isValid
+  let isValid = $derived(email.includes('@'))
+  let showError = $derived(touched && !isValid)
 </script>
 
 <input
@@ -324,7 +321,7 @@ Use CSS when:
 - Content inside false conditions is removed from the DOM entirely
 - JavaScript truthy/falsy rules apply
 - Multiple elements can be wrapped without needing a container
-- Consider computed values (`$:`) to simplify complex conditions
+- Use `$derived()` to simplify complex conditions
 - CSS hiding is sometimes better than conditional rendering
 
 Next: [Lesson 7: Lists and Iteration](/articles/07-lists-and-iteration)

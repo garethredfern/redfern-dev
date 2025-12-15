@@ -9,15 +9,15 @@ seriesOrder: 4
 
 ## Lesson 3: Reactivity Basics
 
-Reactivity is Svelte's superpower. When your data changes, your UI updates automatically. But Svelte's approach is different from other frameworks — and simpler.
+Reactivity is Svelte's superpower. When your data changes, your UI updates automatically. Svelte 5 introduced "runes" — special compiler instructions that make reactivity explicit and powerful.
 
-## How Svelte Tracks Changes
+## Reactive State with $state
 
-In React, you need `useState` to make a value reactive. In Vue, you need `ref()` or `reactive()`. In Svelte, you just use `let`:
+In React, you need `useState`. In Vue, you need `ref()`. In Svelte 5, you use `$state`:
 
 ```svelte
 <script>
-  let count = 0
+  let count = $state(0)
 </script>
 
 <button onclick={() => count++}>
@@ -25,77 +25,45 @@ In React, you need `useState` to make a value reactive. In Vue, you need `ref()`
 </button>
 ```
 
-That's it. Svelte sees that `count` is used in the template and compiles update code for it. When `count` changes, the button text updates.
+The `$state` rune tells Svelte this variable is reactive. When `count` changes, the button text updates automatically.
 
-This works because Svelte is a compiler. It analyzes your code and generates the exact JavaScript needed to update the DOM when variables change.
+This works because Svelte is a compiler. It sees `$state` and generates the exact JavaScript needed to update the DOM when the value changes.
 
-## The Assignment Rule
+## Deep Reactivity with $state
 
-Here's the key insight: **Svelte's reactivity is triggered by assignment**.
-
-This updates the UI:
-
-```svelte
-count = count + 1
-```
-
-This also updates the UI:
-
-```svelte
-count++
-```
-
-But this does NOT update the UI:
-
-```svelte
-let numbers = [1, 2, 3]
-numbers.push(4)  // UI won't update!
-```
-
-Why? Because you haven't assigned anything to `numbers`. You've mutated the array, but `numbers` still points to the same array.
-
-The fix is to reassign:
-
-```svelte
-let numbers = [1, 2, 3]
-numbers = [...numbers, 4]  // UI updates
-```
-
-Or use a shorthand:
-
-```svelte
-numbers.push(4)
-numbers = numbers  // This triggers the update
-```
-
-The same applies to objects. Mutating a property won't trigger updates unless you reassign:
-
-```svelte
-let user = { name: 'Alice', age: 30 }
-
-// Won't trigger update:
-user.age = 31
-
-// Will trigger update:
-user = { ...user, age: 31 }
-
-// Or:
-user.age = 31
-user = user
-```
-
-## Reactive Declarations
-
-What if you have a value that depends on other values? Like a fullName that combines firstName and lastName?
-
-Use `$:` (called a reactive declaration):
+Unlike some frameworks, `$state` provides deep reactivity. Arrays and objects are reactive at all levels:
 
 ```svelte
 <script>
-  let firstName = 'Gareth'
-  let lastName = 'Redfern'
+  let numbers = $state([1, 2, 3])
+  let user = $state({ name: 'Alice', age: 30 })
+</script>
 
-  $: fullName = `${firstName} ${lastName}`
+<button onclick={() => numbers.push(4)}>
+  Add number (length: {numbers.length})
+</button>
+
+<button onclick={() => user.age++}>
+  Age: {user.age}
+</button>
+```
+
+Both `numbers.push(4)` and `user.age++` trigger UI updates automatically. No need to reassign or spread — Svelte tracks nested changes.
+
+This is a major improvement over Svelte 4, where you needed to reassign arrays and objects after mutation.
+
+## Derived Values with $derived
+
+What if you have a value that depends on other values? Like a fullName that combines firstName and lastName?
+
+Use `$derived`:
+
+```svelte
+<script>
+  let firstName = $state('Gareth')
+  let lastName = $state('Redfern')
+
+  let fullName = $derived(`${firstName} ${lastName}`)
 </script>
 
 <p>Hello, {fullName}</p>
@@ -110,11 +78,11 @@ You can do calculations:
 
 ```svelte
 <script>
-  let width = 10
-  let height = 5
+  let width = $state(10)
+  let height = $state(5)
 
-  $: area = width * height
-  $: perimeter = 2 * (width + height)
+  let area = $derived(width * height)
+  let perimeter = $derived(2 * (width + height))
 </script>
 ```
 
@@ -122,53 +90,62 @@ Or derive from arrays:
 
 ```svelte
 <script>
-  let items = [
+  let items = $state([
     { name: 'Apples', price: 1.50 },
     { name: 'Bananas', price: 0.75 },
     { name: 'Oranges', price: 2.00 }
-  ]
+  ])
 
-  $: total = items.reduce((sum, item) => sum + item.price, 0)
+  let total = $derived(items.reduce((sum, item) => sum + item.price, 0))
 </script>
 ```
 
-## Reactive Statements
+## Side Effects with $effect
 
-`$:` can also run entire blocks of code when dependencies change:
+For code that should run when state changes (side effects), use `$effect`:
 
 ```svelte
 <script>
-  let count = 0
+  let count = $state(0)
 
-  $: console.log(`count is now ${count}`)
+  $effect(() => {
+    console.log(`count is now ${count}`)
+  })
 
-  $: if (count > 10) {
-    alert('Count is getting high!')
-    count = 0
-  }
+  $effect(() => {
+    if (count > 10) {
+      alert('Count is getting high!')
+      count = 0
+    }
+  })
 </script>
 ```
 
-For multiple statements, use a block:
+Effects run after the component mounts and whenever their dependencies change. They're perfect for:
+
+- Logging
+- Updating document.title
+- Syncing with external systems
+- Setting up subscriptions
 
 ```svelte
 <script>
-  let name = ''
+  let name = $state('')
 
-  $: {
+  $effect(() => {
     console.log(`Name changed to: ${name}`)
     document.title = `Hello, ${name}`
-  }
+  })
 </script>
 ```
 
-This is useful for side effects — things that need to happen when state changes but aren't just derived values.
+**Important:** `$effect` only runs in the browser, not during server-side rendering. This makes it safe for browser-only APIs.
 
 ## Comparing to Vue
 
 If you're coming from Vue, here's how the concepts map:
 
-**Vue computed:**
+**Vue ref + computed:**
 
 ```javascript
 const firstName = ref("Gareth");
@@ -176,12 +153,12 @@ const lastName = ref("Redfern");
 const fullName = computed(() => `${firstName.value} ${lastName.value}`);
 ```
 
-**Svelte equivalent:**
+**Svelte 5 equivalent:**
 
 ```svelte
-let firstName = 'Gareth'
-let lastName = 'Redfern'
-$: fullName = `${firstName} ${lastName}`
+let firstName = $state('Gareth')
+let lastName = $state('Redfern')
+let fullName = $derived(`${firstName} ${lastName}`)
 ```
 
 **Vue watch:**
@@ -192,13 +169,15 @@ watch(count, (newValue) => {
 });
 ```
 
-**Svelte equivalent:**
+**Svelte 5 equivalent:**
 
 ```svelte
-$: console.log(`count is now ${count}`)
+$effect(() => {
+  console.log(`count is now ${count}`)
+})
 ```
 
-The Svelte versions are more concise, but the mental model is similar.
+The mental model is nearly identical. Vue uses `ref()` and `computed()`, Svelte uses `$state` and `$derived`. Both have explicit reactivity.
 
 ## Common Patterns
 
@@ -206,11 +185,13 @@ The Svelte versions are more concise, but the mental model is similar.
 
 ```svelte
 <script>
-  let items = ['Apple', 'Banana', 'Cherry', 'Date']
-  let search = ''
+  let items = $state(['Apple', 'Banana', 'Cherry', 'Date'])
+  let search = $state('')
 
-  $: filtered = items.filter(item =>
-    item.toLowerCase().includes(search.toLowerCase())
+  let filtered = $derived(
+    items.filter(item =>
+      item.toLowerCase().includes(search.toLowerCase())
+    )
   )
 </script>
 
@@ -223,14 +204,16 @@ The Svelte versions are more concise, but the mental model is similar.
 </ul>
 ```
 
-**Dependent fetches (be careful with this pattern):**
+**Fetching data when dependencies change:**
 
 ```svelte
 <script>
-  let userId = 1
-  let user = null
+  let userId = $state(1)
+  let user = $state(null)
 
-  $: loadUser(userId)
+  $effect(() => {
+    loadUser(userId)
+  })
 
   async function loadUser(id) {
     const response = await fetch(`/api/users/${id}`)
@@ -243,12 +226,12 @@ The Svelte versions are more concise, but the mental model is similar.
 
 ```svelte
 <script>
-  let email = ''
-  let password = ''
+  let email = $state('')
+  let password = $state('')
 
-  $: emailValid = email.includes('@')
-  $: passwordValid = password.length >= 8
-  $: formValid = emailValid && passwordValid
+  let emailValid = $derived(email.includes('@'))
+  let passwordValid = $derived(password.length >= 8)
+  let formValid = $derived(emailValid && passwordValid)
 </script>
 
 <button disabled={!formValid}>Submit</button>
@@ -258,23 +241,33 @@ The Svelte versions are more concise, but the mental model is similar.
 
 When things aren't updating as expected, check:
 
-1. **Are you assigning?** Remember, mutation without assignment doesn't trigger updates.
-2. **Is the variable used in the template?** Svelte only tracks variables that appear in your markup.
-3. **Are dependencies clear?** `$:` tracks variables mentioned in the expression.
+1. **Did you use `$state`?** Regular `let` variables aren't reactive in Svelte 5.
+2. **Is the variable used in the template?** Svelte only tracks state that appears in your markup or effects.
+3. **Are you reading the value?** `$derived` and `$effect` track what you actually read inside them.
 
-You can always add a reactive statement to debug:
+You can add an effect to debug:
 
 ```svelte
-$: console.log({ count, items, user })
+$effect(() => {
+  console.log({ count, items, user })
+})
 ```
+
+## The Runes at a Glance
+
+| Rune | Purpose | Example |
+|------|---------|---------|
+| `$state` | Reactive state | `let count = $state(0)` |
+| `$derived` | Computed values | `let double = $derived(count * 2)` |
+| `$effect` | Side effects | `$effect(() => console.log(count))` |
 
 ## Key Takeaways
 
-- Variables declared with `let` are reactive when used in templates
-- Reactivity is triggered by assignment, not mutation
-- Use `$:` for derived values and reactive statements
-- `$: derived = expression` creates a value that auto-updates
-- `$: { code }` runs code whenever dependencies change
-- Always reassign arrays and objects after mutation
+- Use `$state()` to create reactive variables
+- Use `$derived()` for values computed from other state
+- Use `$effect()` for side effects when state changes
+- `$state` provides deep reactivity for arrays and objects
+- Effects only run in the browser, not during SSR
+- Runes make reactivity explicit — no magic `$:` syntax
 
 Next: [Lesson 4: Props and Data Flow](/articles/04-props-and-data-flow)

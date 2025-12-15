@@ -34,7 +34,7 @@ By the end of this course, you'll be able to:
 
 1. [What Is Svelte?](01-what-is-svelte) — The compiler approach, why it's different
 2. [Your First Component](02-your-first-component) — Anatomy of a .svelte file
-3. [Reactivity Basics](03-reactivity-basics) — The magic of `$:` and reactive declarations
+3. [Reactivity Basics](03-reactivity-basics) — `$state`, `$derived`, and `$effect` runes
 4. [Props and Data Flow](04-props-and-data-flow) — Passing data between components
 
 ### Module 1: Building Blocks
@@ -47,7 +47,7 @@ By the end of this course, you'll be able to:
 ### Module 2: Component Patterns
 
 9. [Slots and Composition](09-slots-and-composition) — Named slots, slot props
-10. [Component Lifecycle](10-component-lifecycle) — `onMount`, `onDestroy`, `tick`
+10. [Component Lifecycle](10-component-lifecycle) — `$effect`, cleanup, and `tick`
 11. [Stores for State](11-stores-for-state) — Writable, readable, derived stores
 12. [Context API](12-context-api) — Sharing state without prop drilling
 

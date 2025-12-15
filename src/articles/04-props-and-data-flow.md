@@ -9,16 +9,16 @@ seriesOrder: 5
 
 ## Lesson 4: Props and Data Flow
 
-Components become powerful when they can receive data from their parents. In Svelte, this happens through props — and the syntax is delightfully simple.
+Components become powerful when they can receive data from their parents. In Svelte 5, props are declared using the `$props` rune.
 
 ## Declaring Props
 
-To make a variable a prop, export it:
+Use `$props()` to declare what data your component accepts:
 
 ```svelte
 <!-- Greeting.svelte -->
 <script>
-  export let name
+  let { name } = $props()
 </script>
 
 <h1>Hello, {name}!</h1>
@@ -36,17 +36,15 @@ Now you can pass data to this component:
 <Greeting name="World" />
 ```
 
-That's it. `export let` declares a prop.
+The `$props()` rune returns an object with all props passed to the component. You destructure the ones you need.
 
 ## Default Values
 
-Props can have default values:
+Props can have default values using JavaScript destructuring defaults:
 
 ```svelte
 <script>
-  export let name = 'stranger'
-  export let count = 0
-  export let active = false
+  let { name = 'stranger', count = 0, active = false } = $props()
 </script>
 ```
 
@@ -64,10 +62,12 @@ Components often have several props:
 ```svelte
 <!-- Card.svelte -->
 <script>
-  export let title
-  export let description = ''
-  export let image = null
-  export let featured = false
+  let {
+    title,
+    description = '',
+    image = null,
+    featured = false
+  } = $props()
 </script>
 
 <article class:featured>
@@ -147,64 +147,51 @@ This passes all properties of `cardData` as individual props.
 
 ## Prop Types
 
-Svelte doesn't have built-in prop validation like Vue or React PropTypes. But you can use TypeScript:
+Use TypeScript for type-safe props:
 
 ```svelte
 <script lang="ts">
-  export let name: string
-  export let count: number = 0
-  export let items: string[] = []
+  let {
+    name,
+    count = 0,
+    items = []
+  }: {
+    name: string
+    count?: number
+    items?: string[]
+  } = $props()
 </script>
 ```
 
-Or add runtime checks if needed:
+Or use an interface for cleaner code:
 
 ```svelte
-<script>
-  export let count
-
-  $: if (typeof count !== 'number') {
-    console.warn('count should be a number')
+<script lang="ts">
+  interface Props {
+    name: string
+    count?: number
+    items?: string[]
   }
+
+  let { name, count = 0, items = [] }: Props = $props()
 </script>
 ```
 
-For most projects, TypeScript is the right answer.
+TypeScript gives you compile-time safety and editor autocompletion.
 
 ## One-Way Data Flow
 
-Data flows down from parent to child. When the parent's data changes, the child updates. But the child shouldn't modify props directly:
+Data flows down from parent to child. When the parent's data changes, the child updates. But the child shouldn't modify props directly.
 
-```svelte
-<!-- Don't do this -->
-<script>
-  export let count
-
-  function increment() {
-    count++  // Modifying a prop directly
-  }
-</script>
-```
-
-This technically works, but it creates confusing data flow. The parent thinks it owns `count`, but the child is changing it.
-
-Instead, emit an event to tell the parent to update:
+Instead, use callback props to tell the parent to update:
 
 ```svelte
 <!-- Counter.svelte -->
 <script>
-  import { createEventDispatcher } from 'svelte'
-
-  export let count
-
-  const dispatch = createEventDispatcher()
-
-  function increment() {
-    dispatch('increment')
-  }
+  let { count, onIncrement } = $props()
 </script>
 
-<button onclick={increment}>
+<button onclick={onIncrement}>
   Count: {count}
 </button>
 ```
@@ -214,15 +201,17 @@ Instead, emit an event to tell the parent to update:
 <script>
   import Counter from './Counter.svelte'
 
-  let count = 0
+  let count = $state(0)
 
   function handleIncrement() {
     count++
   }
 </script>
 
-<Counter {count} on:increment={handleIncrement} />
+<Counter {count} onIncrement={handleIncrement} />
 ```
+
+The parent owns the state, the child just calls the callback. Clean and predictable.
 
 We'll cover events in detail in the next lesson.
 
@@ -241,32 +230,27 @@ const props = defineProps({
 </script>
 ```
 
-**Svelte:**
+**Svelte 5:**
 
 ```svelte
 <script>
-  export let name
-  export let count = 0
+  let { name, count = 0 } = $props()
 </script>
 ```
 
-Vue is more explicit about types (without TypeScript). Svelte is more concise.
+Both use destructuring. Vue's `defineProps` and Svelte's `$props()` serve the same purpose — declaring what the component accepts.
 
-## The `$$props` and `$$restProps`
+## Rest Props
 
-Sometimes you need access to all props or props you haven't explicitly declared:
+Use JavaScript's rest syntax to capture additional props:
 
 ```svelte
 <script>
-  export let name
-  export let age
-
-  // $$props contains all props passed to the component
-  // $$restProps contains props NOT declared with export
+  let { name, age, ...rest } = $props()
 </script>
 
-<!-- Pass all undeclared props to a child element -->
-<input {...$$restProps} />
+<!-- Pass all other props to a child element -->
+<input {...rest} />
 ```
 
 This is useful for wrapper components:
@@ -274,12 +258,12 @@ This is useful for wrapper components:
 ```svelte
 <!-- MyInput.svelte -->
 <script>
-  export let label
+  let { label, ...rest } = $props()
 </script>
 
 <label>
   {label}
-  <input {...$$restProps} />
+  <input {...rest} />
 </label>
 ```
 
@@ -297,15 +281,7 @@ The `label` prop is handled by the component. Everything else (`type`, `placehol
 
 ## Readonly Props
 
-If you want to make it clear a prop shouldn't be modified, you can use `const`:
-
-```svelte
-<script>
-  export const version = '1.0.0'
-</script>
-```
-
-But this is rare. Usually you just don't modify props.
+Props in Svelte 5 are readonly by default. If you try to reassign a prop, you'll get an error. This enforces good data flow practices — if you need to change something, call a callback prop to tell the parent.
 
 ## Practical Example
 
@@ -314,17 +290,16 @@ Here's a more complete example showing props in action:
 ```svelte
 <!-- ProductCard.svelte -->
 <script>
-  import { createEventDispatcher } from 'svelte'
+  let {
+    product,
+    showDescription = true,
+    onSale = false,
+    onAddToCart
+  } = $props()
 
-  export let product
-  export let showDescription = true
-  export let onSale = false
-
-  const dispatch = createEventDispatcher()
-
-  $: displayPrice = onSale
-    ? product.price * 0.8
-    : product.price
+  let displayPrice = $derived(
+    onSale ? product.price * 0.8 : product.price
+  )
 </script>
 
 <article class:on-sale={onSale}>
@@ -342,7 +317,7 @@ Here's a more complete example showing props in action:
     <span class="current">£{displayPrice.toFixed(2)}</span>
   </div>
 
-  <button onclick={() => dispatch('addToCart', product)}>
+  <button onclick={() => onAddToCart(product)}>
     Add to Cart
   </button>
 </article>
@@ -375,15 +350,15 @@ Here's a more complete example showing props in action:
 <script>
   import ProductCard from './ProductCard.svelte'
 
-  let products = [
+  let products = $state([
     { id: 1, name: 'Widget', price: 29.99, image: '/widget.jpg' },
     { id: 2, name: 'Gadget', price: 49.99, image: '/gadget.jpg' }
-  ]
+  ])
 
-  let cart = []
+  let cart = $state([])
 
-  function addToCart(event) {
-    cart = [...cart, event.detail]
+  function addToCart(product) {
+    cart.push(product)
   }
 </script>
 
@@ -392,7 +367,7 @@ Here's a more complete example showing props in action:
     <ProductCard
       {product}
       onSale={product.id === 1}
-      on:addToCart={addToCart}
+      onAddToCart={addToCart}
     />
   {/each}
 </div>
@@ -400,12 +375,12 @@ Here's a more complete example showing props in action:
 
 ## Key Takeaways
 
-- Use `export let` to declare a prop
-- Props can have default values: `export let name = 'default'`
+- Use `let { prop } = $props()` to declare props
+- Default values use JavaScript destructuring: `let { name = 'default' } = $props()`
 - Use shorthand `{propName}` when variable matches prop name
 - Spread objects with `{...obj}` to pass multiple props
 - Data flows one way: parent to child
-- Use `$$restProps` to pass through undeclared props
-- Don't mutate props directly — use events instead
+- Use rest syntax `...rest` to capture additional props
+- Props are readonly — use callback props to communicate upward
 
 Next: [Lesson 5: Event Handling](/articles/05-event-handling)

@@ -64,11 +64,11 @@ Use `getContext` in any descendant:
 <script>
   import { getContext } from 'svelte'
 
-  export let name
+  let { name } = $props()
 
   const { errors } = getContext('form')
 
-  $: error = $errors[name]
+  let error = $derived($errors[name])
 </script>
 
 {#if error}
@@ -129,7 +129,7 @@ The best pattern: put stores in context.
   import { setContext } from 'svelte'
   import { writable } from 'svelte/store'
 
-  export let initial = 0
+  let { initial = 0 } = $props()
 
   const activeTab = writable(initial)
 
@@ -149,11 +149,11 @@ The best pattern: put stores in context.
 <script>
   import { getContext } from 'svelte'
 
-  export let id
+  let { id } = $props()
 
   const { activeTab } = getContext('tabs')
 
-  $: isActive = $activeTab === id
+  let isActive = $derived($activeTab === id)
 </script>
 
 <button
@@ -378,25 +378,27 @@ Usage anywhere in the app:
 ```svelte
 <!-- FormField.svelte -->
 <script>
-  import { getContext, onMount } from 'svelte'
+  import { getContext } from 'svelte'
 
-  export let name
-  export let label = name
-  export let type = 'text'
-  export let required = false
+  let {
+    name,
+    label = name,
+    type = 'text',
+    required = false
+  } = $props()
 
   const { values, errors, touched, register, setValue } = getContext('form')
 
-  onMount(() => {
+  $effect(() => {
     register(name, (value) => {
       if (required && !value) return `${label} is required`
       return null
     })
   })
 
-  $: value = $values[name] || ''
-  $: error = $errors[name]
-  $: showError = $touched[name] && error
+  let value = $derived($values[name] || '')
+  let error = $derived($errors[name])
+  let showError = $derived($touched[name] && error)
 </script>
 
 <div class="field">

@@ -278,16 +278,17 @@ Using the wallet store pattern from [earlier in this series](/articles/solana-js
 <!-- src/routes/+page.svelte -->
 <script>
   import { wallet } from '$lib/stores/wallet';
-  import { onMount } from 'svelte';
 
-  let status = 'disconnected'; // disconnected | checking | eligible | ineligible | minting | success | error
-  let signature = null;
-  let errorMessage = null;
+  let status = $state('disconnected'); // disconnected | checking | eligible | ineligible | minting | success | error
+  let signature = $state(null);
+  let errorMessage = $state(null);
 
   // Check eligibility when wallet connects
-  $: if ($wallet.connected && status === 'disconnected') {
-    checkEligibility();
-  }
+  $effect(() => {
+    if ($wallet.connected && status === 'disconnected') {
+      checkEligibility();
+    }
+  });
 
   async function checkEligibility() {
     status = 'checking';
@@ -338,7 +339,7 @@ Using the wallet store pattern from [earlier in this series](/articles/solana-js
   <h1>Claim Your Generative NFT</h1>
 
   {#if !$wallet.connected}
-    <button on:click={() => wallet.connect()}>
+    <button onclick={() => wallet.connect()}>
       Connect Wallet
     </button>
   {:else if status === 'checking'}
@@ -346,7 +347,7 @@ Using the wallet store pattern from [earlier in this series](/articles/solana-js
   {:else if status === 'ineligible'}
     <p>Not eligible: {errorMessage}</p>
   {:else if status === 'eligible'}
-    <button on:click={claim}>
+    <button onclick={claim}>
       Claim NFT
     </button>
   {:else if status === 'minting'}
@@ -358,7 +359,7 @@ Using the wallet store pattern from [earlier in this series](/articles/solana-js
     </a>
   {:else if status === 'error'}
     <p>Error: {errorMessage}</p>
-    <button on:click={checkEligibility}>Try Again</button>
+    <button onclick={checkEligibility}>Try Again</button>
   {/if}
 </main>
 ```
