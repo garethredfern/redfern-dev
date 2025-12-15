@@ -201,7 +201,6 @@ Now create a reusable button component:
 ```svelte
 <!-- src/lib/components/WalletButton.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { wallet, walletAddress } from '$lib/stores/wallet';
 
   // Truncate address for display
@@ -209,7 +208,8 @@ Now create a reusable button component:
     return `${address.slice(0, 4)}...${address.slice(-4)}`;
   }
 
-  onMount(() => {
+  // Initialize wallet on component mount
+  $effect(() => {
     wallet.init();
     wallet.reconnect();
   });
@@ -219,14 +219,14 @@ Now create a reusable button component:
   {#if $wallet.connected && $walletAddress}
     <div class="connected">
       <span class="address">{truncate($walletAddress)}</span>
-      <button class="disconnect" on:click={() => wallet.disconnect()}>
+      <button class="disconnect" onclick={() => wallet.disconnect()}>
         Disconnect
       </button>
     </div>
   {:else}
     <button
       class="connect"
-      on:click={() => wallet.connect()}
+      onclick={() => wallet.connect()}
       disabled={$wallet.connecting}
     >
       {#if $wallet.connecting}
@@ -332,11 +332,10 @@ Let's extend the component to show SOL balance:
 ```svelte
 <!-- src/lib/components/WalletButton.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { wallet, walletAddress, connection } from '$lib/stores/wallet';
   import { LAMPORTS_PER_SOL } from '@solana/web3.js';
 
-  let balance: number | null = null;
+  let balance = $state<number | null>(null);
 
   function truncate(address: string): string {
     return `${address.slice(0, 4)}...${address.slice(-4)}`;
@@ -357,16 +356,19 @@ Let's extend the component to show SOL balance:
     }
   }
 
-  // Fetch balance when connected
-  $: if ($wallet.connected) {
-    fetchBalance();
-  } else {
-    balance = null;
-  }
-
-  onMount(() => {
+  // Initialize wallet and fetch balance when connected
+  $effect(() => {
     wallet.init();
     wallet.reconnect();
+  });
+
+  // Fetch balance when connection state changes
+  $effect(() => {
+    if ($wallet.connected) {
+      fetchBalance();
+    } else {
+      balance = null;
+    }
   });
 </script>
 
@@ -377,14 +379,14 @@ Let's extend the component to show SOL balance:
         <span class="balance">{balance.toFixed(2)} SOL</span>
       {/if}
       <span class="address">{truncate($walletAddress)}</span>
-      <button class="disconnect" on:click={() => wallet.disconnect()}>
+      <button class="disconnect" onclick={() => wallet.disconnect()}>
         ×
       </button>
     </div>
   {:else}
     <button
       class="connect"
-      on:click={() => wallet.connect()}
+      onclick={() => wallet.connect()}
       disabled={$wallet.connecting}
     >
       {$wallet.connecting ? 'Connecting...' : 'Connect Wallet'}
@@ -406,19 +408,20 @@ Let's extend the component to show SOL balance:
 
 ## Comparison to Vue
 
-If you're coming from Vue, here's how Svelte compares:
+If you're coming from Vue, here's how Svelte 5 compares:
 
-| Vue 3                     | Svelte                      |
-| ------------------------- | --------------------------- |
-| `ref(false)`              | `writable(false)`           |
-| `computed(() => ...)`     | `derived(store, ...)`       |
-| `watch(source, callback)` | `$: if (condition) { ... }` |
-| `onMounted(() => ...)`    | `onMount(() => ...)`        |
-| `<template v-if="">`      | `{#if }{/if}`               |
-| `:class="{ active }"`     | `class:active`              |
-| `@click="handler"`        | `on:click={handler}`        |
+| Vue 3                     | Svelte 5                         |
+| ------------------------- | -------------------------------- |
+| `ref(false)`              | `let value = $state(false)`      |
+| `computed(() => ...)`     | `let value = $derived(...)`      |
+| `watch(source, callback)` | `$effect(() => { ... })`         |
+| `onMounted(() => ...)`    | `$effect(() => { ... })`         |
+| `<template v-if="">`      | `{#if }{/if}`                    |
+| `:class="{ active }"`     | `class:active`                   |
+| `@click="handler"`        | `onclick={handler}`              |
+| `defineProps()`           | `let { prop } = $props()`        |
 
-The mental model is very similar. Svelte just has less boilerplate.
+The mental model is very similar. Svelte 5's Runes make reactivity even more explicit.
 
 ## Handling Multiple Wallets
 
@@ -451,7 +454,7 @@ For production apps, consider using the `@solana/wallet-adapter` libraries which
 - Building a reusable wallet button component
 - Auto-reconnecting on page load
 - Fetching and displaying balances
-- Reactive updates with `$:` syntax
+- Reactive updates with `$state` and `$effect` runes
 
 ## Next Up
 

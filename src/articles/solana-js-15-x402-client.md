@@ -218,11 +218,10 @@ Response: { message: 'Welcome, premium user!', ... }
 
 ## Browser Client (Svelte)
 
-For browser apps with Svelte, we can create a clean store-based client that works with Phantom:
+For browser apps with Svelte, we can create a clean store-based client that works with Phantom. The store pattern still works with Svelte 5 - you just use runes in your components:
 
-```svelte
-<!-- src/lib/stores/x402.ts -->
-<script context="module" lang="ts">
+```typescript
+// src/lib/stores/x402.ts
 import { writable, get } from 'svelte/store';
 import { Connection, Transaction, PublicKey } from '@solana/web3.js';
 import {
@@ -324,16 +323,15 @@ function createX402Store() {
 }
 
 export const x402 = createX402Store();
-</script>
 ```
 
-Usage in a Svelte component:
+Usage in a Svelte 5 component with runes:
 
 ```svelte
-<script>
+<script lang="ts">
   import { x402 } from '$lib/stores/x402';
 
-  let content = null;
+  let content = $state<any>(null);
 
   async function loadContent() {
     const response = await x402.fetch('/api/premium');
@@ -341,7 +339,7 @@ Usage in a Svelte component:
   }
 </script>
 
-<button on:click={loadContent} disabled={$x402.loading}>
+<button onclick={loadContent} disabled={$x402.loading}>
   {$x402.loading ? 'Processing...' : 'Get Premium Content'}
 </button>
 
@@ -476,14 +474,15 @@ export function createBrowserX402Client(config) {
 
 Coming from Vue, Svelte stores feel natural:
 
-| Vue (Pinia)        | Svelte Stores                   |
+| Vue (Pinia)        | Svelte 5                        |
 | ------------------ | ------------------------------- |
 | `defineStore()`    | `writable()` / `readable()`     |
-| `computed` getters | `derived()`                     |
+| `computed` getters | `derived()` or `$derived()`     |
 | `actions`          | Functions in the store object   |
 | `$subscribe()`     | Auto-subscription with `$store` |
+| `ref()` in setup   | `$state()` in components        |
 
-The x402 store pattern is essentially a Pinia store with different syntax. The reactive `$x402.loading` and `$x402.status` updates feel just like Vue's reactivity.
+The x402 store pattern is essentially a Pinia store with different syntax. The reactive `$x402.loading` and `$x402.status` updates feel just like Vue's reactivity. In Svelte 5, you can also use `$state` for component-local state.
 
 ## Using Existing Libraries
 

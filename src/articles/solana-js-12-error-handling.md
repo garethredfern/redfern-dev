@@ -245,9 +245,15 @@ A Svelte component for user-friendly error display:
 ```svelte
 <!-- src/lib/components/TransactionStatus.svelte -->
 <script lang="ts">
-  export let status: 'idle' | 'signing' | 'sending' | 'confirming' | 'success' | 'error';
-  export let signature: string | null = null;
-  export let error: string | null = null;
+  let {
+    status,
+    signature = null,
+    error = null
+  }: {
+    status: 'idle' | 'signing' | 'sending' | 'confirming' | 'success' | 'error';
+    signature?: string | null;
+    error?: string | null;
+  } = $props();
 
   const messages = {
     idle: '',
@@ -477,7 +483,7 @@ export const transaction = createTransactionStore();
   }
 </script>
 
-<button on:click={sendSol} disabled={$transaction.status !== 'idle'}>
+<button onclick={sendSol} disabled={$transaction.status !== 'idle'}>
   Send 0.1 SOL
 </button>
 

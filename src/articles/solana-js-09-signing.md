@@ -151,11 +151,11 @@ Transaction signing is where real blockchain interaction happens. Let's build a 
     LAMPORTS_PER_SOL
   } from '@solana/web3.js';
 
-  let recipient = '';
-  let amount = '';
-  let sending = false;
-  let txSignature: string | null = null;
-  let error: string | null = null;
+  let recipient = $state('');
+  let amount = $state('');
+  let sending = $state(false);
+  let txSignature = $state<string | null>(null);
+  let error = $state<string | null>(null);
 
   async function sendSol() {
     if (!$wallet.wallet || !$wallet.publicKey) return;
@@ -231,7 +231,7 @@ Transaction signing is where real blockchain interaction happens. Let's build a 
     disabled={sending}
   />
 
-  <button on:click={sendSol} disabled={sending || !recipient || !amount}>
+  <button onclick={sendSol} disabled={sending || !recipient || !amount}>
     {sending ? 'Sending...' : 'Send SOL'}
   </button>
 

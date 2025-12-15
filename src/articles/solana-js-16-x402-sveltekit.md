@@ -417,9 +417,9 @@ Create a reusable wallet button:
 <!-- src/lib/components/WalletButton.svelte -->
 <script lang="ts">
   import { wallet, walletAddress } from '$lib/stores/wallet';
-  import { onMount } from 'svelte';
 
-  onMount(() => {
+  // Check for existing connection on mount
+  $effect(() => {
     wallet.checkConnection();
   });
 
@@ -431,12 +431,12 @@ Create a reusable wallet button:
 {#if $wallet.connected && $walletAddress}
   <div class="wallet-connected">
     <span class="address">{truncateAddress($walletAddress)}</span>
-    <button on:click={() => wallet.disconnect()} class="disconnect">
+    <button onclick={() => wallet.disconnect()} class="disconnect">
       Disconnect
     </button>
   </div>
 {:else}
-  <button on:click={() => wallet.connect()} class="connect">
+  <button onclick={() => wallet.connect()} class="connect">
     Connect Wallet
   </button>
 {/if}
@@ -498,7 +498,7 @@ The home page with payment flow:
   import { wallet } from '$lib/stores/wallet';
   import { x402 } from '$lib/stores/x402';
 
-  let content: any = null;
+  let content = $state<any>(null);
 
   async function loadPremiumContent() {
     content = null;
@@ -537,7 +537,7 @@ The home page with payment flow:
   <!-- Action -->
   {#if $wallet.connected}
     <button
-      on:click={loadPremiumContent}
+      onclick={loadPremiumContent}
       disabled={$x402.loading}
       class="primary-button"
     >
@@ -739,7 +739,7 @@ Visit `http://localhost:5173`, connect your Phantom wallet (with devnet USDC), a
 
 Coming from Vue, here's what I noticed:
 
-**Reactivity is cleaner** - Stores update, components react. No `ref()` vs `reactive()` decisions.
+**Reactivity is cleaner** - With Svelte 5 runes, `$state` and `$effect` make reactivity explicit. No `ref()` vs `reactive()` decisions.
 
 **Less boilerplate** - The wallet store is 50 lines. The React equivalent with Context would be twice that.
 
@@ -749,18 +749,19 @@ Coming from Vue, here's what I noticed:
 
 ## Vue Comparison
 
-If you're coming from Vue, here's the mental mapping:
+If you're coming from Vue, here's the mental mapping for Svelte 5:
 
-| Vue          | Svelte                        |
+| Vue          | Svelte 5                      |
 | ------------ | ----------------------------- |
-| `ref()`      | `let variable` (in component) |
+| `ref()`      | `let value = $state()`        |
 | `reactive()` | `writable()` store            |
-| `computed()` | `derived()` store             |
-| `watch()`    | `$: statement`                |
+| `computed()` | `let value = $derived()`      |
+| `watch()`    | `$effect(() => { ... })`      |
 | `<template>` | Just write HTML               |
 | `v-if`       | `{#if}`                       |
 | `v-for`      | `{#each}`                     |
-| `@click`     | `on:click`                    |
+| `@click`     | `onclick`                     |
+| `defineProps()` | `let { prop } = $props()`  |
 
 The x402 store pattern works almost identically to a Pinia store.
 

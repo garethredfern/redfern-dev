@@ -133,26 +133,22 @@ Display token balances:
 ```svelte
 <!-- src/lib/components/TokenBalances.svelte -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
   import { wallet } from '$lib/stores/wallet';
   import { tokenBalances } from '$lib/stores/tokens';
 
-  onMount(() => {
+  // Start/stop polling based on wallet connection
+  $effect(() => {
     if ($wallet.connected) {
       tokenBalances.startPolling();
+    } else {
+      tokenBalances.stopPolling();
     }
-  });
 
-  onDestroy(() => {
-    tokenBalances.stopPolling();
+    // Cleanup on unmount
+    return () => {
+      tokenBalances.stopPolling();
+    };
   });
-
-  // Restart polling when wallet connects/disconnects
-  $: if ($wallet.connected) {
-    tokenBalances.startPolling();
-  } else {
-    tokenBalances.stopPolling();
-  }
 </script>
 
 {#if $wallet.connected}
@@ -170,7 +166,7 @@ Display token balances:
       {/each}
     {/if}
 
-    <button class="refresh" on:click={() => tokenBalances.refresh()}>
+    <button class="refresh" onclick={() => tokenBalances.refresh()}>
       Refresh
     </button>
   </div>
@@ -254,16 +250,16 @@ A form to send USDC:
   } from '@solana/spl-token';
   import { Transaction, PublicKey } from '@solana/web3.js';
 
-  export let tokenSymbol = 'USDC';
+  let { tokenSymbol = 'USDC' } = $props();
 
-  let recipient = '';
-  let amount = '';
-  let sending = false;
-  let error: string | null = null;
-  let success: string | null = null;
+  let recipient = $state('');
+  let amount = $state('');
+  let sending = $state(false);
+  let error = $state<string | null>(null);
+  let success = $state<string | null>(null);
 
-  $: token = TOKENS[tokenSymbol as keyof typeof TOKENS];
-  $: balance = $tokenBalances.find(t => t.symbol === tokenSymbol);
+  let token = $derived(TOKENS[tokenSymbol as keyof typeof TOKENS]);
+  let balance = $derived($tokenBalances.find(t => t.symbol === tokenSymbol));
 
   async function send() {
     if (!$wallet.wallet || !$wallet.publicKey || !token) return;
@@ -385,7 +381,7 @@ A form to send USDC:
   </div>
 
   <button
-    on:click={send}
+    onclick={send}
     disabled={sending || !recipient || !amount || !$wallet.connected}
   >
     {sending ? 'Sending...' : `Send ${tokenSymbol}`}
