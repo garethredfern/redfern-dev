@@ -74,4 +74,4 @@ sitemap: {
 },
 ```
 
-With this all in place running `npm run generate` should create a `dist` folder in the root of your project, within that folder there should be a `sitemap.xml` file. Once you publish your site, you will be able to visit <https://www.yoursite.com/sitemap.xml> to see the sitemap. Go ahead and visit <https://redfern.dev/sitemap.xml> for an example showing the sitemap for this site.
+With this all in place running `npm run generate` should create a `dist` folder in the root of your project, within that folder there should be a `sitemap.xml` file. Once you publish your site, you will be able to visit <https://www.yoursite.com/sitemap.xml> to see the sitemap. Go ahead and visit <https://redev.rocks/sitemap.xml> for an example showing the sitemap for this site.

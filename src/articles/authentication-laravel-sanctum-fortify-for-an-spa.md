@@ -14,7 +14,7 @@ The project files for this article can be found on Github:
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
 
-Make sure to check out the [full documentation](https://www.redfern.dev/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.
+Make sure to check out the [full documentation](/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.
 
 ### Laravel & Package Install
 
@@ -242,4 +242,4 @@ Here is the follow up article on setting up the Vue Spa:
 
 - [Vue Spa](/articles/authentication-vue-spa-with-laravel-sanctum-fortify)
 
-Make sure to check out the [full documentation](https://www.redfern.dev/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.
+Make sure to check out the [full documentation](/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.

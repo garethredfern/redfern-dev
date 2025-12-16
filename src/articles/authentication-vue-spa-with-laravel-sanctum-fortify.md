@@ -16,7 +16,7 @@ The project files for this article can be found on Github:
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
 
-Make sure to check out the [full documentation](https://www.redfern.dev/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.
+Make sure to check out the [full documentation](/series/laravel-vue-spa) for this project. It covers additional features such as uploading files and pagination.
 
 ### Setting Up Vue
 
@@ -161,10 +161,10 @@ While the user is interacting with the API via the SPA we need to give them succ
 
 ## Conclusion
 
-With this Vue set-up in place you will have a robust authentication system in place which should be repeatable in your applications. Personally, I really like having an SPA run completely separate to the API and on larger projects it enables teams to work on two separate repos each focused on the front and back end of your application. I hope this article together with the [Laravel API authentication](https://redfern.dev/articles/authentication-laravel-sanctum-fortify-for-an-spa) article will help anyone who wants to work this way.
+With this Vue set-up in place you will have a robust authentication system in place which should be repeatable in your applications. Personally, I really like having an SPA run completely separate to the API and on larger projects it enables teams to work on two separate repos each focused on the front and back end of your application. I hope this article together with the [Laravel API authentication](/articles/authentication-laravel-sanctum-fortify-for-an-spa) article will help anyone who wants to work this way.
 
 The project files for this article can be found on Github:
 
 - [Larvel API](https://github.com/garethredfern/laravel-api)
 - [VueJS SPA](https://github.com/garethredfern/laravel-vue)
-- [Full Documentation](https://www.redfern.dev/series/laravel-vue-spa)
+- [Full Documentation](/series/laravel-vue-spa)

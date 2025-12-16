@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   );
 
   return rss({
-    title: "redfern.dev",
+    title: "redev.rocks",
     description:
       "A collection of articles and tutorials about JavaScript and web development.",
     site: context.site!,

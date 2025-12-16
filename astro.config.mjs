@@ -15,6 +15,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: "https://redfern.dev",
+  site: "https://redev.rocks",
   integrations: [sitemap(), mdx()],
 });

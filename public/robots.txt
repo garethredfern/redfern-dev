@@ -1,4 +1,4 @@
-# robots.txt for redfern.dev
+# robots.txt for redev.rocks
 
 # Allow all crawlers
 User-agent: *
@@ -8,7 +8,7 @@ Allow: /
 Disallow: /_astro/
 
 # Sitemaps
-Sitemap: https://redfern.dev/sitemap-index.xml
+Sitemap: https://redev.rocks/sitemap-index.xml
 
 # Host
-Host: https://redfern.dev
+Host: https://redev.rocks
