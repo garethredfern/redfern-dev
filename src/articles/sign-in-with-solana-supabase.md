@@ -170,6 +170,7 @@ For browser-based wallets, it's one line:
 const { data, error } = await supabase.auth.signInWithWeb3({
   chain: "solana",
   statement: "Sign in to My App",
+  wallet: window.solflare?.isSolflare,
 });
 ```
 
