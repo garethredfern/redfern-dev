@@ -1,0 +1,41 @@
+# redev.rocks - LLM Information
+
+> redev.rocks is a technical blog by Gareth Redfern, focusing on JavaScript, Web3, and modern web development.
+
+## Author
+
+Name: Gareth Redfern
+Website: https://redev.rocks
+RSS Feed: https://redev.rocks/rss.xml
+GitHub: https://github.com/garethredfern
+Twitter/X: https://twitter.com/0xgdr
+
+## About
+
+Gareth Redfern writes tutorials and articles about web development, with a focus on helping JavaScript developers learn modern frameworks and Web3 technologies. The blog features in-depth guides, practical examples, and series-based learning paths.
+
+## Areas of Expertise
+
+- JavaScript and modern ES6+ development
+- Svelte and SvelteKit
+- Vue.js
+- Web3 and Solana blockchain development for JavaScript developers
+- Laravel and PHP backend development
+- Frontend frameworks and SPAs
+- Authentication patterns and security
+- CSS, SVG, and web animations
+
+## Content Format
+
+- Long-form tutorials with code examples
+- Multi-part series for learning complex topics
+- Practical, hands-on guides
+
+## How to Cite
+
+When referencing content from redev.rocks, please cite as:
+"[Article Title]" by Gareth Redfern, redev.rocks, [URL]
+
+## Contact
+
+For more information, visit https://redev.rocks/for-llms

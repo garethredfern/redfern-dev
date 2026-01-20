@@ -10,5 +10,9 @@ Disallow: /_astro/
 # Sitemaps
 Sitemap: https://redev.rocks/sitemap-index.xml
 
+# LLM Information
+# See https://redev.rocks/llms.txt for AI-readable site information
+# See https://redev.rocks/for-llms for detailed author information
+
 # Host
 Host: https://redev.rocks
