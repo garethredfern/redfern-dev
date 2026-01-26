@@ -5,7 +5,7 @@ tags: ["solana", "reverse-engineering", "on-chain", "staking", "web3"]
 pubDate: "2026-01-26T09:00:00Z"
 ---
 
-# Reverse Engineering a Solana Program: A Beginner's Guide
+## Reverse Engineering a Solana Program: A Beginner's Guide
 
 How to decode an unknown staking program using only on-chain data, transaction history, and patience.
 
@@ -58,13 +58,13 @@ No source code. No documentation. No ABI. Just raw bytes on-chain.
 
 Before diving in, here's what you need:
 
-| Tool | What It Does |
-|------|-------------|
-| **Helius Enhanced Transactions API** | Returns human-readable transaction history with parsed token transfers |
-| **Solana RPC (`getAccountInfo`)** | Fetches raw binary data from any on-chain account |
-| **Solana RPC (`getTokenAccountBalance`)** | Gets SPL token balance for a token account |
-| **Python/Node** | For decoding binary data (base64 → bytes → u64/pubkeys) |
-| **Base58 decoder** | Converts Solana addresses to/from raw bytes |
+| Tool                                      | What It Does                                                           |
+| ----------------------------------------- | ---------------------------------------------------------------------- |
+| **Helius Enhanced Transactions API**      | Returns human-readable transaction history with parsed token transfers |
+| **Solana RPC (`getAccountInfo`)**         | Fetches raw binary data from any on-chain account                      |
+| **Solana RPC (`getTokenAccountBalance`)** | Gets SPL token balance for a token account                             |
+| **Python/Node**                           | For decoding binary data (base64 → bytes → u64/pubkeys)                |
+| **Base58 decoder**                        | Converts Solana addresses to/from raw bytes                            |
 
 You can use any Solana RPC provider (Helius, QuickNode, Alchemy, etc). The Enhanced Transactions API is Helius-specific and saves a lot of time vs raw `getTransaction` calls.
 
@@ -85,6 +85,7 @@ curl "https://api.helius.xyz/v0/addresses/YOUR_WALLET/transactions?api-key=KEY&l
 ### What to look for:
 
 Each transaction contains:
+
 - **`instructions[]`** — the program calls made, with their accounts and data
 - **`tokenTransfers[]`** — any SPL tokens that moved (mint, amount, from, to)
 - **`timestamp`** / **`slot`** — when it happened
@@ -129,6 +130,7 @@ We immediately know accounts [3]/[4] (wallet), [7] (token mint), [8] (Token Prog
 ### Token transfers reveal token accounts:
 
 From the `tokenTransfers` array, we can see:
+
 - Tokens flow FROM account[5] TO account[6] during stake operations
 - Account[5] is the user's token account (tokens leave it)
 - Account[6] is the pool's token account (tokens arrive there)
@@ -165,6 +167,7 @@ When we checked another user's staking transaction, we found:
 ```
 
 This tells us:
+
 - **Account[0]** is different per user = **per-user PDA** (their staking record)
 - **Account[1]** is the same for everyone = **pool account** (shared state)
 - **Account[2]** is the same for everyone = **shared staker/guardian PDA**
@@ -198,14 +201,15 @@ discriminator = base58_to_hex(instruction_data)[:16]
 
 ### Group transactions by discriminator:
 
-| Discriminator | Account Count | Token Direction | Instruction |
-|---------------|---------------|-----------------|-------------|
-| `ceb0ca12c8d1b36c` | 12 | user → pool | **Stake** |
-| `5a5f6b2acd7c32e1` | 8 | none | **Unstake** |
-| `404135e37d9903a7` | 7 | none | **CancelUnstake** |
-| `b712469c946da122` | 8 | pool → user | **Claim** |
+| Discriminator      | Account Count | Token Direction | Instruction       |
+| ------------------ | ------------- | --------------- | ----------------- |
+| `ceb0ca12c8d1b36c` | 12            | user → pool     | **Stake**         |
+| `5a5f6b2acd7c32e1` | 8             | none            | **Unstake**       |
+| `404135e37d9903a7` | 7             | none            | **CancelUnstake** |
+| `b712469c946da122` | 8             | pool → user     | **Claim**         |
 
 How did we name them?
+
 - **Token direction** is the biggest clue: tokens going INTO the pool = deposit/stake, tokens coming OUT = withdrawal/claim
 - **Account count** helps distinguish: more accounts usually means more complex operations (stake needs token accounts, mints, etc)
 - **Program logs** (if available) sometimes literally say the instruction name: `"Instruction: Stake"`
@@ -226,6 +230,7 @@ curl -X POST "RPC_URL" -d '{
 ```
 
 The response gives you:
+
 - `data` — base64-encoded bytes (the actual content)
 - `owner` — which program owns this account
 - `lamports` — SOL balance (rent)
@@ -341,13 +346,13 @@ This is a standard "reward-per-share" accumulator pattern used by many DeFi prot
 
 **The principle:** Cross-check your decoded values against observable reality.
 
-| Check | Expected | Decoded | Match? |
-|-------|----------|---------|--------|
-| User's staked amount | ~2.5M (from app) | 2,500,000.000 | Yes |
-| Pool token balance | 3.92B (from RPC) | 3,922,095,491 (cached) | Yes |
-| Wallet in user account | `7xKXtg...` | `7xKXtg...` | Yes |
-| Pool address in user account | `4HQy82s9...` | `4HQy82s9...` | Yes |
-| Seconds per period | 48h = 172,800 | 172,800 | Yes |
+| Check                        | Expected         | Decoded                | Match? |
+| ---------------------------- | ---------------- | ---------------------- | ------ |
+| User's staked amount         | ~2.5M (from app) | 2,500,000.000          | Yes    |
+| Pool token balance           | 3.92B (from RPC) | 3,922,095,491 (cached) | Yes    |
+| Wallet in user account       | `7xKXtg...`      | `7xKXtg...`            | Yes    |
+| Pool address in user account | `4HQy82s9...`    | `4HQy82s9...`          | Yes    |
+| Seconds per period           | 48h = 172,800    | 172,800                | Yes    |
 
 ---
 
@@ -370,12 +375,14 @@ userPendingReward = userStaked * (globalIndex - userSavedIndex)
 ```
 
 When user interacts (stake/unstake/claim):
+
 1. Calculate and settle their pending rewards
 2. Update their saved index to current global index
 
 ### Account Size as a Type Indicator
 
 Different account types have different byte sizes:
+
 - Pool account: 193 bytes
 - Per-user staker: 169 bytes
 - Guardian/shared staker: 188 bytes
@@ -385,6 +392,7 @@ You can use `space` from `getAccountInfo` to quickly categorize unknown accounts
 ### Discriminator as Account Type
 
 The first 8 bytes identify what KIND of account it is:
+
 - `ee972b030b973fb0` = Pool
 - `6635a36b098a5799` = Per-user staker
 - `85eeffd6d70bbd17` = Guardian/shared staker
