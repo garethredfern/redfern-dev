@@ -298,13 +298,18 @@ Matching known addresses = correct alignment confirmed.
 
 ```python
 # Data starts after disc(8) + bump(1) + pubkeys(3*32) = offset 105
-staked = struct.unpack_from('<Q', raw, 105)[0]  # Little-endian unsigned 64-bit
-pending = struct.unpack_from('<Q', raw, 113)[0]
-field3 = struct.unpack_from('<Q', raw, 121)[0]
+staked = struct.unpack_from('<Q', raw, 105)[0]       # Staked amount (6 decimals)
+reward_index = struct.unpack_from('<Q', raw, 121)[0] # Reward index (9 decimals)
+
+# Pending unstake data is stored later in the account (not contiguous!)
+pending_unstake = struct.unpack_from('<Q', raw, 153)[0]  # Pending amount (6 decimals)
+unstake_timestamp = struct.unpack_from('<Q', raw, 161)[0] # Unix timestamp
 
 # Apply token decimals (SPL tokens usually have 6 or 9)
 print(f"Staked: {staked / 1_000_000} tokens")
 ```
+
+> **Note:** The pending unstake fields are at offsets 153 and 161, not immediately after the staked amount. This is a reminder that account layouts aren't always contiguous — there can be reserved bytes or fields added in program upgrades. Always verify offsets empirically rather than assuming sequential layout.
 
 ### How to identify what each field means:
 
@@ -457,6 +462,12 @@ The pool uses a share-based system where share_value = pool_balance / total_shar
 
 **Fix:** Always check the scale. If a value seems wildly wrong (1.6B when you expected 2.5M), you might be reading the wrong offset, wrong decimals, or confusing shares with tokens.
 
+### 5. Assumed contiguous field layout
+
+I initially assumed that after offset 105 (staked amount), the next fields would be at 113, 121, etc. in sequence. But the pending unstake amount and timestamp are actually at offsets 153 and 161 — there's a gap of reserved/unused bytes in between.
+
+**Fix:** Scan the ENTIRE account for non-zero values, not just the fields immediately after the pubkeys. Programs often have reserved space for future upgrades, and fields added later may not be contiguous with original ones.
+
 ---
 
 ## Tools for Your Own Investigations
@@ -475,10 +486,13 @@ raw = base64.b64decode(data['result']['value']['data'][0])
 print(f'Size: {len(raw)} bytes')
 print(f'Discriminator: {raw[0:8].hex()}')
 print(f'Bump: {raw[8]}')
+# Scan ALL offsets - don't assume contiguous layout
 for i in range(105, len(raw)-7, 8):
     val = struct.unpack_from('<Q', raw, i)[0]
     if val > 0:
-        print(f'  offset {i}: {val} ({val/1_000_000:,.6f} as 6-dec)')
+        # Check if it looks like a timestamp (2020-2030 range)
+        ts_hint = ' (timestamp?)' if 1577836800 < val < 1893456000 else ''
+        print(f'  offset {i}: {val} ({val/1_000_000:,.6f} as 6-dec){ts_hint}')
 "
 ```
 
